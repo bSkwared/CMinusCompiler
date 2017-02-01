@@ -27,4 +27,14 @@ public class CMinusScanner implements Scanner{
 		
 		return new Token(Token.TokenType.EOF_TOKEN);
 	}
+	
+	public static void main(String[] args){
+		/* Test the program here */
+		
+		File f_1 = "test_01.cm";
+		File f_2 = "test_02.cm";
+		
+		Scanner s_1 = new CMinusScanner(f_1);
+		Scanner s_2 = new CMinusScanner(f_2);
+	}
 }
