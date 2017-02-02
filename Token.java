@@ -53,4 +53,8 @@ public class Token {
 	
 	public Object getData() {return tokenData;}
 	public TokenType getType() {return tokenType;}
+	
+	public String toString(){
+		return tokenType.toString() + ((tokenData != null)? ":\t" + tokenData.toString() : "");	
+	}
 }
