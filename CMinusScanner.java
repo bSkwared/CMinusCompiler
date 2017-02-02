@@ -44,10 +44,14 @@ public class CMinusScanner implements Scanner{
 		if(!hasNextChar()) return new Token(Token.TokenType.EOF);
 		
 		while(state != State.DONE){
-		
-			if(!hasNextChar()) return new Token(Token.TokenType.EOF);
 			
-			char c = viewNextChar();
+			char c;
+			if(!hasNextChar()){
+				c = '\0';
+			}
+			else{
+				c = viewNextChar();
+			}
 			
 			switch(state){
 				case START:
@@ -123,6 +127,10 @@ public class CMinusScanner implements Scanner{
 								break;
 							case '=':
 								state = State.EQUAL;
+								break;
+							case '\0':
+								state = State.DONE;
+								currToken = new Token(Token.TokenType.EOF);
 								break;
 							default:
 								state = State.DONE;
@@ -207,7 +215,7 @@ public class CMinusScanner implements Scanner{
 						consumeNextChar();
 					} else {
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.NOT_EQUAL);
+						currToken = new Token(Token.TokenType.ERROR);
 					}
 					break;
 					
@@ -247,6 +255,9 @@ public class CMinusScanner implements Scanner{
 				case INCOMMENT:
 					if(c == '*'){
 						state = State.ASTERISK;
+					} else if(c == '\0'){
+						state = State.DONE;
+						currToken = new Token(Token.TokenType.ERROR);
 					}
 					
 					consumeNextChar();
@@ -256,9 +267,12 @@ public class CMinusScanner implements Scanner{
 					if(c == '/'){
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.COMMENT);
+					} else if(c == '\0'){
+						state = State.DONE;
+						currToken = new Token(Token.TokenType.ERROR);
 					} else if(c != '*'){
 						state = State.INCOMMENT;
-					}
+					} 
 					
 					consumeNextChar();
 					break;
@@ -296,18 +310,7 @@ public class CMinusScanner implements Scanner{
 	};
 	
 	private boolean hasNextChar(){
-		try {
-			int i = inFile.read();
-			if(i == -1) return false;
-			
-			inFile.unread(i);
-			return true;
-			
-		} catch (IOException ex) {
-			System.exit(1);
-		}
-		
-		return false;
+		return viewNextChar() != (char)-1;
 	}
 	
 	public static void main(String[] args) throws IOException{
@@ -322,10 +325,10 @@ public class CMinusScanner implements Scanner{
 		Scanner s_1 = new CMinusScanner(r_1);
 		Scanner s_2 = new CMinusScanner(r_2);
 		
-		Token t_1 = s_1.getNextToken();
+		Token t_1 = s_2.getNextToken();
 		while(t_1.getType() != Token.TokenType.EOF){
 			System.out.println(t_1.getType().toString());
-			t_1 = s_1.getNextToken();
+			t_1 = s_2.getNextToken();
 		}
 	}
 }
