@@ -41,10 +41,12 @@ public class CMinusScanner implements Scanner{
 		String tokenStr = "";
 		State state = State.START;
 		
+		// return EOF if there is no more input
 		if(!hasNextChar()) return new Token(Token.TokenType.EOF);
 		
 		while(state != State.DONE){
 			
+			// get the next character (or null if at EOF)
 			char c;
 			if(!hasNextChar()){
 				c = '\0';
@@ -53,12 +55,16 @@ public class CMinusScanner implements Scanner{
 				c = viewNextChar();
 			}
 			
+			// loop through characters until a token is found
 			switch(state){
 				case START:
+					// Digits
 					if(Character.isDigit(c)){
 						state = State.NUM;
 						tokenStr += c;
-					} else if(Character.isLetter(c)){
+					} 
+					// Letters
+					else if(Character.isLetter(c)){
 						state = State.ID;
 						tokenStr += c;
 					}
@@ -172,6 +178,7 @@ public class CMinusScanner implements Scanner{
 						consumeNextChar();
 					} else{
 						state = State.DONE;
+						// look to see if we match a keyword
 						switch(tokenStr){
 							case "else":
 								currToken = new Token(Token.TokenType.ELSE);
@@ -199,63 +206,81 @@ public class CMinusScanner implements Scanner{
 					break;
 				
 				case FORWARD_SLASH:
+					// /* is a comment
 					if(c == '*'){
 						state = State.INCOMMENT;
 						consumeNextChar();
-					} else {
+					}
+					// / is division
+					else {
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.DIV);
 					}
 					break;
 					
 				case EXCLAMATION:
+					// != is NOT EQUAl
 					if(c == '='){
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.NOT_EQUAL);
 						consumeNextChar();
-					} else {
+					}
+					// ! is error
+					else {
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.ERROR);
 					}
 					break;
 					
 				case LESSTHAN:
+					// <= 
 					if(c == '='){
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.LTE);
 						consumeNextChar();
-					} else {
+					}
+					// <
+					else {
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.LT);
 					}
 					break;
 					
 				case GREATERTHAN:
+					// >=
 					if(c == '='){
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.GTE);
 						consumeNextChar();
-					} else {
+					}
+					// >
+					else {
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.GT);
 					}
 					break;
 					
 				case EQUAL:
+					// ==
 					if(c == '='){
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.EQUAL);
 						consumeNextChar();
-					} else {
+					}
+					// =
+					else {
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.ASSIGN);
 					}
 					break;
 					
 				case INCOMMENT:
+					// if we get a * the next character could end comment
 					if(c == '*'){
 						state = State.ASTERISK;
-					} else if(c == '\0'){
+					}
+					// EOF
+					else if(c == '\0'){
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.ERROR);
 					}
@@ -264,13 +289,18 @@ public class CMinusScanner implements Scanner{
 					break;
 					
 				case ASTERISK:
+					// end comment
 					if(c == '/'){
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.COMMENT);
-					} else if(c == '\0'){
+					}
+					// EOF
+					else if(c == '\0'){
 						state = State.DONE;
 						currToken = new Token(Token.TokenType.ERROR);
-					} else if(c != '*'){
+					}
+					// we are back in regular comment-zone
+					else if(c != '*'){
 						state = State.INCOMMENT;
 					} 
 					
@@ -279,7 +309,7 @@ public class CMinusScanner implements Scanner{
 					
 				case DONE:
 					/* This shouldn't happen */
-					System.exit(1);
+					System.exit(666);
 					break;
 			}
 		}		
@@ -289,13 +319,10 @@ public class CMinusScanner implements Scanner{
 	
 	private void consumeNextChar(){
 		try {
-			int i = inFile.read();
-			//return (char) i;
+			inFile.read();
 		} catch (IOException ex) {
 			System.exit(1);
 		}
-		
-		//return '\0';
 	}
 	
 	private char viewNextChar(){
@@ -325,10 +352,10 @@ public class CMinusScanner implements Scanner{
 		Scanner s_1 = new CMinusScanner(r_1);
 		Scanner s_2 = new CMinusScanner(r_2);
 		
-		Token t_1 = s_2.getNextToken();
+		Token t_1 = s_1.getNextToken();
 		while(t_1.getType() != Token.TokenType.EOF){
-			System.out.println(t_1.getType().toString());
-			t_1 = s_2.getNextToken();
+			System.out.println(t_1.toString());
+			t_1 = s_1.getNextToken();
 		}
 	}
 }
