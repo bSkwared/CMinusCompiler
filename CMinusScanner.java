@@ -4,6 +4,8 @@ public class CMinusScanner implements Scanner{
 	
 	private PushbackReader inFile;
 	private Token nextToken;
+
+    private char c;
 	
 	private enum State{
 		START,		
@@ -21,7 +23,8 @@ public class CMinusScanner implements Scanner{
 	
 	public CMinusScanner(PushbackReader file){
 		inFile = file;
-		nextToken = scanToken();		
+        consumeNextChar();
+		nextToken = scanToken();
 	}
 	
 	public Token getNextToken(){
@@ -42,18 +45,18 @@ public class CMinusScanner implements Scanner{
 		State state = State.START;
 		
 		// return EOF if there is no more input
-		if(!hasNextChar()) return new Token(Token.TokenType.EOF);
+		if(c == '\0') return new Token(Token.TokenType.EOF);
 		
 		while(state != State.DONE){
 			
 			// get the next character (or null if at EOF)
-			char c;
+			/*char c;
 			if(!hasNextChar()){
 				c = '\0';
 			}
 			else{
 				c = viewNextChar();
-			}
+			}*/
 			
 			// loop through characters until a token is found
 			switch(state){
@@ -319,13 +322,16 @@ public class CMinusScanner implements Scanner{
 	
 	private void consumeNextChar(){
 		try {
-			inFile.read();
+			c = (char) inFile.read();
+            if (c == -1) {
+                c = '\0';
+            }
 		} catch (IOException ex) {
 			System.exit(1);
 		}
 	}
 	
-	private char viewNextChar(){
+	/*private char viewNextChar(){
 		try {
 			int i = inFile.read();
 			inFile.unread(i);
@@ -338,7 +344,7 @@ public class CMinusScanner implements Scanner{
 	
 	private boolean hasNextChar(){
 		return viewNextChar() != (char)-1;
-	}
+	}*/
 	
 	public static void main(String[] args) throws IOException{
 		/* Test the program here */
