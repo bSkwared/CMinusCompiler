@@ -1,0 +1,37 @@
+/* test the if stuff */
+if(a==b){
+  int x = 5;  
+} else {
+  void underlings = 123123;
+}
+
+/* test operators */
+c = d + e;
+c=d+e;
+f = g - h;
+f=g-h;
+i = j * k;
+i=j*k;
+l = m / n;
+l=m/n;
+
+/* test boolean */
+x < y;
+x<y;
+x > y;
+x>y;
+x <= y;
+x<=y;
+x >= y;
+x>=y;
+
+x == y;
+x==y;
+x != y;
+x!=y;
+
+/* test some other symbols and 
+multiline comments  that include stuff
+int y = 3 + b
+*/
+int[] a = {1,2,3,4,5, 6, 7, 8 , 9 };
