@@ -1,4 +1,4 @@
-int fact(int x){
+intfact(int x){
 
   /* recursive factorial function */
 

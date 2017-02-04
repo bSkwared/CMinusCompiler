@@ -28,14 +28,18 @@ import java.io.*;
 	}
 %}
 
+Identifier = [:jletter:][:jletter:]*
+Integer = [0-9][0-9]*
+WhiteSpace = \r|\n|\r\n|[ \t\f]
 
+Comment = "/*" [^*] ~"*/ | "/*" "*"+ "/"
 
 %%
 
 /* Lexical rules */
 
 /* yytext() returns text matched by current rule */
-
+<YYINITIAL> {
 "int"    {return new Token(Token.TokenType.INT);}
 "void"   {return new Token(Token.TokenType.VOID);}
 "while"  {return new Token(Token.TokenType.WHILE);}
@@ -64,9 +68,9 @@ import java.io.*;
 "{"  {return new Token(Token.TokenType.OPEN_BRACE    );}
 "}"  {return new Token(Token.TokenType.CLOSE_BRACE   );}
 
-"/*"((.*?)|[\n]*)*"*/" {return new Token(Token.TokenType.COMMENT);}
+{Comment} {return new Token(Token.TokenType.COMMENT);}
 
-[0-9][0-9]* {return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));}
-[a-zA-Z][a-zA-Z]* {return new Token(Token.TokenType.ID, yytext());}
-
-
+{Integer} {return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));}
+{Identifier} {return new Token(Token.TokenType.ID, yytext());}
+{WhiteSpace} {}
+}
