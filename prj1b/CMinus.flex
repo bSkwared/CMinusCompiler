@@ -16,14 +16,15 @@ import java.io.*;
 		PushbackReader r_1 = new PushbackReader(new FileReader(f_1));
 		PushbackReader r_2 = new PushbackReader(new FileReader(f_2));
 		
-		Scanner s_1 = new CMinusScanner(r_1);
-		Scanner s_2 = new CMinusScanner(r_2);
+		CMinusLex s_1 = new CMinusLex(r_1);
+		CMinusLex s_2 = new CMinusLex(r_2);
 		
-		Token t_1 = s_1.getNextToken();
+		Token t_1 = s_1.yylex();
 		while(t_1.getType() != Token.TokenType.EOF){
 			System.out.println(t_1.toString());
-			t_1 = s_1.getNextToken();
+			t_1 = s_1.yylex();
 		}
+			System.out.println(t_1.toString());
 	}
 %}
 
@@ -64,3 +65,8 @@ import java.io.*;
 "}"  {return new Token(Token.TokenType.CLOSE_BRACE   );}
 
 "/*"((.*?)|[\n]*)*"*/" {return new Token(Token.TokenType.COMMENT);}
+
+[0-9][0-9]* {return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));}
+[a-zA-Z][a-zA-Z]* {return new Token(Token.TokenType.ID, yytext());}
+
+

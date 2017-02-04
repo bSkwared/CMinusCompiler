@@ -35,11 +35,11 @@ class CMinusLex {
    */
   private static final String ZZ_CMAP_PACKED = 
     "\12\0\1\0\1\37\1\37\1\37\23\0\1\26\6\0\1\31\1\32"+
-    "\1\21\1\17\1\30\1\20\1\0\1\22\13\0\1\27\1\23\1\24"+
-    "\1\25\34\0\1\33\1\0\1\34\6\0\1\6\1\12\1\13\1\0"+
-    "\1\10\1\1\2\0\1\11\1\0\1\2\1\5\2\0\1\15\1\14"+
-    "\1\3\1\16\1\4\1\7\3\0\1\35\1\0\1\36\7\0\1\37"+
-    "\u1fa2\0\1\37\1\37\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\1\21\1\17\1\30\1\20\1\0\1\22\12\40\1\0\1\27\1\23"+
+    "\1\24\1\25\2\0\32\41\1\33\1\0\1\34\3\0\3\41\1\6"+
+    "\1\12\1\13\1\41\1\10\1\1\2\41\1\11\1\41\1\2\1\5"+
+    "\2\41\1\15\1\14\1\3\1\16\1\4\1\7\3\41\1\35\1\0"+
+    "\1\36\7\0\1\37\u1fa2\0\1\37\1\37\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -52,14 +52,14 @@ class CMinusLex {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\6\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
-    "\1\0\1\10\1\11\1\12\1\13\1\14\1\15\1\16"+
-    "\1\17\1\0\1\20\5\0\1\21\1\22\1\23\1\24"+
-    "\1\25\5\0\1\26\1\0\1\27\1\0\1\30\1\31"+
-    "\1\0\1\32";
+    "\1\0\6\1\1\2\1\3\1\4\1\5\1\6\1\7"+
+    "\1\10\1\0\1\11\1\12\1\13\1\14\1\15\1\16"+
+    "\1\17\1\20\1\21\1\1\1\22\4\1\1\0\1\23"+
+    "\1\24\1\25\1\26\1\27\4\1\1\0\1\30\1\1"+
+    "\1\31\1\1\1\32\1\33\1\1\1\34";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[47];
+    int [] result = new int[49];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -84,15 +84,16 @@ class CMinusLex {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\40\0\100\0\140\0\200\0\240\0\300\0\300"+
-    "\0\300\0\340\0\u0100\0\u0120\0\u0140\0\u0160\0\300\0\300"+
-    "\0\300\0\300\0\300\0\300\0\300\0\300\0\u0180\0\300"+
-    "\0\u01a0\0\u01c0\0\u01e0\0\u0200\0\u0220\0\300\0\300\0\300"+
-    "\0\300\0\300\0\u0240\0\u0260\0\u0280\0\u02a0\0\u02c0\0\300"+
-    "\0\u02e0\0\300\0\u0300\0\u0220\0\300\0\u0320\0\300";
+    "\0\0\0\42\0\104\0\146\0\210\0\252\0\314\0\356"+
+    "\0\356\0\356\0\u0110\0\u0132\0\u0154\0\u0176\0\u0198\0\356"+
+    "\0\356\0\356\0\356\0\356\0\356\0\356\0\356\0\u01ba"+
+    "\0\u01dc\0\104\0\u01fe\0\u0220\0\u0242\0\u0264\0\u0286\0\356"+
+    "\0\356\0\356\0\356\0\104\0\u02a8\0\u02ca\0\u02ec\0\u030e"+
+    "\0\u0330\0\104\0\u0352\0\104\0\u0374\0\u0286\0\104\0\u0396"+
+    "\0\104";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[47];
+    int [] result = new int[49];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -115,20 +116,29 @@ class CMinusLex {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\0\1\2\2\0\1\3\2\0\1\4\2\0\1\5"+
-    "\2\0\1\6\1\0\1\7\1\10\1\11\1\12\1\13"+
-    "\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23"+
-    "\1\24\1\25\1\26\3\0\1\27\10\0\1\30\31\0"+
-    "\1\31\42\0\1\32\40\0\1\33\40\0\1\34\106\0"+
-    "\1\35\42\0\1\36\37\0\1\37\37\0\1\40\37\0"+
-    "\1\41\16\0\1\42\35\0\1\43\37\0\1\44\52\0"+
-    "\1\45\26\0\1\46\34\0\21\35\1\47\15\35\7\0"+
-    "\1\50\42\0\1\51\40\0\1\52\43\0\1\53\21\0"+
-    "\21\35\1\47\1\54\14\35\13\0\1\55\42\0\1\56"+
-    "\24\0\1\57\35\0";
+    "\1\0\1\2\2\3\1\4\2\3\1\5\2\3\1\6"+
+    "\2\3\1\7\1\3\1\10\1\11\1\12\1\13\1\14"+
+    "\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24"+
+    "\1\25\1\26\1\27\1\0\1\30\1\3\1\0\1\3"+
+    "\1\31\10\3\1\32\3\3\22\0\1\3\1\0\16\3"+
+    "\22\0\1\3\1\0\4\3\1\33\11\3\22\0\1\3"+
+    "\1\0\7\3\1\34\6\3\22\0\1\3\1\0\10\3"+
+    "\1\35\5\3\22\0\1\3\1\0\11\3\1\36\4\3"+
+    "\22\0\1\3\63\0\1\37\44\0\1\40\41\0\1\41"+
+    "\41\0\1\42\41\0\1\43\55\0\1\30\2\0\2\3"+
+    "\1\44\13\3\22\0\1\3\1\0\1\45\15\3\22\0"+
+    "\1\3\1\0\1\46\15\3\22\0\1\3\1\0\13\3"+
+    "\1\47\2\3\22\0\1\3\1\0\2\3\1\50\13\3"+
+    "\22\0\1\3\21\37\1\51\15\37\1\0\2\37\1\0"+
+    "\5\3\1\52\10\3\22\0\1\3\1\0\10\3\1\53"+
+    "\5\3\22\0\1\3\1\0\11\3\1\54\4\3\22\0"+
+    "\1\3\1\0\15\3\1\55\22\0\1\3\21\37\1\51"+
+    "\1\56\14\37\1\0\2\37\1\0\11\3\1\57\4\3"+
+    "\22\0\1\3\1\0\14\3\1\60\1\3\22\0\1\3"+
+    "\1\0\1\3\1\61\14\3\22\0\1\3";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[832];
+    int [] result = new int[952];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -166,12 +176,11 @@ class CMinusLex {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\6\0\3\11\4\1\1\0\10\11\1\0\1\11\5\0"+
-    "\5\11\5\0\1\11\1\0\1\11\1\0\1\1\1\11"+
-    "\1\0\1\11";
+    "\1\0\6\1\3\11\4\1\1\0\10\11\7\1\1\0"+
+    "\4\11\5\1\1\0\10\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[47];
+    int [] result = new int[49];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -256,14 +265,15 @@ class CMinusLex {
 		PushbackReader r_1 = new PushbackReader(new FileReader(f_1));
 		PushbackReader r_2 = new PushbackReader(new FileReader(f_2));
 		
-		Scanner s_1 = new CMinusScanner(r_1);
-		Scanner s_2 = new CMinusScanner(r_2);
+		CMinusLex s_1 = new CMinusLex(r_1);
+		CMinusLex s_2 = new CMinusLex(r_2);
 		
-		Token t_1 = s_1.getNextToken();
+		Token t_1 = s_1.yylex();
 		while(t_1.getType() != Token.TokenType.EOF){
 			System.out.println(t_1.toString());
-			t_1 = s_1.getNextToken();
+			t_1 = s_1.yylex();
 		}
+			System.out.println(t_1.toString());
 	}
 
 
@@ -287,7 +297,7 @@ class CMinusLex {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 140) {
+    while (i < 146) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -497,7 +507,7 @@ class CMinusLex {
    * @return      the next token
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  public Yytoken yylex() throws java.io.IOException {
+  public Token yylex() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -582,109 +592,117 @@ class CMinusLex {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { return new Token(Token.TokenType.ADD       );
-            }
-          case 27: break;
-          case 2: 
-            { return new Token(Token.TokenType.SUB       );
-            }
-          case 28: break;
-          case 3: 
-            { return new Token(Token.TokenType.MULT      );
+            { return new Token(Token.TokenType.ID, yytext());
             }
           case 29: break;
-          case 4: 
-            { return new Token(Token.TokenType.DIV       );
+          case 2: 
+            { return new Token(Token.TokenType.ADD       );
             }
           case 30: break;
-          case 5: 
-            { return new Token(Token.TokenType.LT        );
+          case 3: 
+            { return new Token(Token.TokenType.SUB       );
             }
           case 31: break;
-          case 6: 
-            { return new Token(Token.TokenType.ASSIGN    );
+          case 4: 
+            { return new Token(Token.TokenType.MULT      );
             }
           case 32: break;
-          case 7: 
-            { return new Token(Token.TokenType.GT        );
+          case 5: 
+            { return new Token(Token.TokenType.DIV       );
             }
           case 33: break;
-          case 8: 
-            { return new Token(Token.TokenType.SEMICOLON );
+          case 6: 
+            { return new Token(Token.TokenType.LT        );
             }
           case 34: break;
-          case 9: 
-            { return new Token(Token.TokenType.COMMA     );
+          case 7: 
+            { return new Token(Token.TokenType.ASSIGN    );
             }
           case 35: break;
-          case 10: 
-            { return new Token(Token.TokenType.OPEN_PAREN    );
+          case 8: 
+            { return new Token(Token.TokenType.GT        );
             }
           case 36: break;
-          case 11: 
-            { return new Token(Token.TokenType.CLOSE_PAREN   );
+          case 9: 
+            { return new Token(Token.TokenType.SEMICOLON );
             }
           case 37: break;
-          case 12: 
-            { return new Token(Token.TokenType.OPEN_BRACKET  );
+          case 10: 
+            { return new Token(Token.TokenType.COMMA     );
             }
           case 38: break;
-          case 13: 
-            { return new Token(Token.TokenType.CLOSE_BRACKET );
+          case 11: 
+            { return new Token(Token.TokenType.OPEN_PAREN    );
             }
           case 39: break;
-          case 14: 
-            { return new Token(Token.TokenType.OPEN_BRACE    );
+          case 12: 
+            { return new Token(Token.TokenType.CLOSE_PAREN   );
             }
           case 40: break;
-          case 15: 
-            { return new Token(Token.TokenType.CLOSE_BRACE   );
+          case 13: 
+            { return new Token(Token.TokenType.OPEN_BRACKET  );
             }
           case 41: break;
-          case 16: 
-            { return new Token(Token.TokenType.IF);
+          case 14: 
+            { return new Token(Token.TokenType.CLOSE_BRACKET );
             }
           case 42: break;
-          case 17: 
-            { return new Token(Token.TokenType.LTE       );
+          case 15: 
+            { return new Token(Token.TokenType.OPEN_BRACE    );
             }
           case 43: break;
-          case 18: 
-            { return new Token(Token.TokenType.EQUAL     );
+          case 16: 
+            { return new Token(Token.TokenType.CLOSE_BRACE   );
             }
           case 44: break;
-          case 19: 
-            { return new Token(Token.TokenType.GTE       );
+          case 17: 
+            { return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));
             }
           case 45: break;
-          case 20: 
-            { return new Token(Token.TokenType.NOT_EQUAL );
+          case 18: 
+            { return new Token(Token.TokenType.IF);
             }
           case 46: break;
-          case 21: 
-            { return new Token(Token.TokenType.INT);
+          case 19: 
+            { return new Token(Token.TokenType.LTE       );
             }
           case 47: break;
-          case 22: 
-            { return new Token(Token.TokenType.VOID);
+          case 20: 
+            { return new Token(Token.TokenType.EQUAL     );
             }
           case 48: break;
-          case 23: 
-            { return new Token(Token.TokenType.ELSE);
+          case 21: 
+            { return new Token(Token.TokenType.GTE       );
             }
           case 49: break;
-          case 24: 
-            { return new Token(Token.TokenType.COMMENT);
+          case 22: 
+            { return new Token(Token.TokenType.NOT_EQUAL );
             }
           case 50: break;
-          case 25: 
-            { return new Token(Token.TokenType.WHILE);
+          case 23: 
+            { return new Token(Token.TokenType.INT);
             }
           case 51: break;
-          case 26: 
-            { return new Token(Token.TokenType.RETURN);
+          case 24: 
+            { return new Token(Token.TokenType.VOID);
             }
           case 52: break;
+          case 25: 
+            { return new Token(Token.TokenType.ELSE);
+            }
+          case 53: break;
+          case 26: 
+            { return new Token(Token.TokenType.COMMENT);
+            }
+          case 54: break;
+          case 27: 
+            { return new Token(Token.TokenType.WHILE);
+            }
+          case 55: break;
+          case 28: 
+            { return new Token(Token.TokenType.RETURN);
+            }
+          case 56: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
