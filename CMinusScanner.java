@@ -49,15 +49,6 @@ public class CMinusScanner implements Scanner{
 		
 		while(state != State.DONE){
 			
-			// get the next character (or null if at EOF)
-			/*char c;
-			if(!hasNextChar()){
-				c = '\0';
-			}
-			else{
-				c = viewNextChar();
-			}*/
-			
 			// loop through characters until a token is found
 			switch(state){
 				case START:
@@ -323,28 +314,13 @@ public class CMinusScanner implements Scanner{
 	private void consumeNextChar(){
 		try {
 			c = (char) inFile.read();
-            if (c == -1) {
+            if (c == (char) -1) {
                 c = '\0';
             }
 		} catch (IOException ex) {
 			System.exit(1);
 		}
 	}
-	
-	/*private char viewNextChar(){
-		try {
-			int i = inFile.read();
-			inFile.unread(i);
-			return (char)i;
-		} catch (IOException ex) {
-			System.exit(1);
-		}		
-		return '\0';
-	};
-	
-	private boolean hasNextChar(){
-		return viewNextChar() != (char)-1;
-	}*/
 	
 	public static void main(String[] args) throws IOException{
 		/* Test the program here */

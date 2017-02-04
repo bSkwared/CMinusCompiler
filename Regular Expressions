@@ -1,5 +1,8 @@
 /* Here is everything we need to recognize */
 /* Regular expressions */
+/* Project 1 regex
+    (else | if | int | return | void | while | [a-zA-Z]([a-zA-Z])* | [0-9][0-9]* | /\*.*\*/ | != | <(=|e) | >(=|e) | =(=|e) | [+\-\*/(){}\[\]])*
+*/
 
 ELSE_RG = "else";
 IF_RG = "if";
