@@ -2,7 +2,7 @@ import java.io.*;
 
 public class CMinusScanner implements Scanner{
 	
-	private PushbackReader inFile;
+	private BufferedReader inFile;
 	private Token nextToken;
 
     private char c;
@@ -21,7 +21,7 @@ public class CMinusScanner implements Scanner{
 		DONE
 	}
 	
-	public CMinusScanner(PushbackReader file){
+	public CMinusScanner(BufferedReader file){
 		inFile = file;
         consumeNextChar();
 		nextToken = scanToken();
@@ -328,16 +328,24 @@ public class CMinusScanner implements Scanner{
 		File f_1 = new File("test_01.cm");
 		File f_2 = new File("test_02.cm");
 		
-		PushbackReader r_1 = new PushbackReader(new FileReader(f_1));
-		PushbackReader r_2 = new PushbackReader(new FileReader(f_2));
+		BufferedReader r_1 = new BufferedReader(new FileReader(f_1));
+		BufferedReader r_2 = new BufferedReader(new FileReader(f_2));
 		
 		Scanner s_1 = new CMinusScanner(r_1);
 		Scanner s_2 = new CMinusScanner(r_2);
 		
+		System.out.println("Testing File #1 (test_01.cm)");
 		Token t_1 = s_1.getNextToken();
 		while(t_1.getType() != Token.TokenType.EOF){
 			System.out.println(t_1.toString());
 			t_1 = s_1.getNextToken();
+		}
+		
+		System.out.println("\nTesting File #2 (test_02.cm)");
+		Token t_2 = s_2.getNextToken();
+		while(t_2.getType() != Token.TokenType.EOF){
+			System.out.println(t_2.toString());
+			t_2 = s_2.getNextToken();
 		}
 	}
 }
