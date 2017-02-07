@@ -1,5 +1,15 @@
 import java.io.*;
 
+/**
+ * @author Timothy Smith and Blake Lasky
+ * @version 1.0
+ * File: CMinusScanner.java
+ * Created: Jan 2017
+ *
+ * Description: This class provides a Scanner implementation which works for
+ *              the C- language.
+ */
+
 public class CMinusScanner implements Scanner{
 	
 	private PushbackReader inFile;

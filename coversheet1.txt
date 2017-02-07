@@ -4,23 +4,41 @@ Timothy Smith and Blake Lasky
 
 
 Requirements:
-    Build a home page with your name, course name, and links to the projects
-    and people's choice. Build an APE frame. Fill the frame with static data 
-    where dynamic data will be placed later.
-
+    Build a lexer which implements the Scanner interface. The scanner must be
+    developed from scratch; tools should not be used to generate the scanner.
+    It must work for lexing the C- language into tokens.
+    
 
 Design:
-    For my personal page, I just made some areas that had widths based on
-    percentages. It was really all about marketing myself to future employers.
-    On BEAR, I chose to go with a material floating cards look.
+    Our design involved using a finite state machine to scan through the file.
+    We first came up with the regex, based on the keywords and operators for
+    C-. Then we created a state machine that matched the regex. Finally, we
+    were able to implement the state machine in code using a switch. The
+    Scanner interface supper viewing and getting next tokens. It will be used
+    by the parser to traverse the file while parsing.
 
 
 Implementation:
-    On my personal page, CSS was used to make things grow and shrink. However,
-    for BEAR, Foundation is being used to achieve responsiveness.
+    The scanner was implemented using a switch. The switch represented the
+    state machine by using an enum to track the current state. The switch on
+    this state would then change to different states based on the current char
+    that was read in from the file. Many symbols could be matched simply by a
+    single character comparison. However, may things required a little more
+    work. For example, <, >, and = all could either be that single character
+    on their own, ow they could have an = appended to the end. Comments were
+    another complex matching which required multiple states. After an
+    identifier was matched, we would put the string through a switch to check
+    if it was actually and identifier, or just a keyword.
+
+
+Testing:
+    The scanner was tested against several C- test files. We tested all of the
+    symbols and keywrods supported by the language. Also, we tested scanning
+    integers and identifiers. Errors were also tested, including a file
+    containing a comment which begins and never ends.
+
 
 Summary and Conclusion:
-    In this project we got to refresh our HTML and CSS skills. In addition to
-    being a refresher, I got more experience with design, as I had to design my
-    two pages. I also learned about Foundation and how it can be used to
-    develop responsive websites easily.
+    In this project, we got to apply the theory we learned in class. We were
+    able to build a scanner which successfully lexed our C- source files.
+    Through all of our testing, we were unable to find any bugs in our program.

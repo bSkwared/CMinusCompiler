@@ -1,3 +1,12 @@
+/**
+ * @author Timothy Smith and Blake Lasky
+ * @version 1.0
+ * File: Token.java
+ * Created: Jan 2017
+ *
+ * Description: This class provides Tokens for the C- language. Every element
+ *              in a valid C- program will be one of the given TokenTypes.
+ */
 public class Token {
 	
 	public enum TokenType{
