@@ -33,7 +33,7 @@ public class CMinusScanner implements Scanner{
 	
 	public CMinusScanner(BufferedReader file){
 		inFile = file;
-        consumeNextChar();
+        	consumeNextChar();
 		nextToken = scanToken();
 	}
 	
@@ -308,11 +308,6 @@ public class CMinusScanner implements Scanner{
 					} 
 					
 					consumeNextChar();
-					break;
-					
-				case DONE:
-					/* This shouldn't happen */
-					System.exit(666);
 					break;
 			}
 		}		
