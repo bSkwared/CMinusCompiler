@@ -6,6 +6,8 @@ import java.io.*;
 /* Options and declarations */
 %class CMinusLex
 
+%type Token
+
 %{
 	public static void main(String[] args) throws IOException{
 		/* Test the program here */
