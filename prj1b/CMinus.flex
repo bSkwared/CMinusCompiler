@@ -32,7 +32,7 @@ Identifier = [:jletter:][:jletter:]*
 Integer = [0-9][0-9]*
 WhiteSpace = \r|\n|\r\n|[ \t\f]
 
-Comment = "/*" [^*] ~"*/ | "/*" "*"+ "/"
+Comment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 
 %%
 
