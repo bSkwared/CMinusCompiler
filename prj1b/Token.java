@@ -1,6 +1,6 @@
 public class Token {
 	
-	public enum TokenType{
+	public enum TokenType {
 		
 		/* Keyword Tokens */
 		INT,
@@ -42,19 +42,27 @@ public class Token {
 	private TokenType tokenType;
 	private Object tokenData;
 	
-	public Token(TokenType type){
+	public Token(TokenType type) {
 		this(type, null);
 	}
 	
-	public Token(TokenType type, Object data){
+	public Token(TokenType type, Object data) {
 		tokenType = type;
 		tokenData = data;
 	}
 	
-	public Object getData() {return tokenData;}
-	public TokenType getType() {return tokenType;}
+	public Object getData() {
+		return tokenData;
+	}
+	public TokenType getType() {
+		return tokenType;
+	}
 	
-	public String toString(){
-		return tokenType.toString() + ((tokenData != null)? ":\t" + tokenData.toString() : "");	
+	public String toString() {
+		String out = tokenType.toString();
+		if(tokenData != null) {
+			out += " : " + tokenData.toString();
+		}
+		return out;
 	}
 }
