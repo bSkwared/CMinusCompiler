@@ -19,14 +19,15 @@ import java.io.*;
 		
 		BufferedReader r = new BufferedReader(new FileReader(f));
 		
-		Scanner s = new CMinusScanner(r);
+		CMinusLex s = new CMinusLex(r);
 		
 		System.out.println("Testing File (" + args[0] + ")");
-		Token t = s.getNextToken();
+		Token t = s.yylex();
 		while(t.getType() != Token.TokenType.EOF){
 			System.out.println(t.toString());
-			t = s.getNextToken();
+			t = s.yylex();
 		}
+        System.out.println(t.toString());
 	}
 %}
 
