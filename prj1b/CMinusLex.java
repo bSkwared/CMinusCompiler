@@ -363,7 +363,7 @@ class CMinusLex {
 	public static void main(String[] args) throws IOException{
 		/* Test the program here */		
         if(args.length != 1){
-            System.out.println("Need one file name and that's it.");
+            System.out.println("USAGE: java CMinusLex input_file");
             System.exit(1);
         }
 		File f = new File(args[0]);

@@ -11,27 +11,21 @@ import java.io.*;
 %{
 	public static void main(String[] args) throws IOException{
 		/* Test the program here */		
-		File f_1 = new File("test_01.cm");
-		File f_2 = new File("test_02.cm");
+        if(args.length != 1){
+            System.out.println("USAGE: java CMinusLex input_file");
+            System.exit(1);
+        }
+		File f = new File(args[0]);
 		
-		BufferedReader r_1 = new BufferedReader(new FileReader(f_1));
-		BufferedReader r_2 = new BufferedReader(new FileReader(f_2));
+		BufferedReader r = new BufferedReader(new FileReader(f));
 		
-		Scanner s_1 = new CMinusScanner(r_1);
-		Scanner s_2 = new CMinusScanner(r_2);
+		Scanner s = new CMinusScanner(r);
 		
-		System.out.println("Testing File #1 (test_01.cm)");
-		Token t_1 = s_1.getNextToken();
-		while(t_1.getType() != Token.TokenType.EOF){
-			System.out.println(t_1.toString());
-			t_1 = s_1.getNextToken();
-		}
-		
-		System.out.println("\nTesting File #2 (test_02.cm)");
-		Token t_2 = s_2.getNextToken();
-		while(t_2.getType() != Token.TokenType.EOF){
-			System.out.println(t_2.toString());
-			t_2 = s_2.getNextToken();
+		System.out.println("Testing File (" + args[0] + ")");
+		Token t = s.getNextToken();
+		while(t.getType() != Token.TokenType.EOF){
+			System.out.println(t.toString());
+			t = s.getNextToken();
 		}
 	}
 %}
