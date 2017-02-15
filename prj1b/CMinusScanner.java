@@ -285,8 +285,7 @@ public class CMinusScanner implements Scanner{
 				case ASTERISK:
 					// end comment
 					if(c == '/'){
-						state = State.DONE;
-						currToken = new Token(Token.TokenType.COMMENT);
+						state = State.START;
 					}
 					// EOF
 					else if(c == '\0'){
@@ -299,11 +298,6 @@ public class CMinusScanner implements Scanner{
 					} 
 					
 					consumeNextChar();
-					break;
-					
-				case DONE:
-					/* This shouldn't happen */
-					System.exit(666);
 					break;
 			}
 		}		
