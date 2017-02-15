@@ -157,11 +157,10 @@ class CMinusLex {
     "\1\7\1\10\1\11\1\12\1\0\1\13\1\14\1\15"+
     "\1\16\1\17\1\20\1\21\1\22\1\0\1\1\1\23"+
     "\4\1\1\24\1\25\1\26\1\27\2\0\1\30\4\1"+
-    "\1\0\1\31\1\32\1\1\1\33\1\1\1\34\1\1"+
-    "\1\35";
+    "\1\0\1\31\1\1\1\32\1\1\1\33\1\1\1\34";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[53];
+    int [] result = new int[52];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -191,11 +190,11 @@ class CMinusLex {
     "\0\u01d4\0\u01f8\0\220\0\220\0\220\0\220\0\220\0\220"+
     "\0\220\0\220\0\u021c\0\u0240\0\44\0\u0264\0\u0288\0\u02ac"+
     "\0\u02d0\0\220\0\220\0\220\0\220\0\u02f4\0\u0318\0\44"+
-    "\0\u033c\0\u0360\0\u0384\0\u03a8\0\u03cc\0\220\0\44\0\u03f0"+
-    "\0\44\0\u0414\0\44\0\u0438\0\44";
+    "\0\u033c\0\u0360\0\u0384\0\u03a8\0\u03cc\0\44\0\u03f0\0\44"+
+    "\0\u0414\0\44\0\u0438\0\44";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[53];
+    int [] result = new int[52];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -232,13 +231,13 @@ class CMinusLex {
     "\2\2\1\50\13\2\17\0\1\2\6\0\1\51\15\2"+
     "\17\0\1\2\6\0\1\52\15\2\17\0\1\2\6\0"+
     "\13\2\1\53\2\2\17\0\1\2\6\0\2\2\1\54"+
-    "\13\2\16\0\7\46\1\55\34\46\6\0\1\56\1\47"+
-    "\35\0\1\2\6\0\5\2\1\57\10\2\17\0\1\2"+
-    "\6\0\10\2\1\60\5\2\17\0\1\2\6\0\11\2"+
-    "\1\61\4\2\17\0\1\2\6\0\15\2\1\62\16\0"+
-    "\6\46\1\56\1\55\34\46\1\0\1\2\6\0\11\2"+
-    "\1\63\4\2\17\0\1\2\6\0\14\2\1\64\1\2"+
-    "\17\0\1\2\6\0\1\2\1\65\14\2\16\0";
+    "\13\2\16\0\7\46\1\55\34\46\6\0\1\5\1\47"+
+    "\35\0\1\2\6\0\5\2\1\56\10\2\17\0\1\2"+
+    "\6\0\10\2\1\57\5\2\17\0\1\2\6\0\11\2"+
+    "\1\60\4\2\17\0\1\2\6\0\15\2\1\61\16\0"+
+    "\6\46\1\5\1\55\34\46\1\0\1\2\6\0\11\2"+
+    "\1\62\4\2\17\0\1\2\6\0\14\2\1\63\1\2"+
+    "\17\0\1\2\6\0\1\2\1\64\14\2\16\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[1116];
@@ -281,10 +280,10 @@ class CMinusLex {
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\1\0\3\1\1\11\1\1\1\11\5\1\2\11\3\1"+
     "\1\0\10\11\1\0\6\1\4\11\2\0\5\1\1\0"+
-    "\1\11\7\1";
+    "\7\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[53];
+    int [] result = new int[52];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -698,119 +697,115 @@ class CMinusLex {
           case 1: 
             { return new Token(Token.TokenType.ID, yytext());
             }
-          case 30: break;
+          case 29: break;
           case 2: 
             { return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));
             }
-          case 31: break;
+          case 30: break;
           case 3: 
             { 
             }
-          case 32: break;
+          case 31: break;
           case 4: 
             { return new Token(Token.TokenType.DIV       );
             }
-          case 33: break;
+          case 32: break;
           case 5: 
             { return new Token(Token.TokenType.MULT      );
             }
-          case 34: break;
+          case 33: break;
           case 6: 
             { return new Token(Token.TokenType.ADD       );
             }
-          case 35: break;
+          case 34: break;
           case 7: 
             { return new Token(Token.TokenType.SUB       );
             }
-          case 36: break;
+          case 35: break;
           case 8: 
             { return new Token(Token.TokenType.LT        );
             }
-          case 37: break;
+          case 36: break;
           case 9: 
             { return new Token(Token.TokenType.ASSIGN    );
             }
-          case 38: break;
+          case 37: break;
           case 10: 
             { return new Token(Token.TokenType.GT        );
             }
-          case 39: break;
+          case 38: break;
           case 11: 
             { return new Token(Token.TokenType.SEMICOLON );
             }
-          case 40: break;
+          case 39: break;
           case 12: 
             { return new Token(Token.TokenType.COMMA     );
             }
-          case 41: break;
+          case 40: break;
           case 13: 
             { return new Token(Token.TokenType.OPEN_PAREN    );
             }
-          case 42: break;
+          case 41: break;
           case 14: 
             { return new Token(Token.TokenType.CLOSE_PAREN   );
             }
-          case 43: break;
+          case 42: break;
           case 15: 
             { return new Token(Token.TokenType.OPEN_BRACKET  );
             }
-          case 44: break;
+          case 43: break;
           case 16: 
             { return new Token(Token.TokenType.CLOSE_BRACKET );
             }
-          case 45: break;
+          case 44: break;
           case 17: 
             { return new Token(Token.TokenType.OPEN_BRACE    );
             }
-          case 46: break;
+          case 45: break;
           case 18: 
             { return new Token(Token.TokenType.CLOSE_BRACE   );
             }
-          case 47: break;
+          case 46: break;
           case 19: 
             { return new Token(Token.TokenType.IF);
             }
-          case 48: break;
+          case 47: break;
           case 20: 
             { return new Token(Token.TokenType.LTE       );
             }
-          case 49: break;
+          case 48: break;
           case 21: 
             { return new Token(Token.TokenType.EQUAL     );
             }
-          case 50: break;
+          case 49: break;
           case 22: 
             { return new Token(Token.TokenType.GTE       );
             }
-          case 51: break;
+          case 50: break;
           case 23: 
             { return new Token(Token.TokenType.NOT_EQUAL );
             }
-          case 52: break;
+          case 51: break;
           case 24: 
             { return new Token(Token.TokenType.INT);
             }
-          case 53: break;
+          case 52: break;
           case 25: 
-            { return new Token(Token.TokenType.COMMENT);
-            }
-          case 54: break;
-          case 26: 
             { return new Token(Token.TokenType.VOID);
             }
-          case 55: break;
-          case 27: 
+          case 53: break;
+          case 26: 
             { return new Token(Token.TokenType.ELSE);
             }
-          case 56: break;
-          case 28: 
+          case 54: break;
+          case 27: 
             { return new Token(Token.TokenType.WHILE);
             }
-          case 57: break;
-          case 29: 
+          case 55: break;
+          case 28: 
             { return new Token(Token.TokenType.RETURN);
             }
-          case 58: break;
+          case 56: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

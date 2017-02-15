@@ -144,7 +144,7 @@ public class CMinusScanner implements Scanner{
 								break;
 							default:
 								state = State.DONE;
-								currToken = new Token(Token.TokenType.ERROR);
+								currToken = new Token(Token.TokenType.ERROR, "invalid character " + c);
 								break;
 						}
 					}
@@ -161,7 +161,7 @@ public class CMinusScanner implements Scanner{
 					} else if(Character.isLetter(c)){
 						// ERROR
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "invalid character " + c + " in NUM");
 						consumeNextChar();
 					} else{
 						state = State.DONE;
@@ -178,7 +178,7 @@ public class CMinusScanner implements Scanner{
 					} else if(Character.isDigit(c)){
 						// ERROR
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "invalid digit " + c + " in ID");
 						consumeNextChar();
 					} else{
 						state = State.DONE;
@@ -232,7 +232,7 @@ public class CMinusScanner implements Scanner{
 					// ! is error
 					else {
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "invalid isolated character !");
 					}
 					break;
 					
@@ -286,7 +286,7 @@ public class CMinusScanner implements Scanner{
 					// EOF
 					else if(c == '\0'){
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "unclosed comment");
 					}
 					
 					consumeNextChar();
@@ -300,7 +300,7 @@ public class CMinusScanner implements Scanner{
 					// EOF
 					else if(c == '\0'){
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "unclosed comment");
 					}
 					// we are back in regular comment-zone
 					else if(c != '*'){

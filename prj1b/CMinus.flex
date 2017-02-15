@@ -70,7 +70,7 @@ Comment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 	"{"  {return new Token(Token.TokenType.OPEN_BRACE    );}
 	"}"  {return new Token(Token.TokenType.CLOSE_BRACE   );}
 
-	{Comment} {return new Token(Token.TokenType.COMMENT);}
+	{Comment} {}
 
 	{Integer} {return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));}
 	{Identifier} {return new Token(Token.TokenType.ID, yytext());}
