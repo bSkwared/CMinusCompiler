@@ -48,37 +48,37 @@ Comment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 
 /* yytext() returns text matched by current rule */
 <YYINITIAL> {
-"int"    {return new Token(Token.TokenType.INT);}
-"void"   {return new Token(Token.TokenType.VOID);}
-"while"  {return new Token(Token.TokenType.WHILE);}
-"if"     {return new Token(Token.TokenType.IF);}
-"else"   {return new Token(Token.TokenType.ELSE);}
-"return" {return new Token(Token.TokenType.RETURN);}
+	"int"    {return new Token(Token.TokenType.INT);}
+	"void"   {return new Token(Token.TokenType.VOID);}
+	"while"  {return new Token(Token.TokenType.WHILE);}
+	"if"     {return new Token(Token.TokenType.IF);}
+	"else"   {return new Token(Token.TokenType.ELSE);}
+	"return" {return new Token(Token.TokenType.RETURN);}
 
-"+"  {return new Token(Token.TokenType.ADD       );}
-"-"  {return new Token(Token.TokenType.SUB       );}
-"*"  {return new Token(Token.TokenType.MULT      );}
-"/"  {return new Token(Token.TokenType.DIV       );}
-"<"  {return new Token(Token.TokenType.LT        );}
-"<=" {return new Token(Token.TokenType.LTE       );}
-">"  {return new Token(Token.TokenType.GT        );}
-">=" {return new Token(Token.TokenType.GTE       );}
-"==" {return new Token(Token.TokenType.EQUAL     );}
-"!=" {return new Token(Token.TokenType.NOT_EQUAL );}
-"="  {return new Token(Token.TokenType.ASSIGN    );}
-";"  {return new Token(Token.TokenType.SEMICOLON );}
-","  {return new Token(Token.TokenType.COMMA     );}
+	"+"  {return new Token(Token.TokenType.ADD       );}
+	"-"  {return new Token(Token.TokenType.SUB       );}
+	"*"  {return new Token(Token.TokenType.MULT      );}
+	"/"  {return new Token(Token.TokenType.DIV       );}
+	"<"  {return new Token(Token.TokenType.LT        );}
+	"<=" {return new Token(Token.TokenType.LTE       );}
+	">"  {return new Token(Token.TokenType.GT        );}
+	">=" {return new Token(Token.TokenType.GTE       );}
+	"==" {return new Token(Token.TokenType.EQUAL     );}
+	"!=" {return new Token(Token.TokenType.NOT_EQUAL );}
+	"="  {return new Token(Token.TokenType.ASSIGN    );}
+	";"  {return new Token(Token.TokenType.SEMICOLON );}
+	","  {return new Token(Token.TokenType.COMMA     );}
 
-"("  {return new Token(Token.TokenType.OPEN_PAREN    );}
-")"  {return new Token(Token.TokenType.CLOSE_PAREN   );}
-"["  {return new Token(Token.TokenType.OPEN_BRACKET  );}
-"]"  {return new Token(Token.TokenType.CLOSE_BRACKET );}
-"{"  {return new Token(Token.TokenType.OPEN_BRACE    );}
-"}"  {return new Token(Token.TokenType.CLOSE_BRACE   );}
+	"("  {return new Token(Token.TokenType.OPEN_PAREN    );}
+	")"  {return new Token(Token.TokenType.CLOSE_PAREN   );}
+	"["  {return new Token(Token.TokenType.OPEN_BRACKET  );}
+	"]"  {return new Token(Token.TokenType.CLOSE_BRACKET );}
+	"{"  {return new Token(Token.TokenType.OPEN_BRACE    );}
+	"}"  {return new Token(Token.TokenType.CLOSE_BRACE   );}
 
-{Comment} {return new Token(Token.TokenType.COMMENT);}
+	{Comment} {return new Token(Token.TokenType.COMMENT);}
 
-{Integer} {return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));}
-{Identifier} {return new Token(Token.TokenType.ID, yytext());}
-{WhiteSpace} {}
+	{Integer} {return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));}
+	{Identifier} {return new Token(Token.TokenType.ID, yytext());}
+	{WhiteSpace} {}
 }
