@@ -368,11 +368,7 @@ class CMinusLex implements Scanner {
         Token returnToken = nextToken;
 
         if (nextToken.getType() != Token.TokenType.EOF) {
-            try {
-                nextToken = scanToken();
-            } catch (IOException ioe) {
-                nextToken = new Token(Token.TokenType.ERROR);
-            }
+            nextToken = scanToken();
         }
 
         return returnToken;
@@ -412,11 +408,6 @@ class CMinusLex implements Scanner {
    */
   CMinusLex(java.io.Reader in) {
     this.zzReader = in;
-    try {
-        nextToken = scanToken();
-    } catch (IOException ioe) {
-        nextToken = new Token(Token.TokenType.ERROR);
-    }
   }
 
 

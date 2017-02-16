@@ -6,9 +6,35 @@ import java.io.*;
 /* Options and declarations */
 %class CMinusLex
 
+%implements Scanner
+
 %type Token
 
+%function scanToken
+
 %{
+
+    private Token nextToken;
+
+    public Token getNextToken() {
+        Token returnToken = nextToken;
+
+        if (nextToken.getType() != Token.TokenType.EOF) {
+            try {
+                nextToken = scanToken();
+            } catch (IOException ioe) {
+                nextToken = new Token(Token.TokenType.ERROR);
+            }
+        }
+
+        return returnToken;
+    }
+
+    public Token viewNextToken() {
+        return nextToken;
+    }
+
+
 	public static void main(String[] args) throws IOException{
 		/* Test the program here */		
         if(args.length != 1){
@@ -22,10 +48,10 @@ import java.io.*;
 		CMinusLex s = new CMinusLex(r);
 		
 		System.out.println("Testing File (" + args[0] + ")");
-		Token t = s.yylex();
+		Token t = s.getNextToken();
 		while(t.getType() != Token.TokenType.EOF){
 			System.out.println(t.toString());
-			t = s.yylex();
+			t = s.getNextToken();
 		}
         System.out.println(t.toString());
 	}
@@ -77,3 +103,6 @@ Comment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 	{Identifier} {return new Token(Token.TokenType.ID, yytext());}
 	{WhiteSpace} {}
 }
+
+.|\n    { return new Token(Token.TokenType.ERROR); }
+<<EOF>> { return new Token(Token.TokenType.EOF  ); }
