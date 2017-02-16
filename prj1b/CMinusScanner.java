@@ -31,9 +31,11 @@ public class CMinusScanner implements Scanner{
 		DONE
 	}
 	
-	public CMinusScanner(BufferedReader file){
-		inFile = file;
-        	consumeNextChar();
+	public CMinusScanner(String filename) throws IOException {
+
+        inFile = new BufferedReader(new FileReader(filename));
+
+        consumeNextChar();
 		nextToken = scanToken();
 	}
 	
@@ -332,11 +334,8 @@ public class CMinusScanner implements Scanner{
             System.out.println("USAGE: java CMinusLex input_file");
             System.exit(1);
         }
-		File f = new File(args[0]);
-		
-		BufferedReader r = new BufferedReader(new FileReader(f));
-		
-		Scanner s = new CMinusScanner(r);
+
+		Scanner s = new CMinusScanner(args[0]);
 		
 		System.out.println("Testing File (" + args[0] + ")");
 		Token t = s.getNextToken();

@@ -14,7 +14,7 @@ import java.io.*;
 
 %{
     
-	public CMinusLex(String fileName) throws IOException{
+	public CMinusLex(String fileName) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
 		this.zzReader = reader;
 		try{
@@ -83,7 +83,7 @@ LexError = {NumLetErr} | {LetNumErr}
 
 <COMMENT> {
     <<EOF>> {return new Token(Token.TokenType.ERROR);}
-    "*/"    {yybegin(YYINITIAL); return new Token(Token.TokenType.COMMENT);}
+    "*/"    {yybegin(YYINITIAL);}
    .|\n       { }
 }
 

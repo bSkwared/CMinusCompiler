@@ -401,7 +401,7 @@ class CMinusLex implements Scanner {
 
   /* user code: */
     
-	public CMinusLex(String fileName) throws IOException {
+	public CMinusLex(String fileName) throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
 		this.zzReader = reader;
 		try{
@@ -887,7 +887,7 @@ class CMinusLex implements Scanner {
             }
           case 58: break;
           case 27: 
-            { yybegin(YYINITIAL);
+            { yybegin(YYINITIAL); return new Token(Token.TokenType.COMMENT);
             }
           case 59: break;
           case 28: 
