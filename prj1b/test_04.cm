@@ -12,8 +12,9 @@ intNotAKeyword
 elseStillNotAKeyword
 notaKeywordif
 WHILE
+INT
 123
-9898898
+999999999
 
 /* Keywords */
 int
@@ -22,17 +23,3 @@ return
 void
 if
 else
-
-/* Bad symbols */
-! @ # $ % ^ & \ ` ~ . ? : _
-
-/* Bad IDs/NUM */
-h@t
-b0rk
-endsinNUM3
-HI3
-3HI
-SPAC3SH1P
-123.123
-
-/* Forgetting to end a comment at EOF

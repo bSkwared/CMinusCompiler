@@ -128,7 +128,13 @@ LexError = {NumLetErr} | {LetNumErr}
     {LexError} {return new Token(Token.TokenType.ERROR, "illegal identifier");}
 
 
-	{Integer} {return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));}
+	{Integer} {
+        try{
+            return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));
+        } catch(NumberFormatException e){
+            return new Token(Token.TokenType.ERROR, "invalid integer value");
+        }
+    }
 	{Identifier} {return new Token(Token.TokenType.ID, yytext());}
 	{WhiteSpace} {}
 }

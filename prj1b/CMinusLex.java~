@@ -767,11 +767,7 @@ class CMinusLex implements Scanner {
             }
           case 34: break;
           case 3: 
-            { try{
-            return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));
-        } catch(NumberFormatException e){
-            return new Token(Token.TokenType.ERROR, "invalid integer value");
-        }
+            { return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));
             }
           case 35: break;
           case 4: 
