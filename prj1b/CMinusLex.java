@@ -411,12 +411,16 @@ class CMinusLex implements Scanner {
    * @param   in  the java.io.Reader to read input from.
    */
   CMinusLex(java.io.Reader in) {
+  
     this.zzReader = in;
+
     try {
         nextToken = scanToken();
     } catch (IOException ioe) {
         nextToken = new Token(Token.TokenType.ERROR);
     }
+
+    this.zzReader = in;
   }
 
 

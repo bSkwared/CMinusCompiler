@@ -12,6 +12,18 @@ import java.io.*;
 
 %function scanToken
 
+%init{
+
+    this.zzReader = in;
+
+    try {
+        nextToken = scanToken();
+    } catch (IOException ioe) {
+        nextToken = new Token(Token.TokenType.ERROR);
+    }
+
+%init}
+
 %{
 
     private Token nextToken;
