@@ -340,7 +340,7 @@ public class CMinusScanner implements Scanner{
 		
 		System.out.println("Testing File (" + args[0] + ")");
 		Token t = s.getNextToken();
-		while(t.getType() != Token.TokenType.EOF){
+		while(t.getType() != Token.TokenType.EOF && t.getType() != Token.TokenType.ERROR){
 			System.out.println(t.toString());
 			t = s.getNextToken();
 		}

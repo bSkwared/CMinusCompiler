@@ -12,19 +12,19 @@ import java.io.*;
 
 %function scanToken
 
-%init{
-
-    this.zzReader = in;
-
-    try {
-        nextToken = scanToken();
-    } catch (IOException ioe) {
-        nextToken = new Token(Token.TokenType.ERROR);
-    }
-
-%init}
-
 %{
+    
+	public CMinusLex(BufferedReader file){
+		this.zzReader = file;
+		try{
+            nextToken = scanToken();
+        } catch (IOException e){
+            nextToken = new Token(Token.TokenType.ERROR);
+        }
+	}
+    
+    
+
 
     private Token nextToken;
 
@@ -61,7 +61,7 @@ import java.io.*;
 		
 		System.out.println("Testing File (" + args[0] + ")");
 		Token t = s.getNextToken();
-		while(t.getType() != Token.TokenType.EOF){
+		while(t.getType() != Token.TokenType.EOF && t.getType() != Token.TokenType.ERROR){
 			System.out.println(t.toString());
 			t = s.getNextToken();
 		}
@@ -69,13 +69,25 @@ import java.io.*;
 	}
 %}
 
-Identifier = [:jletter:][:jletter:]*
-Integer = [0-9][0-9]*
+Identifier = [:jletter:]+
+Integer = 0 | [1-9][0-9]*
 WhiteSpace = \r|\n|\r\n|[ \t\f]
 
-Comment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+NumLetErr = [:digit:]+[:jletter:]+
+LetNumErr = [:jletter:]+[:digit:]+
+
+LexError = {NumLetErr} | {LetNumErr}
+
+%state COMMENT
+
 
 %%
+
+<COMMENT> {
+    <<EOF>> {return new Token(Token.TokenType.ERROR);}
+    "*/"    {yybegin(YYINITIAL); return new Token(Token.TokenType.COMMENT, yytext());}
+   .|\n       { }
+}
 
 /* Lexical rules */
 
@@ -87,6 +99,7 @@ Comment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 	"if"     {return new Token(Token.TokenType.IF);}
 	"else"   {return new Token(Token.TokenType.ELSE);}
 	"return" {return new Token(Token.TokenType.RETURN);}
+    
 
 	"+"  {return new Token(Token.TokenType.ADD       );}
 	"-"  {return new Token(Token.TokenType.SUB       );}
@@ -109,7 +122,11 @@ Comment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 	"{"  {return new Token(Token.TokenType.OPEN_BRACE    );}
 	"}"  {return new Token(Token.TokenType.CLOSE_BRACE   );}
 
-	{Comment} {}
+
+    "/*" {yybegin(COMMENT);}
+
+    {LexError} {return new Token(Token.TokenType.ERROR, "illegal identifier");}
+
 
 	{Integer} {return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));}
 	{Identifier} {return new Token(Token.TokenType.ID, yytext());}
