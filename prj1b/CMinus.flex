@@ -74,30 +74,27 @@ WhiteSpace = \r|\n|\r\n|[ \t\f]
 
 NumLetErr = [:digit:]+[:jletter:]+
 LetNumErr = [:jletter:]+[:digit:]+
-
 LexError = {NumLetErr} | {LetNumErr}
 
 %state COMMENT
 
-
 %%
+/* Lexical Rules */
 
 <COMMENT> {
     <<EOF>> {return new Token(Token.TokenType.ERROR);}
-    "*/"    {yybegin(YYINITIAL); return new Token(Token.TokenType.COMMENT, yytext());}
+    "*/"    {yybegin(YYINITIAL); return new Token(Token.TokenType.COMMENT);}
    .|\n       { }
 }
 
-/* Lexical rules */
-
 /* yytext() returns text matched by current rule */
 <YYINITIAL> {
-	"int"    {return new Token(Token.TokenType.INT);}
-	"void"   {return new Token(Token.TokenType.VOID);}
-	"while"  {return new Token(Token.TokenType.WHILE);}
-	"if"     {return new Token(Token.TokenType.IF);}
-	"else"   {return new Token(Token.TokenType.ELSE);}
-	"return" {return new Token(Token.TokenType.RETURN);}
+	"int"    {return new Token(Token.TokenType.INT      );}
+	"void"   {return new Token(Token.TokenType.VOID     );}
+	"while"  {return new Token(Token.TokenType.WHILE    );}
+	"if"     {return new Token(Token.TokenType.IF       );}
+	"else"   {return new Token(Token.TokenType.ELSE     );}
+	"return" {return new Token(Token.TokenType.RETURN   );}
     
 
 	"+"  {return new Token(Token.TokenType.ADD       );}
@@ -124,14 +121,14 @@ LexError = {NumLetErr} | {LetNumErr}
 
     "/*" {yybegin(COMMENT);}
 
-    {LexError} {return new Token(Token.TokenType.ERROR, "illegal identifier");}
+    {LexError} {return new Token(Token.TokenType.ERROR, "illegal symbol in identifier: " + yytext());}
 
 
 	{Integer} {
         try{
             return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));
         } catch(NumberFormatException e){
-            return new Token(Token.TokenType.ERROR, "invalid integer value");
+            return new Token(Token.TokenType.ERROR, "invalid integer value" + yytext());
         }
     }
 	{Identifier} {return new Token(Token.TokenType.ID, yytext());}
