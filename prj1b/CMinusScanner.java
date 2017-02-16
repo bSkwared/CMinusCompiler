@@ -344,5 +344,6 @@ public class CMinusScanner implements Scanner{
 			System.out.println(t.toString());
 			t = s.getNextToken();
 		}
+        System.out.println(t.toString());
 	}
 }

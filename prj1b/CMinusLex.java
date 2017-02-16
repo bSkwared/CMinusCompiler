@@ -380,8 +380,9 @@ class CMinusLex implements Scanner {
 
   /* user code: */
     
-	public CMinusLex(BufferedReader file){
-		this.zzReader = file;
+	public CMinusLex(String fileName) throws IOException{
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+		this.zzReader = reader;
 		try{
             nextToken = scanToken();
         } catch (IOException e){
@@ -421,9 +422,7 @@ class CMinusLex implements Scanner {
         }
 		File f = new File(args[0]);
 		
-		BufferedReader r = new BufferedReader(new FileReader(f));
-		
-		CMinusLex s = new CMinusLex(r);
+		CMinusLex s = new CMinusLex(args[0]);
 		
 		System.out.println("Testing File (" + args[0] + ")");
 		Token t = s.getNextToken();
