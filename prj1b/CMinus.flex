@@ -68,7 +68,7 @@ import java.io.*;
 	}
 %}
 
-Identifier = [:jletter:]+
+Identifier = [:letter:]+
 Integer = 0 | [1-9][0-9]*
 WhiteSpace = \r|\n|\r\n|[ \t\f]
 
