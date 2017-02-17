@@ -441,13 +441,14 @@ class CMinusLex implements Scanner {
             System.out.println("USAGE: java CMinusLex input_file");
             System.exit(1);
         }
-		File f = new File(args[0]);
 		
 		CMinusLex s = new CMinusLex(args[0]);
 		
 		System.out.println("Testing File (" + args[0] + ")");
 		Token t = s.getNextToken();
-		while(t.getType() != Token.TokenType.EOF && t.getType() != Token.TokenType.ERROR){
+		while(t.getType() != Token.TokenType.EOF 
+                && t.getType() != Token.TokenType.ERROR){
+
 			System.out.println(t.toString());
 			t = s.getNextToken();
 		}
@@ -787,10 +788,12 @@ class CMinusLex implements Scanner {
             }
           case 34: break;
           case 3: 
-            { try{
+            { try {
             return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));
-        } catch(NumberFormatException e){
-            return new Token(Token.TokenType.ERROR, "invalid integer value" + yytext());
+
+        } catch (NumberFormatException e) {
+            return new Token(Token.TokenType.ERROR, 
+                                "invalid integer value" + yytext());
         }
             }
           case 35: break;
@@ -859,7 +862,8 @@ class CMinusLex implements Scanner {
             }
           case 51: break;
           case 20: 
-            { return new Token(Token.TokenType.ERROR, "illegal symbol in identifier: " + yytext());
+            { return new Token(Token.TokenType.ERROR, 
+                                "illegal symbol in identifier: " + yytext());
             }
           case 52: break;
           case 21: 
