@@ -54,13 +54,14 @@ import java.io.*;
             System.out.println("USAGE: java CMinusLex input_file");
             System.exit(1);
         }
-		File f = new File(args[0]);
 		
 		CMinusLex s = new CMinusLex(args[0]);
 		
 		System.out.println("Testing File (" + args[0] + ")");
 		Token t = s.getNextToken();
-		while(t.getType() != Token.TokenType.EOF && t.getType() != Token.TokenType.ERROR){
+		while(t.getType() != Token.TokenType.EOF 
+                && t.getType() != Token.TokenType.ERROR){
+
 			System.out.println(t.toString());
 			t = s.getNextToken();
 		}
@@ -121,16 +122,20 @@ LexError = {NumLetErr} | {LetNumErr}
 
     "/*" {yybegin(COMMENT);}
 
-    {LexError} {return new Token(Token.TokenType.ERROR, "illegal symbol in identifier: " + yytext());}
+    {LexError} {return new Token(Token.TokenType.ERROR, 
+                                "illegal symbol in identifier: " + yytext());}
 
 
 	{Integer} {
-        try{
+        try {
             return new Token(Token.TokenType.NUM, Integer.parseInt(yytext()));
-        } catch(NumberFormatException e){
-            return new Token(Token.TokenType.ERROR, "invalid integer value" + yytext());
+
+        } catch (NumberFormatException e) {
+            return new Token(Token.TokenType.ERROR, 
+                                "invalid integer value" + yytext());
         }
     }
+
 	{Identifier} {return new Token(Token.TokenType.ID, yytext());}
 	{WhiteSpace} {}
 }
