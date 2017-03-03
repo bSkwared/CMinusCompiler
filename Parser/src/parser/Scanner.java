@@ -1,4 +1,4 @@
-package scanner;
+package parser;
 
 /**
  * @author Timothy Smith and Blake Lasky
