@@ -33,8 +33,10 @@ public class CMinusScanner implements Scanner{
 		DONE
 	}
 	
-	public CMinusScanner(BufferedReader file){
-		inFile = file;
+	public CMinusScanner(String filename) throws IOException {
+
+        inFile = new BufferedReader(new FileReader(filename));
+
         consumeNextChar();
 		nextToken = scanToken();
 	}
@@ -146,7 +148,7 @@ public class CMinusScanner implements Scanner{
 								break;
 							default:
 								state = State.DONE;
-								currToken = new Token(Token.TokenType.ERROR);
+								currToken = new Token(Token.TokenType.ERROR, "invalid character " + c);
 								break;
 						}
 					}
@@ -163,7 +165,7 @@ public class CMinusScanner implements Scanner{
 					} else if(Character.isLetter(c)){
 						// ERROR
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "invalid character " + c + " in NUM");
 						consumeNextChar();
 					} else{
 						state = State.DONE;
@@ -180,7 +182,7 @@ public class CMinusScanner implements Scanner{
 					} else if(Character.isDigit(c)){
 						// ERROR
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "invalid digit " + c + " in ID");
 						consumeNextChar();
 					} else{
 						state = State.DONE;
@@ -234,7 +236,7 @@ public class CMinusScanner implements Scanner{
 					// ! is error
 					else {
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "invalid isolated character !");
 					}
 					break;
 					
@@ -288,7 +290,7 @@ public class CMinusScanner implements Scanner{
 					// EOF
 					else if(c == '\0'){
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "unclosed comment");
 					}
 					
 					consumeNextChar();
@@ -297,13 +299,12 @@ public class CMinusScanner implements Scanner{
 				case ASTERISK:
 					// end comment
 					if(c == '/'){
-						state = State.DONE;
-						currToken = new Token(Token.TokenType.COMMENT);
+						state = State.START;
 					}
 					// EOF
 					else if(c == '\0'){
 						state = State.DONE;
-						currToken = new Token(Token.TokenType.ERROR);
+						currToken = new Token(Token.TokenType.ERROR, "unclosed comment");
 					}
 					// we are back in regular comment-zone
 					else if(c != '*'){
@@ -311,11 +312,6 @@ public class CMinusScanner implements Scanner{
 					} 
 					
 					consumeNextChar();
-					break;
-					
-				case DONE:
-					/* This shouldn't happen */
-					System.exit(666);
 					break;
 			}
 		}		
@@ -333,31 +329,22 @@ public class CMinusScanner implements Scanner{
 			System.exit(1);
 		}
 	}
-	
+
 	public static void main(String[] args) throws IOException{
-		/* Test the program here */
+		/* Test the program here */		
+        if(args.length != 1){
+            System.out.println("USAGE: java CMinusLex input_file");
+            System.exit(1);
+        }
+
+		Scanner s = new CMinusScanner(args[0]);
 		
-		File f_1 = new File("test_01.cm");
-		File f_2 = new File("test_02.cm");
-		
-		BufferedReader r_1 = new BufferedReader(new FileReader(f_1));
-		BufferedReader r_2 = new BufferedReader(new FileReader(f_2));
-		
-		Scanner s_1 = new CMinusScanner(r_1);
-		Scanner s_2 = new CMinusScanner(r_2);
-		
-		System.out.println("Testing File #1 (test_01.cm)");
-		Token t_1 = s_1.getNextToken();
-		while(t_1.getType() != Token.TokenType.EOF){
-			System.out.println(t_1.toString());
-			t_1 = s_1.getNextToken();
+		System.out.println("Testing File (" + args[0] + ")");
+		Token t = s.getNextToken();
+		while(t.getType() != Token.TokenType.EOF && t.getType() != Token.TokenType.ERROR){
+			System.out.println(t.toString());
+			t = s.getNextToken();
 		}
-		
-		System.out.println("\nTesting File #2 (test_02.cm)");
-		Token t_2 = s_2.getNextToken();
-		while(t_2.getType() != Token.TokenType.EOF){
-			System.out.println(t_2.toString());
-			t_2 = s_2.getNextToken();
-		}
+        System.out.println(t.toString());
 	}
 }
