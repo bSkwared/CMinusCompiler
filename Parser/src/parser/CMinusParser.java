@@ -1,9 +1,11 @@
 package parser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import parser.productions.Program;
 import parser.scanner.*;
 import parser.scanner.Token.*;
+import parser.productions.expression.Expression;
 
 /**
  *
@@ -21,7 +23,42 @@ public class CMinusParser implements Parser {
     public Program parse() {
         
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    private Expression parseExpression() {
+        
+        return null;
+    }
+    
+    private Expression[] parseArguments() {
+        ArrayList<Expression> argsList = new ArrayList<>();
+        
+        TokenType curTokenType = scan.viewNextToken().getType();
+        final TokenType CLOSE_PAREN = Token.TokenType.CLOSE_PAREN;
+        final TokenType COMMA = Token.TokenType.COMMA;
+        
+        while (curTokenType != CLOSE_PAREN) {
+            Expression nextExpression = parseExpression();
+            argsList.add(nextExpression);
+            
+            curTokenType = scan.viewNextToken().getType();
+            if (curTokenType == COMMA) {
+                match(COMMA);
+            }
+        }
+        
+        match(CLOSE_PAREN);
+        
+        
+        Expression[] argsArray = new Expression[argsList.size()];
+        return argsList.toArray(argsArray);
+    }
+    
+    private boolean match(TokenType toMatch) {
+        //TODO
+        return true;
     }
     
     private static boolean inSet(Token tok, TokenType[] set) {
