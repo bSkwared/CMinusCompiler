@@ -2,10 +2,11 @@ package parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import parser.productions.Program;
 import parser.scanner.*;
 import parser.scanner.Token.*;
-import parser.productions.expression.Expression;
+import parser.productions.*;
+import parser.productions.expression.*;
+import parser.productions.statement.*;
 
 /**
  *
@@ -27,7 +28,24 @@ public class CMinusParser implements Parser {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    private Statement parseStatement() {
+        return null;
+    }
+    
+    private Statement parseIterationStatement() {
+        
+        match(Token.TokenType.WHILE);
+        match(Token.TokenType.OPEN_PAREN);
+        Expression condition = parseExpression();
+        match(Token.TokenType.CLOSE_PAREN);
+        Statement result = parseStatement();
+        
+        
+        return new IterationStatement(condition, result);
+    }
+    
     private Expression parseExpression() {
+        
         
         return null;
     }
