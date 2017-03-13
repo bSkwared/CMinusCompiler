@@ -5,10 +5,16 @@
  */
 package parser.productions.statement;
 
+import parser.productions.expression.Expression;
+
 /**
  *
  * @author Timothy Smith and Blake Lasky
  */
 public class ReturnStatement extends Statement {
+    Expression returnExpression;
     
+    public ReturnStatement(Expression rtrn) {
+        returnExpression = rtrn;
+    }
 }

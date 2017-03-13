@@ -44,6 +44,25 @@ public class CMinusParser implements Parser {
         return new IterationStatement(condition, result);
     }
     
+    private Statement parseReturnStatement() throws Exception {
+        match(Token.TokenType.RETURN);
+        Expression returnExpr;
+        
+        if (inSet(Expression.FIRST)) {
+            returnExpr = parseExpression();
+            
+        } else if (match(Token.TokenType.SEMICOLON)) {
+            returnExpr = null;
+            
+        } else {
+            // error
+            throw new Exception("yeah");
+        }
+        
+        Statement returnStatement = new ReturnStatement(returnExpr);
+        return returnStatement;
+    }
+    
     private Expression parseExpression() {
         
         
@@ -79,8 +98,9 @@ public class CMinusParser implements Parser {
         return true;
     }
     
-    private static boolean inSet(Token tok, TokenType[] set) {
-        TokenType type = tok.getType();
+    private boolean inSet(TokenType[] set) {
+        Token token = scan.viewNextToken();
+        TokenType type = token.getType();
         
         boolean foundType = false;
         
