@@ -65,6 +65,17 @@ public class CMinusParser implements Parser {
     
     private Expression parseExpression() {
         
+        TokenType nextType = scan.viewNextToken().getType();
+        
+        if (nextType == Token.TokenType.OPEN_PAREN) {
+            
+        } else if (nextType == Token.TokenType.NUM) {
+            
+        } else if (nextType == Token.TokenType.ID) {
+            
+        } else {
+            // error
+        }
         
         return null;
     }
