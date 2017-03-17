@@ -11,7 +11,11 @@ public class IterationStatement extends Statement {
     Statement result;
     
     private static final Token.TokenType[] FIRST  = { TokenType.WHILE };
-    private static final Token.TokenType[] FOLLOW = {};
+
+    private static final Token.TokenType[] FOLLOW = { TokenType.VOID,
+                                                      TokenType.INT,
+                                                      TokenType.EOF,
+                                                      TokenType.ELSE };
     
     public IterationStatement(Expression cond, Statement res) {
         condition = cond;

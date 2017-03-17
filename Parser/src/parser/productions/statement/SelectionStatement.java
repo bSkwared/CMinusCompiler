@@ -8,7 +8,11 @@ public class SelectionStatement extends Statement {
     
     
     private static final Token.TokenType[] FIRST  = { TokenType.IF };
-    private static final Token.TokenType[] FOLLOW = {};
+
+    private static final Token.TokenType[] FOLLOW = { TokenType.VOID,
+                                                      TokenType.INT,
+                                                      TokenType.EOF,
+                                                      TokenType.ELSE };
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST_SET, type);

@@ -12,7 +12,10 @@ public class Expression {
                                                      TokenType.ID, 
                                                      TokenType.NUM};
 
-    public static final Token.TokenType[] FOLLOW = {};
+    public static final Token.TokenType[] FOLLOW = { TokenType.CLOSE_PAREN,
+                                                     TokenType.SEMICOLON,
+                                                     TokenType.CLOSE_BRACKET,
+                                                     TokenType.COMMA };
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST_SET, type);

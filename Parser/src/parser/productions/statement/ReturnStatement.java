@@ -15,7 +15,10 @@ public class ReturnStatement extends Statement {
     Expression returnExpression;
     
     private static final Token.TokenType[] FIRST  = { TokenType.RETURN };
-    private static final Token.TokenType[] FOLLOW = {};
+    private static final Token.TokenType[] FOLLOW = { TokenType.VOID,
+                                                      TokenType.INT,
+                                                      TokenType.EOF,
+                                                      TokenType.ELSE };
     
     public ReturnStatement(Expression rtrn) {
         returnExpression = rtrn;

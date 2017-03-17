@@ -8,7 +8,9 @@ public class Declaration {
     
     private static final TokenType[] FIRST  = { TokenType.VOID, TokenType.INT };
 
-    private static final TokenType[] FOLLOW = {};
+    private static final TokenType[] FOLLOW = { TokenType.VOID,
+                                                TokenType.INT,
+                                                TokenType.EOF };
 
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);

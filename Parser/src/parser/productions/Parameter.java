@@ -8,7 +8,7 @@ public class Parameter {
     
     
     private static final TokenType[] FIRST  = { TokenType.INT, TokenType.VOID };
-    private static final TokenType[] FOLLOW = {};
+    private static final TokenType[] FOLLOW = { TokenType.CLOSE_PAREN };
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST_SET, type);

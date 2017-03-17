@@ -9,7 +9,9 @@ public class FunDeclaration extends Declaration {
     
     private static final TokenType[] FIRST  = { TokenType.OPEN_PARAM };
 
-    private static final TokenType[] FOLLOW = {};
+    private static final TokenType[] FOLLOW = { TokenType.VOID,
+                                                TokenType.INT,
+                                                TokenType.EIF };
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST_SET, type);

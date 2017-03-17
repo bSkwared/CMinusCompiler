@@ -12,7 +12,7 @@ public class Program {
     private ArrayList<Declaration> decls;
     
     private static final TokenType[] FIRST  = { TokenType.INT, TokenType.VOID };
-    private static final TokenType[] FIRSTprivate static final TokenType[] FOLLOW = {};
+    private static final TokenType[] FOLLOR = { TokenType.EOF };
     
     public Program() {
         decls = new ArrayList<>();
