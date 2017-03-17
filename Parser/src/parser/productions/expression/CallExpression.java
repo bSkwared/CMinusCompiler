@@ -11,11 +11,11 @@ public class CallExpression extends Expression {
     public static final Token.TokenType[] FOLLOW = {};
     
     public static boolean inFirst(TokenType type) {
-        return inSet(FIRST_SET, type);
+        return inSet(FIRST, type);
     }
 
     public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW_SET, type);
+        return inSet(FOLLOW, type);
     }
 
     private static boolean inSet(TokenType[] set, TokenType tok) {

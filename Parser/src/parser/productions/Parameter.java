@@ -11,11 +11,11 @@ public class Parameter {
     private static final TokenType[] FOLLOW = { TokenType.CLOSE_PAREN };
     
     public static boolean inFirst(TokenType type) {
-        return inSet(FIRST_SET, type);
+        return inSet(FIRST, type);
     }
 
     public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW_SET, type);
+        return inSet(FOLLOW, type);
     }
 
     private static boolean inSet(TokenType[] set, TokenType tok) {
