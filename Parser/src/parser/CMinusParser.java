@@ -104,12 +104,12 @@ public class CMinusParser implements Parser {
         return argsList.toArray(argsArray);
     }
     
-    private boolean match(TokenType toMatch) {
+    private boolean match(Token.TokenType toMatch) {
         //TODO
         return true;
     }
     
-    private boolean inSet(TokenType[] set) {
+    private boolean inSet(Token.TokenType[] set) {
         Token token = scan.viewNextToken();
         TokenType type = token.getType();
         
