@@ -1,5 +1,8 @@
 package parser.productions.statement;
 
+import parser.scanner.Token;
+import parser.scanner.Token.*;
+
 /**
  *
  * @author Timothy Smith and Blake Lasky
@@ -7,7 +10,7 @@ package parser.productions.statement;
 public class Statement {
     
     
-    private static final Token.TokenType[] FIRST  = { TokenType.OPEN_BRACE.
+    private static final Token.TokenType[] FIRST  = { TokenType.OPEN_BRACE,
                                                       TokenType.IF,
                                                       TokenType.WHILE,
                                                       TokenType.RETURN,

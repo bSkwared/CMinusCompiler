@@ -1,7 +1,7 @@
 package parser.productions;
 
 import java.util.ArrayList;
-import parser.scanner.*;
+import parser.productions.declaration.*;
 import parser.scanner.Token.*;
 
 /**
@@ -12,7 +12,7 @@ public class Program {
     private ArrayList<Declaration> decls;
     
     private static final TokenType[] FIRST  = { TokenType.INT, TokenType.VOID };
-    private static final TokenType[] FOLLOR = { TokenType.EOF };
+    private static final TokenType[] FOLLOW = { TokenType.EOF };
     
     public Program() {
         decls = new ArrayList<>();

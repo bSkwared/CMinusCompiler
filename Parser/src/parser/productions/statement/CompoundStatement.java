@@ -1,5 +1,8 @@
 package parser.productions.statement;
 
+import parser.scanner.Token;
+import parser.scanner.Token.*;
+
 /**
  *
  * @author Timothy Smith and Blake Lasky

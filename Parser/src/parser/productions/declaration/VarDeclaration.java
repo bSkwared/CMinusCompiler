@@ -1,4 +1,7 @@
-package parser.productions;
+package parser.productions.declaration;
+
+import parser.scanner.Token;
+import parser.scanner.Token.*;
 
 /**
  *

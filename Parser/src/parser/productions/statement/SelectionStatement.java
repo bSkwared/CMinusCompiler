@@ -1,4 +1,6 @@
 package parser.productions.statement;
+import parser.scanner.Token;
+import parser.scanner.Token.*;
 
 /**
  *

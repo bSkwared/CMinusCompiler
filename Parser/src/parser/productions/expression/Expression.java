@@ -1,6 +1,7 @@
 package parser.productions.expression;
 
 import parser.scanner.Token;
+import parser.scanner.Token.*;
 
 /**
  *
@@ -8,7 +9,7 @@ import parser.scanner.Token;
  */
 public class Expression {
     
-    public static final Token.TokenType[] FIRST  = { TokenType.OPEN_PARAM, 
+    public static final Token.TokenType[] FIRST  = { TokenType.OPEN_PAREN, 
                                                      TokenType.ID, 
                                                      TokenType.NUM};
 

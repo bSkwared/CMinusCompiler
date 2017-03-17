@@ -1,4 +1,8 @@
-package parser.productions;
+package parser.productions.declaration;
+
+import parser.scanner.Token;
+import parser.scanner.Token.*;
+
 
 /**
  *
@@ -7,11 +11,11 @@ package parser.productions;
 public class FunDeclaration extends Declaration {
     
     
-    private static final TokenType[] FIRST  = { TokenType.OPEN_PARAM };
+    private static final TokenType[] FIRST  = { TokenType.OPEN_PAREN };
 
     private static final TokenType[] FOLLOW = { TokenType.VOID,
                                                 TokenType.INT,
-                                                TokenType.EIF };
+                                                TokenType.EOF };
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);
