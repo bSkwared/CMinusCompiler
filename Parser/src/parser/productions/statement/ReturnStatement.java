@@ -14,8 +14,8 @@ import parser.productions.expression.Expression;
 public class ReturnStatement extends Statement {
     Expression returnExpression;
     
-    public static final Token.TokenType[] FIRST  = {};
-    public static final Token.TokenType[] FOLLOW = {};
+    private static final Token.TokenType[] FIRST  = { TokenType.RETURN };
+    private static final Token.TokenType[] FOLLOW = {};
     
     public ReturnStatement(Expression rtrn) {
         returnExpression = rtrn;

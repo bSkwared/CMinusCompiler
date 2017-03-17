@@ -6,15 +6,16 @@ package parser.productions;
  */
 public class Declaration {
     
-    private static final TokenType[] FIRST_SET = {};
-    private static final TokenType[] FOLLOW_SET = {};
+    private static final TokenType[] FIRST  = { TokenType.VOID, TokenType.INT };
+
+    private static final TokenType[] FOLLOW = {};
 
     public static boolean inFirst(TokenType type) {
-        return inSet(FIRST_SET, type);
+        return inSet(FIRST, type);
     }
 
     public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW_SET, type);
+        return inSet(FOLLOW, type);
     }
 
     private static boolean inSet(TokenType[] set, TokenType tok) {

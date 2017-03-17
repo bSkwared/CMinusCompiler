@@ -10,8 +10,8 @@ public class IterationStatement extends Statement {
     Expression condition;
     Statement result;
     
-    public static final Token.TokenType[] FIRST  = {};
-    public static final Token.TokenType[] FOLLOW = {};
+    private static final Token.TokenType[] FIRST  = { TokenType.WHILE };
+    private static final Token.TokenType[] FOLLOW = {};
     
     public IterationStatement(Expression cond, Statement res) {
         condition = cond;

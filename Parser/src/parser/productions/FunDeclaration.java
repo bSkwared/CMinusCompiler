@@ -7,8 +7,9 @@ package parser.productions;
 public class FunDeclaration extends Declaration {
     
     
-    public static final Token.TokenType[] FIRST  = {};
-    public static final Token.TokenType[] FOLLOW = {};
+    private static final TokenType[] FIRST  = { TokenType.OPEN_PARAM };
+
+    private static final TokenType[] FOLLOW = {};
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST_SET, type);

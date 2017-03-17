@@ -7,8 +7,8 @@ package parser.productions.statement;
 public class SelectionStatement extends Statement {
     
     
-    public static final Token.TokenType[] FIRST  = {};
-    public static final Token.TokenType[] FOLLOW = {};
+    private static final Token.TokenType[] FIRST  = { TokenType.IF };
+    private static final Token.TokenType[] FOLLOW = {};
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST_SET, type);

@@ -7,8 +7,8 @@ package parser.productions.expression;
 public class AssignExpression extends Expression {
     
     
-    public static final Token.TokenType[] FIRST  = {};
-    public static final Token.TokenType[] FOLLOW = {};
+    private static final Token.TokenType[] FIRST  = {};
+    private static final Token.TokenType[] FOLLOW = {};
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST_SET, type);

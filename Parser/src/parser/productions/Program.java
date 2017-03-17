@@ -11,8 +11,8 @@ import parser.scanner.Token.*;
 public class Program {
     private ArrayList<Declaration> decls;
     
-    public static final TokenType[] FIRST  = {};
-    public static final TokenType[] FOLLOW = {};
+    private static final TokenType[] FIRST  = { TokenType.INT, TokenType.VOID };
+    private static final TokenType[] FIRSTprivate static final TokenType[] FOLLOW = {};
     
     public Program() {
         decls = new ArrayList<>();

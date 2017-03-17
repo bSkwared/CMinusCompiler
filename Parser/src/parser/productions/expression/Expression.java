@@ -8,7 +8,10 @@ import parser.scanner.Token;
  */
 public class Expression {
     
-    public static final Token.TokenType[] FIRST  = {};
+    public static final Token.TokenType[] FIRST  = { TokenType.OPEN_PARAM, 
+                                                     TokenType.ID, 
+                                                     TokenType.NUM};
+
     public static final Token.TokenType[] FOLLOW = {};
     
     public static boolean inFirst(TokenType type) {

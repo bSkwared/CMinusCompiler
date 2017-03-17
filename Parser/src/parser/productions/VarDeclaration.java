@@ -7,7 +7,7 @@ package parser.productions;
 public class VarDeclaration extends Declaration {
     
     
-    public static final Token.TokenType[] FIRST  = {};
+    public static final Token.TokenType[] FIRST  = { TokenType.INT };
     public static final Token.TokenType[] FOLLOW = {};
     
     public static boolean inFirst(TokenType type) {

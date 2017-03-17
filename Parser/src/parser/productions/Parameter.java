@@ -7,8 +7,8 @@ package parser.productions;
 public class Parameter {
     
     
-    public static final Token.TokenType[] FIRST  = {};
-    public static final Token.TokenType[] FOLLOW = {};
+    private static final TokenType[] FIRST  = { TokenType.INT, TokenType.VOID };
+    private static final TokenType[] FOLLOW = {};
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST_SET, type);
