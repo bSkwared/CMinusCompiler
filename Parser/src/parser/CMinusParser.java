@@ -35,7 +35,31 @@ public class CMinusParser implements Parser {
     }
     
     private Statement parseStatement() {
-        return null;
+        
+        TokenType nextType = scan.viewNextToken().getType();
+        
+        Statement retStatement;
+        
+        if (ExpressionStatement.inFirst(nextType)) {
+            retStatement = parseExpressionStatement();
+            
+        } else if (CompoundStatement.inFirst(nextType)) {
+            retStatement = parseCompoundStatement();
+            
+        } else if (SelectionStatement.inFirst(nextType)) {
+            retStatement = parseSelectionStatement();
+            
+        } else if (IterationStatement.inFirst(nextType)) {
+            retStatement = parseIterationStatement();
+            
+        } else if (ReturnStatement.inFirst(nextType)) {
+            retStatement = parseReturnStatement();
+            
+        } else {
+            throw new Error("nun dem");
+        }
+        
+        return retStatement;
     }
     
     private Statement parseExpressionStatement() {
