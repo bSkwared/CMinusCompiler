@@ -1,4 +1,5 @@
 package parser.productions.statement;
+import parser.productions.expression.Expression;
 import parser.scanner.Token;
 import parser.scanner.Token.*;
 
@@ -8,6 +9,16 @@ import parser.scanner.Token.*;
  */
 public class SelectionStatement extends Statement {
     
+    private Expression condition;
+    private Statement thenStatement;
+    private Statement elseStatement;
+    
+    
+    public SelectionStatement(Expression cond, Statement then, Statement els) {
+        condition = cond;
+        thenStatement = then;
+        elseStatement = els;
+    }
     
     private static final Token.TokenType[] FIRST  = { TokenType.IF };
 

@@ -32,6 +32,27 @@ public class CMinusParser implements Parser {
         return null;
     }
     
+    private Statement parseSelectionStatement() {
+        
+        match(TokenType.IF);
+        match(TokenType.OPEN_PAREN);
+        
+        Expression condition = parseExpression();
+        
+        match(TokenType.CLOSE_PAREN);
+        
+        Statement thenStatement = parseStatement();
+        Statement elseStatement = null;
+        
+        if (scan.viewNextToken().getType() == TokenType.ELSE) {
+            match(TokenType.ELSE);
+            elseStatement = parseStatement();
+        }
+        
+        return new SelectionStatement(condition, thenStatement, elseStatement);
+        
+    }
+    
     private Statement parseIterationStatement() {
         
         match(Token.TokenType.WHILE);
@@ -124,7 +145,7 @@ public class CMinusParser implements Parser {
             
             
         } else {
-            // ERRO
+            // TODO ERROR
         }
         
         return args;
