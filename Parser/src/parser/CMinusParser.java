@@ -104,6 +104,32 @@ public class CMinusParser implements Parser {
         return argsList.toArray(argsArray);
     }
     
+    private ArrayList<Expression> parseArgs() {
+        
+        TokenType nextType = scan.viewNextToken().getType();
+        
+        ArrayList<Expression> args = new ArrayList<>();
+        
+        if (Expression.inFirst(nextType)) {
+            args.add(parseExpression());
+            nextType = scan.viewNextToken().getType();
+            
+            while (nextType == TokenType.COMMA) {
+                match(TokenType.COMMA);
+                args.add(parseExpression());
+                nextType = scan.viewNextToken().getType();
+            }
+            
+        } else if (Expression.inFollow(nextType)) {
+            
+            
+        } else {
+            // ERRO
+        }
+        
+        return args;
+    }
+    
     private boolean match(Token.TokenType toMatch) {
         //TODO
         return true;
