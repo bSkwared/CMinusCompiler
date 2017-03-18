@@ -25,6 +25,10 @@ public class FunDeclaration extends Declaration {
         return inSet(FOLLOW, type);
     }
 
+    public void print(String cur, String indent) {
+        
+    }
+    
     private static boolean inSet(TokenType[] set, TokenType tok) {
         boolean result = false;
 

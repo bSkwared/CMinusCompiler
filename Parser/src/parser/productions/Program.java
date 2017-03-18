@@ -22,6 +22,12 @@ public class Program {
         decls.add(decl);
     }
     
+    public void print(String cur, String indent) {
+        for (Declaration d : decls) {
+            d.print(cur + indent, indent);
+            System.out.println();
+        }
+    }
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);

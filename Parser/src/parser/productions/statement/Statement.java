@@ -7,7 +7,7 @@ import parser.scanner.Token.*;
  *
  * @author Timothy Smith and Blake Lasky
  */
-public class Statement {
+public abstract class Statement {
     
     
     private static final Token.TokenType[] FIRST  = { TokenType.OPEN_BRACE,
@@ -30,6 +30,8 @@ public class Statement {
     public static boolean inFollow(TokenType type) {
         return inSet(FOLLOW, type);
     }
+    
+    abstract public void print(String cur, String indent);
 
     private static boolean inSet(TokenType[] set, TokenType tok) {
         boolean result = false;

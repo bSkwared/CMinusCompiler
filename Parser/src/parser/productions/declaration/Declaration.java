@@ -6,7 +6,7 @@ import parser.scanner.Token.*;
  *
  * @author Timothy Smith and Blake Lasky
  */
-public class Declaration {
+public abstract class Declaration {
     
     private static final TokenType[] FIRST  = { TokenType.VOID, TokenType.INT };
 
@@ -21,6 +21,8 @@ public class Declaration {
     public static boolean inFollow(TokenType type) {
         return inSet(FOLLOW, type);
     }
+    
+    abstract public void print(String cur, String indent);
 
     private static boolean inSet(TokenType[] set, TokenType tok) {
         boolean result = false;

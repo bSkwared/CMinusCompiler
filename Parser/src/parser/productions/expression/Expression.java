@@ -7,7 +7,7 @@ import parser.scanner.Token.*;
  *
  * @author Timothy Smith and Blake Lasky
  */
-public class Expression {
+public abstract class Expression {
     
     public static final Token.TokenType[] FIRST  = { TokenType.OPEN_PAREN, 
                                                      TokenType.ID, 
@@ -25,6 +25,8 @@ public class Expression {
     public static boolean inFollow(TokenType type) {
         return inSet(FOLLOW, type);
     }
+    
+    abstract public void print(String cur, String indent);
 
     private static boolean inSet(TokenType[] set, TokenType tok) {
         boolean result = false;

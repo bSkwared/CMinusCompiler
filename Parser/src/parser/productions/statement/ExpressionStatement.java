@@ -33,6 +33,11 @@ public class ExpressionStatement extends Statement {
         return inSet(FOLLOW, type);
     }
 
+    @Override
+    public void print(String cur, String indent) {
+        
+    }
+
     private static boolean inSet(TokenType[] set, TokenType tok) {
         boolean result = false;
 
