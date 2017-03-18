@@ -23,6 +23,12 @@ public class VarDeclaration extends Declaration {
                                                      TokenType.EOF,
                                                      TokenType.ELSE };
     
+    Token type;
+    Token id;
+    
+    boolean isArray;
+    int arraySize;
+    
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);
     }
@@ -32,7 +38,16 @@ public class VarDeclaration extends Declaration {
     }
 
     public void print(String cur, String indent) {
+        String out = type.toString();
+        out += " " + ((String) id.getData());
         
+        if (isArray) {
+            out += " [" + arraySize + "]"; 
+        }
+        
+        out += ";";
+        
+        System.out.println(out);
     }
     
     private static boolean inSet(TokenType[] set, TokenType tok) {

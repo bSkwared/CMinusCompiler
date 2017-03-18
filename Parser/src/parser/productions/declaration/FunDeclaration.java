@@ -17,6 +17,25 @@ public class FunDeclaration extends Declaration {
                                                 TokenType.INT,
                                                 TokenType.EOF };
     
+    
+    private Token returnType;
+    private Token id;
+    
+    private ArrayList<Parameter> parameters;
+    
+    private CompoundStatement statement;
+    
+    
+    public FunDeclaration(Token type, Token i, ArrayList<Parameter> params,
+                            CompoundStatement stmt) {
+        
+        returnType = type;
+        id = i;
+        parameters = params;
+        statement = stmt;
+    }
+    
+    
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);
     }
@@ -26,7 +45,17 @@ public class FunDeclaration extends Declaration {
     }
 
     public void print(String cur, String indent) {
+        System.out.println(cur + returnType.toString());
+        System.out.println(cur + id.toString());
+        System.out.println(cur + TokenType.OPEN_PAREN.toString());
         
+        for (Parameter p : parameters) {
+            p.print(cur + indent, indent);
+        }
+        
+        System.out.println(cur + TokenType.CLOSE_PAREN.toString());
+        
+        statement.print(cur + indecnt, indent);
     }
     
     private static boolean inSet(TokenType[] set, TokenType tok) {
