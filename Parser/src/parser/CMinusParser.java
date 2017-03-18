@@ -22,19 +22,19 @@ public class CMinusParser implements Parser {
     }
     
     @Override
-    public Program parse() throws CMinusException {
+    public Program parse() throws CMinusParseException {
         
         
         
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    private VarDeclaration parseVarDeclaration() throws CMinusException {
+    private VarDeclaration parseVarDeclaration() throws CMinusParseException {
         // TODO
         return null;
     }
     
-    private Statement parseStatement() throws CMinusException {
+    private Statement parseStatement() throws CMinusParseException {
         
         TokenType nextType = scan.viewNextToken().getType();
         
@@ -57,13 +57,13 @@ public class CMinusParser implements Parser {
             
         } else {
             // ERROR
-            throw new CMinusException("nun dem");
+            throw new CMinusParseException("nun dem");
         }
         
         return retStatement;
     }
     
-    private Statement parseExpressionStatement() throws CMinusException {
+    private Statement parseExpressionStatement() throws CMinusParseException {
         
         TokenType nextType = scan.viewNextToken().getType();
         
@@ -77,7 +77,7 @@ public class CMinusParser implements Parser {
             
         } else {
             // ERROR
-            throw new CMinusException("err");
+            throw new CMinusParseException("err");
         }
         
         match (TokenType.SEMICOLON);
@@ -85,7 +85,7 @@ public class CMinusParser implements Parser {
         return new ExpressionStatement(expr);
     }
     
-    private Statement parseCompoundStatement() throws CMinusException {
+    private Statement parseCompoundStatement() throws CMinusParseException {
         
         match(TokenType.OPEN_BRACE);
         
@@ -119,7 +119,7 @@ public class CMinusParser implements Parser {
         return new CompoundStatement(varDecls, statements);
     }
     
-    private Statement parseSelectionStatement() throws CMinusException {
+    private Statement parseSelectionStatement() throws CMinusParseException {
         
         match(TokenType.IF);
         match(TokenType.OPEN_PAREN);
@@ -140,7 +140,7 @@ public class CMinusParser implements Parser {
         
     }
     
-    private Statement parseIterationStatement() throws CMinusException {
+    private Statement parseIterationStatement() throws CMinusParseException {
         
         match(Token.TokenType.WHILE);
         match(Token.TokenType.OPEN_PAREN);
@@ -152,7 +152,7 @@ public class CMinusParser implements Parser {
         return new IterationStatement(condition, result);
     }
     
-    private Statement parseReturnStatement() throws CMinusException {
+    private Statement parseReturnStatement() throws CMinusParseException {
         match(Token.TokenType.RETURN);
         Expression returnExpr;
         
@@ -164,14 +164,14 @@ public class CMinusParser implements Parser {
             
         } else {
             // error
-            throw new CMinusException("yeah");
+            throw new CMinusParseException("yeah");
         }
         
         Statement returnStatement = new ReturnStatement(returnExpr);
         return returnStatement;
     }
     
-    private Expression parseExpression() throws CMinusException {
+    private Expression parseExpression() throws CMinusParseException {
         
         TokenType nextType = scan.viewNextToken().getType();
         
@@ -183,13 +183,13 @@ public class CMinusParser implements Parser {
             
         } else {
             // error
-            throw new CMinusException("bad xp");
+            throw new CMinusParseException("bad xp");
         }
         
         return null;
     }
     
-    private Expression[] parseArguments() throws CMinusException {
+    private Expression[] parseArguments() throws CMinusParseException {
         ArrayList<Expression> argsList = new ArrayList<>();
         
         TokenType curTokenType = scan.viewNextToken().getType();
@@ -213,7 +213,7 @@ public class CMinusParser implements Parser {
         return argsList.toArray(argsArray);
     }
     
-    private ArrayList<Expression> parseArgs() throws CMinusException {
+    private ArrayList<Expression> parseArgs() throws CMinusParseException {
         
         TokenType nextType = scan.viewNextToken().getType();
         
@@ -234,18 +234,18 @@ public class CMinusParser implements Parser {
             
         } else {
             // ERROR
-            throw new CMinusException("arg matey");
+            throw new CMinusParseException("arg matey");
         }
         
         return args;
     }
     
-    private boolean match(Token.TokenType toMatch) throws CMinusException {
+    private boolean match(Token.TokenType toMatch) throws CMinusParseException {
         //TODO
         return true;
     }
     
-    private boolean inSet(Token.TokenType[] set) throws CMinusException {
+    private boolean inSet(Token.TokenType[] set) throws CMinusParseException {
         Token token = scan.viewNextToken();
         TokenType type = token.getType();
         
