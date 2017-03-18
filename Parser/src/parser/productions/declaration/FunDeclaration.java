@@ -1,5 +1,8 @@
 package parser.productions.declaration;
 
+import java.util.ArrayList;
+import parser.productions.Parameter;
+import parser.productions.statement.CompoundStatement;
 import parser.scanner.Token;
 import parser.scanner.Token.*;
 
@@ -55,7 +58,7 @@ public class FunDeclaration extends Declaration {
         
         System.out.println(cur + TokenType.CLOSE_PAREN.toString());
         
-        statement.print(cur + indecnt, indent);
+        statement.print(cur + indent, indent);
     }
     
     private static boolean inSet(TokenType[] set, TokenType tok) {
