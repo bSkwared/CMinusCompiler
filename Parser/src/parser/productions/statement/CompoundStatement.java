@@ -1,5 +1,7 @@
 package parser.productions.statement;
 
+import java.util.ArrayList;
+import parser.productions.declaration.VarDeclaration;
 import parser.scanner.Token;
 import parser.scanner.Token.*;
 
@@ -9,6 +11,15 @@ import parser.scanner.Token.*;
  */
 public class CompoundStatement extends Statement {
     
+    private ArrayList<VarDeclaration> varDecls;
+    private ArrayList<Statement> statements;
+    
+    public CompoundStatement(ArrayList<VarDeclaration> decls, 
+                                    ArrayList<Statement> states) {
+        
+        varDecls = decls;
+        statements = states;
+    }
     
     private static final Token.TokenType[] FIRST  = { TokenType.OPEN_BRACE };
     private static final Token.TokenType[] FOLLOW = { TokenType.VOID,

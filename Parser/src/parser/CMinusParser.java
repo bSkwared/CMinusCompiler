@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import parser.scanner.*;
 import parser.scanner.Token.*;
 import parser.productions.*;
+import parser.productions.declaration.*;
 import parser.productions.expression.*;
 import parser.productions.statement.*;
 
@@ -28,8 +29,47 @@ public class CMinusParser implements Parser {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    private VarDeclaration parseVarDeclaration() {
+        // TODO
+        return null;
+    }
+    
     private Statement parseStatement() {
         return null;
+    }
+    
+    private Statement parseCompoundStatement() {
+        
+        match(TokenType.OPEN_BRACE);
+        
+        
+        TokenType nextType = scan.viewNextToken().getType();
+        ArrayList<VarDeclaration> varDecls = new ArrayList<>();
+        
+        
+        // NOTE do we need to check follow if we dont do any VarDecls?
+        while (VarDeclaration.inFirst(nextType)) {
+            
+            varDecls.add(parseVarDeclaration());
+            
+            nextType = scan.viewNextToken().getType();
+        }
+        
+        
+        ArrayList<Statement> statements = new ArrayList<>();
+        
+        // NOTE same as above
+        while (Statement.inFirst(nextType)) {
+            
+            statements.add(parseStatement());
+            
+            nextType = scan.viewNextToken().getType();
+        }
+        
+                
+        match(TokenType.CLOSE_BRACE);
+        
+        return new CompoundStatement(varDecls, statements);
     }
     
     private Statement parseSelectionStatement() {
