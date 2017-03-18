@@ -1,5 +1,6 @@
 package parser.productions.statement;
 
+import parser.productions.expression.Expression;
 import parser.scanner.Token;
 import parser.scanner.Token.*;
 
@@ -9,6 +10,11 @@ import parser.scanner.Token.*;
  */
 public class ExpressionStatement extends Statement {
     
+    Expression expr;
+    
+    public ExpressionStatement(Expression ex) {
+        expr = ex;
+    }
     
     private static final Token.TokenType[] FIRST  = { TokenType.OPEN_PAREN,
                                                      TokenType.NUM,

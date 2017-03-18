@@ -38,6 +38,28 @@ public class CMinusParser implements Parser {
         return null;
     }
     
+    private Statement parseExpressionStatement() {
+        
+        TokenType nextType = scan.viewNextToken().getType();
+        
+        Expression expr;
+        
+        if (Expression.inFirst(nextType)) {
+            expr = parseExpression();
+            
+        } else if (nextType == TokenType.SEMICOLON) {
+            expr = null;
+            
+        } else {
+            // ERROR
+            throw new Error("err");
+        }
+        
+        match (TokenType.SEMICOLON);
+        
+        return new ExpressionStatement(expr);
+    }
+    
     private Statement parseCompoundStatement() {
         
         match(TokenType.OPEN_BRACE);
