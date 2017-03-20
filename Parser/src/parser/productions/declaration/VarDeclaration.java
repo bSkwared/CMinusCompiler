@@ -57,7 +57,7 @@ public class VarDeclaration extends Declaration {
         
         out += ";";
         
-        System.out.println(out);
+        System.out.println(cur + out);
     }
     
     private static boolean inSet(TokenType[] set, TokenType tok) {
