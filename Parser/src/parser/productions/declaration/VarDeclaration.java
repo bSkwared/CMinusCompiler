@@ -10,24 +10,35 @@ import parser.scanner.Token.*;
 public class VarDeclaration extends Declaration {
     
     
-    public static final Token.TokenType[] FIRST  = { TokenType.INT };
-    public static final Token.TokenType[] FOLLOW = { TokenType.OPEN_BRACE,
-                                                     TokenType.IF,
-                                                     TokenType.WHILE,
-                                                     TokenType.RETURN,
-                                                     TokenType.OPEN_PAREN,
-                                                     TokenType.NUM,
-                                                     TokenType.ID,
-                                                     TokenType.VOID,
-                                                     TokenType.INT,
-                                                     TokenType.EOF,
-                                                     TokenType.ELSE };
+    public static final TokenType[] FIRST  = { TokenType.INT };
+    public static final TokenType[] FOLLOW = { TokenType.OPEN_BRACE,
+                                               TokenType.IF,
+                                               TokenType.WHILE,
+                                               TokenType.RETURN,
+                                               TokenType.OPEN_PAREN,
+                                               TokenType.NUM,
+                                               TokenType.ID,
+                                               TokenType.VOID,
+                                               TokenType.INT,
+                                               TokenType.EOF,
+                                               TokenType.ELSE };
     
-    Token type;
-    Token id;
+    private String id;
     
-    boolean isArray;
-    int arraySize;
+    private boolean isArray;
+    private int arraySize;
+    
+    
+    public VarDeclaration (String ID) {
+        id = ID;
+        isArray = false;
+    }
+    
+    public VarDeclaration(String ID, int arrSize) {
+        this(ID);
+        arraySize = arrSize;
+        isArray = true;
+    }
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);
@@ -38,8 +49,7 @@ public class VarDeclaration extends Declaration {
     }
 
     public void print(String cur, String indent) {
-        String out = type.toString();
-        out += " " + ((String) id.getData());
+        String out = "int " + id;
         
         if (isArray) {
             out += " [" + arraySize + "]"; 
