@@ -21,23 +21,49 @@ public class FunDeclaration extends Declaration {
                                                 TokenType.EOF };
     
     
-    private Token returnType;
-    private Token id;
+    private boolean returnsVoid;
+    private String returnType;
+    
+    private boolean hasParameters;
+    
+    private String id;
     
     private ArrayList<Parameter> parameters;
     
     private CompoundStatement statement;
     
     
-    public FunDeclaration(Token type, Token i, ArrayList<Parameter> params,
+    public FunDeclaration(Token type, String i, ArrayList<Parameter> params,
                             CompoundStatement stmt) {
         
-        returnType = type;
+        TokenType returnTokenType = type.getType();
+        
+        if (returnTokenType == TokenType.VOID) {
+            returnsVoid = true;
+            returnType = "void";
+            
+        } else {
+            // returnType == INT
+            returnsVoid = false;
+            returnType = "int";
+        }
+        
         id = i;
-        parameters = params;
+        
+        if (params == null) {
+            parameters = null;
+            hasParameters = false;
+        } else {
+            parameters = params;
+            hasParameters = !params.isEmpty();
+        }
+        
         statement = stmt;
     }
     
+    public FunDeclaration(Token type, String i, CompoundStatement stmt) {
+        this(type, i, null, stmt);
+    }
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);
@@ -48,15 +74,21 @@ public class FunDeclaration extends Declaration {
     }
 
     public void print(String cur, String indent) {
-        System.out.println(cur + returnType.toString());
-        System.out.println(cur + id.toString());
-        System.out.println(cur + TokenType.OPEN_PAREN.toString());
         
-        for (Parameter p : parameters) {
-            p.print(cur + indent, indent);
+        String functionHeader = returnType + " " + id + "(";
+        System.out.print(cur + functionHeader);
+        
+        if (hasParameters) {
+            System.out.println();
+            for (Parameter p : parameters) {
+                p.print(cur + indent, indent);
+            }
+        
+            System.out.println(cur + ")");
+            
+        } else {
+            System.out.println("void)");
         }
-        
-        System.out.println(cur + TokenType.CLOSE_PAREN.toString());
         
         statement.print(cur + indent, indent);
     }
