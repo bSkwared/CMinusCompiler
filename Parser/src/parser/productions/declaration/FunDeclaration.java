@@ -55,12 +55,12 @@ public class FunDeclaration extends Declaration {
         
         id = i;
         
-        if (params == null) {
+        if (params == null || params.isEmpty()) {
             parameters = null;
             hasParameters = false;
         } else {
             parameters = params;
-            hasParameters = !params.isEmpty();
+            hasParameters = true;
         }
         
         statement = stmt;

@@ -15,24 +15,14 @@ import parser.productions.declaration.*;
 import parser.scanner.Token.*;
 
 public class Program {
-    private ArrayList<Declaration> decls;
     
     private static final TokenType[] FIRST  = { TokenType.INT, TokenType.VOID };
     private static final TokenType[] FOLLOW = { TokenType.EOF };
     
-    public Program() {
-        decls = new ArrayList<>();
-    }
+    private ArrayList<Declaration> decls;
     
-    public void addDeclaration(Declaration decl) {
-        decls.add(decl);
-    }
-    
-    public void print(String cur, String indent) {
-        for (Declaration d : decls) {
-            d.print(cur + indent, indent);
-            System.out.println();
-        }
+    public Program(ArrayList<Declaration> declList) {
+        decls = declList;
     }
     
     public static boolean inFirst(TokenType type) {
@@ -54,6 +44,13 @@ public class Program {
         }
 
         return result;
+    }
+    
+    public void print(String cur, String indent) {
+        for (Declaration d : decls) {
+            d.print(cur + indent, indent);
+            System.out.println();
+        }
     }
 
     
