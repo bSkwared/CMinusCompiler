@@ -362,34 +362,85 @@ public class CMinusParser implements Parser {
     //TODO This function
     private Expression parseExpression() throws CMinusParseException {
         
-        TokenType nextType = scan.viewNextToken().getType();
+        Token nextTok = scan.getNextToken();
+        TokenType nextType = nextTok.getType();
         
-        Expression expr = null;
+        Expression retExpr = null;
         
-        if (nextType == TokenType.OPEN_PAREN) {
+        switch (nextType) {
+            case OPEN_PAREN:
+
+                Expression expr = parseExpression();
+
+                match(TokenType.CLOSE_PAREN);
+
+                retExpr = parseSimpleExpressionPrime(expr);
+                break;
+        	
+            case NUM:
+
+                int num = (int) nextTok.getData();
+
+                Expression numExpr = new NumExpression(num);
+
+                retExpr = parseSimpleExpressionPrime(numExpr);
+                break;
+        	
             
-        	match(TokenType.OPEN_PAREN);
-        	//TODO EVERYTHING
-        	
-        } else if (nextType == TokenType.NUM) {
-        	
-        	//match(TokenType.NUM);
-        	//TODO EVERYTHING
-        	
+            case ID:
             
-        } else if (nextType == TokenType.ID) {
-        	
-        	//match(TokenType.ID);
+                retExpr = parseExpressionPrime(nextTok);
+                break;
             
-        } else {
-            // ERROR
-            throw new CMinusParseException("ERROR in parseExpression(): Next token " + nextType.toString() +  " is not in the first set of Expression");
+            default:
+                throw new CMinusParseException("ERROR in parseExpression(): "
+                        + "Next token " + nextType.toString() 
+                        +  " is not in the first set of Expression");
         }
         
-        return null;
+        return retExpr;
     }
     
-    private ArrayList<Expression>parseArguments() throws CMinusParseException {
+    private Expression parseExpressionPrime(Token tok) 
+            throws CMinusParseException {
+        
+        Token nextTok = scan.getNextToken();
+        TokenType nextType = nextTok.getType();
+        
+        Expression retExpr;
+        
+        switch(nextType) {
+            case EQUAL:
+                Expression expr = parseExpression();
+                retExpr = new AssignExpression((String)tok.getData(), expr);
+                break;
+                
+            case OPEN_PAREN:
+                
+                break;
+                
+            case OPEN_BRACKET:
+                
+                break;
+                
+            case MULT:
+                /* FALL THROUGH */
+            case DIV:
+                
+                break;
+                
+            default:
+                throw new CMinusParseException("ERROR in parseEPrime");
+        }
+        
+        return retExpr;
+    }
+    
+    private Expression parseSimpleExpressionPrime(Expression left) {
+        
+    }
+    
+    private ArrayList<Expression> parseArguments() throws CMinusParseException {
         ArrayList<Expression> argsList = new ArrayList<>();
         
         TokenType curTokenType = scan.viewNextToken().getType();
@@ -467,7 +518,9 @@ public class CMinusParser implements Parser {
         return foundType;
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        CMinusParser cmp = new CMinusParser("../test_01.cm");
+        cmp.parse();
         System.out.println("HEY HEY YOU YOU I DONT LIKE YOUR GIRLFRIEND NO WAY NO WAY I THINK YOU NEED A NEW ONE");
     }
     

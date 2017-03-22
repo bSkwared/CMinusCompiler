@@ -18,6 +18,12 @@ public class NumExpression extends Expression {
     public static final TokenType[] FIRST  = {};
     public static final TokenType[] FOLLOW = {};
     
+    private int value;
+    
+    public NumExpression(int numer) {
+        value = number;
+    }
+    
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);
     }
