@@ -125,8 +125,45 @@ public class CMinusParser implements Parser {
     }
     
     private VarDeclaration parseVarDeclaration() throws CMinusParseException {
-        // TODO
-        return null;
+        
+        match(TokenType.INT);
+        
+        Token id = scan.getNextToken();
+        
+        if (id.getType() != TokenType.ID) {
+            throw new CMinusParseException("ERROR in parseVarDecl");
+        }
+        
+        String identifier = (String) id.getData();
+        
+        TokenType next = scan.getNextToken().getType();
+        
+        VarDeclaration retDecl;
+        
+        if (next == TokenType.OPEN_BRACKET) {
+            // Declaring an array
+            Token array = scan.getNextToken();
+            
+            if (array.getType() != TokenType.NUM) {
+                throw new CMinusParseException("ERROR in parseVarDecl");
+            }
+            
+            int arraySize = (int) array.getData();
+            
+            match(TokenType.CLOSE_BRACKET);
+            match(TokenType.SEMICOLON);
+            
+            retDecl = new VarDeclaration(identifier, arraySize);
+            
+        } else if (next == TokenType.SEMICOLON) {
+            // Declaraing a regular variable
+            retDecl = new VarDeclaration(identifier);
+            
+        } else {
+            throw new CMinusParseException("ERROR in parseVarDecl");
+        }
+        
+        return retDecl;
     }
     
     private ArrayList<Parameter> parseParameters() throws CMinusParseException {
