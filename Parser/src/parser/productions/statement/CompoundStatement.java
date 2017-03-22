@@ -27,6 +27,8 @@ public class CompoundStatement extends Statement {
     
     @Override
     public void print(String cur, String indent) {
-        
+        for(VarDeclaration v : varDecls) v.print(cur, indent);
+		
+		for(Statement s : statements) s.print(cur, indent);
     }
 }

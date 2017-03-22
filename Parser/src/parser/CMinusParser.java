@@ -29,7 +29,7 @@ public class CMinusParser implements Parser {
 
 		ArrayList<Declaration> decls = new ArrayList<>();
 
-		while (inSet(First.Program)) {			
+		while (inSet(First.Program)) {
 			Token nextTok = scan.getNextToken();
 			TokenType nextType = nextTok.getType();
 
@@ -165,23 +165,31 @@ public class CMinusParser implements Parser {
 
 		ArrayList<Parameter> params;
 
-		if (nextType == TokenType.VOID) {
-			scan.getNextToken();
-			params = null;
+		switch (nextType) {
+			case VOID:
+				scan.getNextToken();
+				params = null;
 
-		} else if (nextType == TokenType.INT) {
-			params = new ArrayList<>();
-			params.add(parseParameter());
+				break;
 
-			while (nextType == TokenType.COMMA) {
+			case INT:
+				params = new ArrayList<>();
 				params.add(parseParameter());
-
+				
 				nextTok = scan.viewNextToken();
 				nextType = nextTok.getType();
-			}
 
-		} else {
-			throw new CMinusParseException("ERROR in parseParameters");
+				while (nextType == TokenType.COMMA) {
+					scan.getNextToken();
+					params.add(parseParameter());
+
+					nextTok = scan.viewNextToken();
+					nextType = nextTok.getType();
+				}
+				break;
+
+			default:
+				throw new CMinusParseException("ERROR in parseParameters");
 		}
 
 		return params;
@@ -495,7 +503,7 @@ public class CMinusParser implements Parser {
 
 		Expression retExpr = parseTerm(left);
 
-		while (inSet(First.addop)) {			
+		while (inSet(First.addop)) {
 			Token addop = scan.getNextToken();
 
 			retExpr = new BinaryExpression(retExpr, addop, parseTerm(null));
@@ -517,7 +525,7 @@ public class CMinusParser implements Parser {
 		}
 
 		while (inSet(First.mulop)) {
-			
+
 			Token mulop = scan.getNextToken();
 
 			retExpr = new BinaryExpression(retExpr, mulop, parseFactor());
@@ -527,7 +535,7 @@ public class CMinusParser implements Parser {
 	}
 
 	private Expression parseFactor() throws CMinusParseException {
-		
+
 		Token nextTok = scan.getNextToken();
 		TokenType nextType = nextTok.getType();
 
@@ -651,6 +659,8 @@ public class CMinusParser implements Parser {
 	public static void main(String[] args) throws Exception {
 		CMinusParser cmp = new CMinusParser("../test_01.cm");
 		Program p = cmp.parse();
+		
+		p.print("", "");
 	}
 
 }

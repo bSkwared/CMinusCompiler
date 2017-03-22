@@ -23,6 +23,11 @@ public class IterationStatement extends Statement {
 
     @Override
     public void print(String cur, String indent) {
-        
+        System.out.print("while(");
+		condition.print(cur, indent);
+		System.out.println(")");
+		
+		result.print(cur, indent);
+		
     }
 }

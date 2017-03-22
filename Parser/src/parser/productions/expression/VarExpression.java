@@ -31,7 +31,12 @@ public class VarExpression extends Expression {
 
 	@Override
     public void print(String cur, String indent) {
-        
+        System.out.print(id);
+		if(isArray){
+			System.out.print("[");
+			arrayIndex.print(cur, indent);
+			System.out.print("]");
+		}
     }
 
     public String getId() {

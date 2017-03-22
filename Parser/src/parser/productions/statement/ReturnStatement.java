@@ -21,6 +21,7 @@ public class ReturnStatement extends Statement {
 
     @Override
     public void print(String cur, String indent) {
-        
+        System.out.print("return ");
+		returnExpression.print(cur, indent);
     }
 }

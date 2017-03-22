@@ -22,6 +22,6 @@ public class ExpressionStatement extends Statement {
 
 	@Override
     public void print(String cur, String indent) {
-        
+        expr.print(cur, indent);
     }
 }

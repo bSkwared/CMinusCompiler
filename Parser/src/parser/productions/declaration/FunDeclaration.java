@@ -68,11 +68,12 @@ public class FunDeclaration extends Declaration {
         System.out.print(cur + functionHeader);
         
         if (hasParameters) {
-            System.out.println();
-            for (Parameter p : parameters) {
+            //System.out.println();
+            for (int i=0; i<parameters.size(); i++){
+				Parameter p = parameters.get(i);
                 p.print(cur + indent, indent);
-            }
-        
+				if(i<parameters.size()-1) System.out.print(", ");
+            }        
             System.out.println(cur + ")");
             
         } else {

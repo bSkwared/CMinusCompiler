@@ -27,6 +27,14 @@ public class SelectionStatement extends Statement {
 
 	@Override
     public void print(String cur, String indent) {
-        
+        System.out.print("if(");
+		condition.print(cur, indent);
+		System.out.println(")");
+		thenStatement.print(cur, indent);
+		
+		if(elseStatement != null){
+			System.out.println("else");
+			elseStatement.print(cur, indent);
+		}
     }
 }

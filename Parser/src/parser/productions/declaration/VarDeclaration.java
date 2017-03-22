@@ -10,8 +10,6 @@
 
 package parser.productions.declaration;
 
-import parser.scanner.Token.*;
-
 public class VarDeclaration extends Declaration {
 	
     private String id;
