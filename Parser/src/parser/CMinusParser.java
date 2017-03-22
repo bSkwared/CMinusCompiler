@@ -154,9 +154,24 @@ public class CMinusParser implements Parser {
         return params;
     }
     
-    private Parameter parseParameter() {
-        // TODO
-        return null;
+    private Parameter parseParameter() throws CMinusParseException {
+        match(TokenType.INT);
+        
+        Token id = scan.getNextToken();
+        
+        if (id.getType() != TokenType.ID) {
+            throw new CMinusParseException("ERROR in parseParameter");
+        }
+        
+        Token arr = scan.viewNextToken();
+        boolean isArray = arr.getType() == TokenType.OPEN_BRACKET;
+        
+        if (isArray) {
+            scan.getNextToken();
+            match(TokenType.CLOSE_BRACKET);
+        }
+        
+        return new Parameter((String) id.getData(), isArray);
     }
     
     private Statement parseStatement() throws CMinusParseException {
