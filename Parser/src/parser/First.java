@@ -29,7 +29,8 @@ public class First {
     public static TokenType[] addop = { TokenType.ADD,
                                         TokenType.SUB };
     
-   
+	public static TokenType[] mulop = { TokenType.MULT,
+                                        TokenType.DIV };
     
     public static TokenType[] Statement = { TokenType.OPEN_BRACE,
 												TokenType.IF,
@@ -71,5 +72,5 @@ public class First {
 															TokenType.EQUAL,
 															TokenType.NOT_EQUAL };
 	
-    public static TokenType[] VarDeclaration = { TokenType.INT};
+    public static TokenType[] VarDeclaration = { TokenType.INT};	
 }
