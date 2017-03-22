@@ -18,6 +18,7 @@ public class AssignExpression extends Expression {
     private static final TokenType[] FIRST  = {};
     private static final TokenType[] FOLLOW = {};    
     
+    //DO WE NEED A FIELD FOR ARRAY INDEX?
     private String id;
     private Expression expr;
     
