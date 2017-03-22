@@ -16,8 +16,7 @@ public class AssignExpression extends Expression {
     
     
     private static final TokenType[] FIRST  = {};
-    private static final TokenType[] FOLLOW = {};
-    
+    private static final TokenType[] FOLLOW = {};    
     
     private String id;
     private Expression expr;
