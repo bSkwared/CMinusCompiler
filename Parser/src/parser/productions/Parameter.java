@@ -25,30 +25,8 @@ public class Parameter {
         id = i;
         isArray = isArr;
     }
-    
-    public static boolean inFirst(TokenType type) {
-        return inSet(FIRST, type);
-    }
-
-    public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW, type);
-    }
 
     public void print(String cur, String indent) {
         
     }
-    
-    private static boolean inSet(TokenType[] set, TokenType tok) {
-        boolean result = false;
-
-        for (TokenType t : set) {
-            if (tok == t) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
-    }
-
 }

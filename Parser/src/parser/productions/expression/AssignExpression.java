@@ -25,32 +25,10 @@ public class AssignExpression extends Expression {
         variable = var;
         expr = ex;
     }
-    
-    public static boolean inFirst(TokenType type) {
-        return inSet(FIRST, type);
-    }
-
-    public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW, type);
-    }
-
+	
     @Override
     public void print(String cur, String indent) {
         System.out.print(variable.getId() + " = ");
         expr.print(cur+indent, indent);
     }
-
-    private static boolean inSet(TokenType[] set, TokenType tok) {
-        boolean result = false;
-
-        for (TokenType t : set) {
-            if (tok == t) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
-    }
-
 }

@@ -24,34 +24,11 @@ public class Program {
     public Program(ArrayList<Declaration> declList) {
         decls = declList;
     }
-    
-    public static boolean inFirst(TokenType type) {
-        return inSet(FIRST, type);
-    }
 
-    public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW, type);
-    }
-
-    private static boolean inSet(TokenType[] set, TokenType tok) {
-        boolean result = false;
-
-        for (TokenType t : set) {
-            if (tok == t) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
-    }
-    
     public void print(String cur, String indent) {
         for (Declaration d : decls) {
             d.print(cur + indent, indent);
             System.out.println();
         }
     }
-
-    
 }

@@ -45,14 +45,6 @@ public class VarDeclaration extends Declaration {
         isArray = true;
     }
     
-    public static boolean inFirst(TokenType type) {
-        return inSet(FIRST, type);
-    }
-
-    public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW, type);
-    }
-
     public void print(String cur, String indent) {
         String out = "int " + id;
         
@@ -64,18 +56,4 @@ public class VarDeclaration extends Declaration {
         
         System.out.println(cur + out);
     }
-    
-    private static boolean inSet(TokenType[] set, TokenType tok) {
-        boolean result = false;
-
-        for (TokenType t : set) {
-            if (tok == t) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
-    }
-
 }

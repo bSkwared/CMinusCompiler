@@ -24,30 +24,8 @@ public class NumExpression extends Expression {
         value = number;
     }
     
-    public static boolean inFirst(TokenType type) {
-        return inSet(FIRST, type);
-    }
-
-    public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW, type);
-    }
-
     @Override
     public void print(String cur, String indent) {
         
     }
-
-    private static boolean inSet(TokenType[] set, TokenType tok) {
-        boolean result = false;
-
-        for (TokenType t : set) {
-            if (tok == t) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
-    }
-
 }
