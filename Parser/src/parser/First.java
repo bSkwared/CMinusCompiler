@@ -1,18 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.0
+ * File: First.java
+ * Created: March 2017
+ *
+ * Description: This file provides us with the first sets for all relevant
+ *				productions in our CMinusGrammar
  */
+
 package parser;
 
 import parser.scanner.Token.TokenType;
 
-/**
- *
- * @author Timothy Smith and Blake Lasky
- */
 public class First {
-    public static TokenType[] rogram = { TokenType.VOID, 
+	
+    public static TokenType[] Program = { TokenType.VOID, 
                                           TokenType.INT };
     
     public static TokenType[] relop = { TokenType.GT,
@@ -27,33 +29,47 @@ public class First {
     public static TokenType[] addop = { TokenType.ADD,
                                         TokenType.SUB };
     
-    public static TokenType[] compoundStatement = { TokenType.OPEN_BRACE };
+   
     
-    public static TokenType[] statement = { TokenType.OPEN_BRACE,
-                                            TokenType.IF,
-                                            TokenType.WHILE,
-                                            TokenType.RETURN,
-                                            TokenType.OPEN_PAREN,
-                                            TokenType.NUM,
-                                            TokenType.ID };
+    public static TokenType[] Statement = { TokenType.OPEN_BRACE,
+												TokenType.IF,
+												TokenType.WHILE,
+												TokenType.RETURN,
+												TokenType.OPEN_PAREN,
+												TokenType.NUM,
+												TokenType.ID };	
     
-    public static TokenType[] expression = { TokenType.OPEN_PAREN,
-                                             TokenType.NUM,
-                                             TokenType.ID };
+	public static TokenType[] ExpressionStatement = { TokenType.OPEN_PAREN,
+														TokenType.NUM,
+														TokenType.ID };
+	
+	public static TokenType[] CompoundStatement = { TokenType.OPEN_BRACE };
+	
+	public static TokenType[] SelectionStatement = { TokenType.IF };
+	
+	public static TokenType[] IterationStatement = { TokenType.WHILE };
+	
+	public static TokenType[] ReturnStatement = { TokenType.RETURN };
+		
     
-    public static TokenType[] expressionPrime = { TokenType.EQUAL,
-                                                  TokenType.NUM,
-                                                  TokenType.ID };
+	public static TokenType[] Expression = { TokenType.OPEN_PAREN,
+												TokenType.NUM,
+												TokenType.ID};
+	
+	public static TokenType[] ExpressionPrime = { TokenType.EQUAL,
+													TokenType.NUM,
+													TokenType.ID };    
     
-    
-    public static TokenType[]  = {  };
-    
-    public static TokenType[]  = {  };
-    
-    public static TokenType[]  = {  };
-    public static TokenType[]  = {  };
-    public static TokenType[]  = {  };
-    public static TokenType[]  = {  };
-    public static TokenType[]  = {  };
-    public static TokenType[]  = {  };
+	public static TokenType[] SimpleExpressionPrime = { TokenType.ADD,
+															TokenType.SUB,
+															TokenType.MULT,
+															TokenType.DIV,
+															TokenType.LTE,
+															TokenType.GTE,
+															TokenType.LT,
+															TokenType.GT,
+															TokenType.EQUAL,
+															TokenType.NOT_EQUAL };
+	
+    public static TokenType[] VarDeclaration = { TokenType.INT};
 }

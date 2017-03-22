@@ -10,17 +10,7 @@
 
 package parser.productions.expression;
 
-import parser.scanner.Token.*;
-
 public abstract class Expression {
     
-    public static final TokenType[] FIRST  = { TokenType.OPEN_PAREN, 
-                                                 TokenType.ID, 
-                                                 TokenType.NUM};
-
-    public static final TokenType[] FOLLOW = { TokenType.CLOSE_PAREN,
-                                                 TokenType.SEMICOLON,
-                                                 TokenType.CLOSE_BRACKET,
-                                                 TokenType.COMMA };
     abstract public void print(String cur, String indent);
 }

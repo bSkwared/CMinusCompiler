@@ -12,13 +12,9 @@ package parser.productions;
 
 import java.util.ArrayList;
 import parser.productions.declaration.*;
-import parser.scanner.Token.*;
 
 public class Program {
-    
-    private static final TokenType[] FIRST  = { TokenType.INT, TokenType.VOID };
-    private static final TokenType[] FOLLOW = { TokenType.EOF };
-    
+	
     private ArrayList<Declaration> decls;
     
     public Program(ArrayList<Declaration> declList) {

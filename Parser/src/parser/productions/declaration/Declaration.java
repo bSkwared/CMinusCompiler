@@ -10,15 +10,7 @@
 
 package parser.productions.declaration;
 
-import parser.scanner.Token.*;
-
 public abstract class Declaration {
-    
-    private static final TokenType[] FIRST  = { TokenType.VOID, TokenType.INT };
-
-    private static final TokenType[] FOLLOW = { TokenType.VOID,
-                                                TokenType.INT,
-                                                TokenType.EOF };
     
     abstract public void print(String cur, String indent);
 }

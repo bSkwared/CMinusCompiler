@@ -10,18 +10,10 @@
 
 package parser.productions.statement;
 
-import parser.scanner.Token.*;
-
 import parser.productions.expression.Expression;
 
 public class ReturnStatement extends Statement {
     Expression returnExpression;
-    
-    private static final TokenType[] FIRST  = { TokenType.RETURN };
-    private static final TokenType[] FOLLOW = { TokenType.VOID,
-                                                  TokenType.INT,
-                                                  TokenType.EOF,
-                                                  TokenType.ELSE };
     
     public ReturnStatement(Expression rtrn) {
         returnExpression = rtrn;

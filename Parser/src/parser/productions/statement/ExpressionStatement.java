@@ -11,7 +11,6 @@
 package parser.productions.statement;
 
 import parser.productions.expression.Expression;
-import parser.scanner.Token.*;
 
 public class ExpressionStatement extends Statement {
     
@@ -20,15 +19,6 @@ public class ExpressionStatement extends Statement {
     public ExpressionStatement(Expression ex) {
         expr = ex;
     }
-    
-    private static final TokenType[] FIRST  = { TokenType.OPEN_PAREN,
-                                                 TokenType.NUM,
-                                                 TokenType.ID /*** OR EPSILON ***/ };
-
-    private static final TokenType[] FOLLOW = { TokenType.VOID,
-                                                  TokenType.INT,
-                                                  TokenType.EOF,
-                                                  TokenType.ELSE };
 
 	@Override
     public void print(String cur, String indent) {

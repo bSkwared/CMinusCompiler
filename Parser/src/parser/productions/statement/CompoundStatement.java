@@ -12,7 +12,6 @@ package parser.productions.statement;
 
 import java.util.ArrayList;
 import parser.productions.declaration.VarDeclaration;
-import parser.scanner.Token.*;
 
 public class CompoundStatement extends Statement {
     
@@ -25,12 +24,6 @@ public class CompoundStatement extends Statement {
         varDecls = decls;
         statements = states;
     }
-    
-    private static final TokenType[] FIRST  = { TokenType.OPEN_BRACE };
-    private static final TokenType[] FOLLOW = { TokenType.VOID,
-                                                  TokenType.INT,
-                                                  TokenType.EOF,
-                                                  TokenType.ELSE };
     
     @Override
     public void print(String cur, String indent) {

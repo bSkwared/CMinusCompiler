@@ -10,14 +10,8 @@
 
 package parser.productions.expression;
 
-import parser.scanner.Token.*;
-
 public class AssignExpression extends Expression {
-    
-    
-    private static final TokenType[] FIRST  = {};
-    private static final TokenType[] FOLLOW = {};    
-    
+        
     private VarExpression variable;
     private Expression expr;
     

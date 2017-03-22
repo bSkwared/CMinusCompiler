@@ -11,13 +11,8 @@
 package parser.productions.expression;
 
 import java.util.ArrayList;
-import parser.scanner.Token.*;
 
 public class CallExpression extends Expression {
-    
-    
-    public static final TokenType[] FIRST  = {};
-    public static final TokenType[] FOLLOW = {};
     
     private String id;
     private ArrayList<Expression> arguments;

@@ -13,21 +13,7 @@ package parser.productions.declaration;
 import parser.scanner.Token.*;
 
 public class VarDeclaration extends Declaration {
-    
-    
-    public static final TokenType[] FIRST  = { TokenType.INT };
-    public static final TokenType[] FOLLOW = { TokenType.OPEN_BRACE,
-                                               TokenType.IF,
-                                               TokenType.WHILE,
-                                               TokenType.RETURN,
-                                               TokenType.OPEN_PAREN,
-                                               TokenType.NUM,
-                                               TokenType.ID,
-                                               TokenType.VOID,
-                                               TokenType.INT,
-                                               TokenType.EOF,
-                                               TokenType.ELSE };
-    
+	
     private String id;
     
     private boolean isArray;

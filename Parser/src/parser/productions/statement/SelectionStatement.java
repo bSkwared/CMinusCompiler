@@ -11,7 +11,6 @@
 package parser.productions.statement;
 
 import parser.productions.expression.Expression;
-import parser.scanner.Token.*;
 
 public class SelectionStatement extends Statement {
     
@@ -25,13 +24,6 @@ public class SelectionStatement extends Statement {
         thenStatement = then;
         elseStatement = els;
     }
-    
-    private static final TokenType[] FIRST  = { TokenType.IF };
-
-    private static final TokenType[] FOLLOW = { TokenType.VOID,
-                                                  TokenType.INT,
-                                                  TokenType.EOF,
-                                                  TokenType.ELSE };
 
 	@Override
     public void print(String cur, String indent) {

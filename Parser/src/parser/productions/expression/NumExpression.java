@@ -10,14 +10,8 @@
 
 package parser.productions.expression;
 
-import parser.scanner.Token.*;
-
 public class NumExpression extends Expression {
-    
-    
-    public static final TokenType[] FIRST  = {};
-    public static final TokenType[] FOLLOW = {};
-    
+	
     private int value;
     
     public NumExpression(int number) {

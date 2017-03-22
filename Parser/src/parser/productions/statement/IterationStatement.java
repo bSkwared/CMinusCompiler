@@ -10,19 +10,11 @@
 
 package parser.productions.statement;
 
-import parser.scanner.Token.*;
 import parser.productions.expression.Expression;
 
 public class IterationStatement extends Statement {
     Expression condition;
     Statement result;
-    
-    private static final TokenType[] FIRST  = { TokenType.WHILE };
-
-    private static final TokenType[] FOLLOW = { TokenType.VOID,
-                                                  TokenType.INT,
-                                                  TokenType.EOF,
-                                                  TokenType.ELSE };
     
     public IterationStatement(Expression cond, Statement res) {
         condition = cond;

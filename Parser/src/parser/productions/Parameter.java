@@ -10,13 +10,7 @@
 
 package parser.productions;
 
-import parser.scanner.Token.*;
-
 public class Parameter {
-    
-    
-    private static final TokenType[] FIRST  = { TokenType.INT, TokenType.VOID };
-    private static final TokenType[] FOLLOW = { TokenType.CLOSE_PAREN };
     
     private String id;
     private boolean isArray;

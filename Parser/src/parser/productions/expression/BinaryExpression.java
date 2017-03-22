@@ -15,10 +15,6 @@ import parser.scanner.Token.*;
 
 public class BinaryExpression extends Expression {
     
-    
-    public static final TokenType[] FIRST  = {};
-    public static final TokenType[] FOLLOW = {};
-    
     private Expression left;
     private TokenType  operator;
     private Expression right;

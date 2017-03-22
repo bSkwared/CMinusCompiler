@@ -18,14 +18,6 @@ import parser.scanner.Token.*;
 
 public class FunDeclaration extends Declaration {
     
-    
-    private static final TokenType[] FIRST  = { TokenType.OPEN_PAREN };
-
-    private static final TokenType[] FOLLOW = { TokenType.VOID,
-                                                TokenType.INT,
-                                                TokenType.EOF };
-    
-    
     private boolean returnsVoid;
     private String returnType;
     
