@@ -18,6 +18,14 @@ public class Parameter {
     private static final TokenType[] FIRST  = { TokenType.INT, TokenType.VOID };
     private static final TokenType[] FOLLOW = { TokenType.CLOSE_PAREN };
     
+    private String id;
+    private boolean isArray;
+    
+    public Parameter(String i, boolean isArr) {
+        id = i;
+        isArray = isArr;
+    }
+    
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);
     }

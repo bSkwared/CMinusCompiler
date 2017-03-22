@@ -129,7 +129,33 @@ public class CMinusParser implements Parser {
         return null;
     }
     
-    private ArrayList<Parameter> parseParameters() {
+    private ArrayList<Parameter> parseParameters() throws CMinusParseException {
+        Token nextTok = scan.viewNextToken();
+        TokenType nextType = nextTok.getType();
+        
+        ArrayList<Parameter> params;
+        
+        if (nextType == TokenType.VOID) {
+            scan.getNextToken();
+            params = null;
+            
+        } else if (nextType == TokenType.INT) {
+            params = new ArrayList<>();
+            params.add(parseParameter());
+            
+            while (nextType == TokenType.COMMA) {
+                params.add(parseParameter());
+            }
+            
+        } else {
+            throw new CMinusParseException("ERROR in parseParameters");
+        }
+        
+        return params;
+    }
+    
+    private Parameter parseParameter() {
+        // TODO
         return null;
     }
     
