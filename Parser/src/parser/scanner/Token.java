@@ -62,7 +62,12 @@ public class Token {
 		tokenData = data;
 	}
 	
-	public Object getData() {return tokenData;}
+	public Object getData() {
+		if(tokenData != null) return tokenData;
+		
+		return tokenType.toString();
+		
+	}
 	public TokenType getType() {return tokenType;}
 	
 	public String toString(){
