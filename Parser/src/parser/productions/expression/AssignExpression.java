@@ -18,12 +18,11 @@ public class AssignExpression extends Expression {
     private static final TokenType[] FIRST  = {};
     private static final TokenType[] FOLLOW = {};    
     
-    //DO WE NEED A FIELD FOR ARRAY INDEX?
-    private String id;
+    private VarExpression variable;
     private Expression expr;
     
-    public AssignExpression(String ID, Expression ex) {
-        id = ID;
+    public AssignExpression(VarExpression var, Expression ex) {
+        variable = var;
         expr = ex;
     }
     
@@ -37,7 +36,7 @@ public class AssignExpression extends Expression {
 
     @Override
     public void print(String cur, String indent) {
-        System.out.print(id + " = ");
+        System.out.print(variable.getId() + " = ");
         expr.print(cur+indent, indent);
     }
 

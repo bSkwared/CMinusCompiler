@@ -18,6 +18,23 @@ public class VarExpression extends Expression {
     public static final TokenType[] FIRST  = {};
     public static final TokenType[] FOLLOW = {};
     
+    private String id;
+    
+    private boolean isArray;
+    
+    private Expression arrayIndex;
+    
+    public VarExpression(String i, Expression index) {
+        id = i;
+        arrayIndex = index;
+        
+        isArray = index != null;
+    }
+    
+    public VarExpression(String id){
+        this(id, null);
+    }
+    
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);
     }
@@ -31,6 +48,10 @@ public class VarExpression extends Expression {
         
     }
 
+    public String getId() {
+        return id;
+    }
+    
     private static boolean inSet(TokenType[] set, TokenType tok) {
         boolean result = false;
 

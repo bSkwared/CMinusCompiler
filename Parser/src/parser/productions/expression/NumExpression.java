@@ -20,7 +20,7 @@ public class NumExpression extends Expression {
     
     private int value;
     
-    public NumExpression(int numer) {
+    public NumExpression(int number) {
         value = number;
     }
     

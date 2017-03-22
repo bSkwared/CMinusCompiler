@@ -23,7 +23,7 @@ public class CallExpression extends Expression {
     private ArrayList<Expression> arguments;
     private boolean hasArguments;
     
-    private CallExpression(String ID, ArrayList<Expression> args) {
+    public CallExpression(String ID, ArrayList<Expression> args) {
         id = ID;
         
         if (args == null) {
@@ -37,7 +37,7 @@ public class CallExpression extends Expression {
         
     }
     
-    private CallExpression(String ID) {
+    public CallExpression(String ID) {
         this(ID, null);
     }
     
