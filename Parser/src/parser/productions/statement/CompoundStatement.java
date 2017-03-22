@@ -1,14 +1,19 @@
+/**
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.0
+ * File: CompoundStatement.java
+ * Created: March 2017
+ *
+ * Description: This file provides an implemented Statement class called
+ * 				CompoundStatement to use with the CMinusParser
+ */
+
 package parser.productions.statement;
 
 import java.util.ArrayList;
 import parser.productions.declaration.VarDeclaration;
-import parser.scanner.Token;
 import parser.scanner.Token.*;
 
-/**
- *
- * @author Timothy Smith and Blake Lasky
- */
 public class CompoundStatement extends Statement {
     
     private ArrayList<VarDeclaration> varDecls;
@@ -21,11 +26,11 @@ public class CompoundStatement extends Statement {
         statements = states;
     }
     
-    private static final Token.TokenType[] FIRST  = { TokenType.OPEN_BRACE };
-    private static final Token.TokenType[] FOLLOW = { TokenType.VOID,
-                                                      TokenType.INT,
-                                                      TokenType.EOF,
-                                                      TokenType.ELSE };
+    private static final TokenType[] FIRST  = { TokenType.OPEN_BRACE };
+    private static final TokenType[] FOLLOW = { TokenType.VOID,
+                                                  TokenType.INT,
+                                                  TokenType.EOF,
+                                                  TokenType.ELSE };
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);

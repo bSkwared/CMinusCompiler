@@ -1,12 +1,18 @@
+/**
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.0
+ * File: SelectionStatement.java
+ * Created: March 2017
+ *
+ * Description: This file provides an implemented Statement class called
+ * 				SelectionStatement to use with the CMinusParser
+ */
+
 package parser.productions.statement;
+
 import parser.productions.expression.Expression;
-import parser.scanner.Token;
 import parser.scanner.Token.*;
 
-/**
- *
- * @author Timothy Smith and Blake Lasky
- */
 public class SelectionStatement extends Statement {
     
     private Expression condition;
@@ -20,12 +26,12 @@ public class SelectionStatement extends Statement {
         elseStatement = els;
     }
     
-    private static final Token.TokenType[] FIRST  = { TokenType.IF };
+    private static final TokenType[] FIRST  = { TokenType.IF };
 
-    private static final Token.TokenType[] FOLLOW = { TokenType.VOID,
-                                                      TokenType.INT,
-                                                      TokenType.EOF,
-                                                      TokenType.ELSE };
+    private static final TokenType[] FOLLOW = { TokenType.VOID,
+                                                  TokenType.INT,
+                                                  TokenType.EOF,
+                                                  TokenType.ELSE };
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);

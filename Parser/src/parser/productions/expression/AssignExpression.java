@@ -1,17 +1,22 @@
+/**
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.0
+ * File: AssignExpression.java
+ * Created: March 2017
+ *
+ * Description: This file provides an implemented Expression class called
+ * 				AssignExpression to use with the CMinusParser
+ */
+
 package parser.productions.expression;
 
-import parser.scanner.Token;
 import parser.scanner.Token.*;
 
-/**
- *
- * @author Timothy Smith and Blake Lasky
- */
 public class AssignExpression extends Expression {
     
     
-    private static final Token.TokenType[] FIRST  = {};
-    private static final Token.TokenType[] FOLLOW = {};
+    private static final TokenType[] FIRST  = {};
+    private static final TokenType[] FOLLOW = {};
     
     
     private String id;

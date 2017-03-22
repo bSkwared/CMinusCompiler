@@ -1,13 +1,18 @@
+/**
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.0
+ * File: ExpressionStatement.java
+ * Created: March 2017
+ *
+ * Description: This file provides an implemented Statement class called
+ * 				ExpressionStatement to use with the CMinusParser
+ */
+
 package parser.productions.statement;
 
 import parser.productions.expression.Expression;
-import parser.scanner.Token;
 import parser.scanner.Token.*;
 
-/**
- *
- * @author Timothy Smith and Blake Lasky
- */
 public class ExpressionStatement extends Statement {
     
     Expression expr;
@@ -16,14 +21,14 @@ public class ExpressionStatement extends Statement {
         expr = ex;
     }
     
-    private static final Token.TokenType[] FIRST  = { TokenType.OPEN_PAREN,
-                                                     TokenType.NUM,
-                                                     TokenType.ID /*** OR EPSILON ***/ };
+    private static final TokenType[] FIRST  = { TokenType.OPEN_PAREN,
+                                                 TokenType.NUM,
+                                                 TokenType.ID /*** OR EPSILON ***/ };
 
-    private static final Token.TokenType[] FOLLOW = { TokenType.VOID,
-                                                      TokenType.INT,
-                                                      TokenType.EOF,
-                                                      TokenType.ELSE };
+    private static final TokenType[] FOLLOW = { TokenType.VOID,
+                                                  TokenType.INT,
+                                                  TokenType.EOF,
+                                                  TokenType.ELSE };
     
     public static boolean inFirst(TokenType type) {
         return inSet(FIRST, type);

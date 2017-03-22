@@ -1,10 +1,10 @@
 package parser.scanner;
 
 /**
- * @author Timothy Smith and Blake Lasky
- * @version 1.0
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.1
  * File: Token.java
- * Created: Jan 2017
+ * Created: January 2017
  *
  * Description: This class provides Tokens for the C- language. Every element
  *              in a valid C- program will be one of the given TokenTypes.

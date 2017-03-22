@@ -1,3 +1,12 @@
+/**
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.0
+ * File: CMinusParser.java
+ * Created: March 2017
+ *
+ * Description: This class provides a CMinusParser
+ */
+
 package parser;
 
 import java.io.IOException;
@@ -9,10 +18,6 @@ import parser.productions.declaration.*;
 import parser.productions.expression.*;
 import parser.productions.statement.*;
 
-/**
- *
- * @author Timothy Smith and Blake Lasky
- */
 public class CMinusParser implements Parser {
 
     CMinusScanner scan;
@@ -57,7 +62,7 @@ public class CMinusParser implements Parser {
             
         } else {
             // ERROR
-            throw new CMinusParseException("nun dem");
+            throw new CMinusParseException("IT WAS IN NONE OF THEM!");
         }
         
         return retStatement;

@@ -1,3 +1,13 @@
+/**
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.0
+ * File: FunDeclaration.java
+ * Created: March 2017
+ *
+ * Description: This file provides an implemented Declaration class called
+ * 				FunDeclaration to use with the CMinusParser
+ */
+
 package parser.productions.declaration;
 
 import java.util.ArrayList;
@@ -6,11 +16,6 @@ import parser.productions.statement.CompoundStatement;
 import parser.scanner.Token;
 import parser.scanner.Token.*;
 
-
-/**
- *
- * @author Timothy Smith and Blake Lasky
- */
 public class FunDeclaration extends Declaration {
     
     

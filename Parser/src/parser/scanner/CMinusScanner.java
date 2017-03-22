@@ -3,10 +3,10 @@ package parser.scanner;
 import java.io.*;
 
 /**
- * @author Timothy Smith and Blake Lasky
- * @version 1.0
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.1
  * File: CMinusScanner.java
- * Created: Jan 2017
+ * Created: January 2017
  *
  * Description: This class provides a Scanner implementation which works for
  *              the C- language.

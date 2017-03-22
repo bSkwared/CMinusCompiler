@@ -1,10 +1,10 @@
 package parser.scanner;
 
 /**
- * @author Timothy Smith and Blake Lasky
- * @version 1.0
+ * @author Blake Lasky and Timothy Smith
+ * @version 1.1
  * File: Scanner.java
- * Created: Jan 2017
+ * Created: January 2017
  *
  * Description: This class provide an interface for a lexer. This scans a
  *              source file and returns Tokens to be used by the parser.
