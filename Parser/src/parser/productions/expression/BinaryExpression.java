@@ -28,15 +28,7 @@ public class BinaryExpression extends Expression {
         operator = opToken.getType();
         right = righ;
     }
-    
-    public static boolean inFirst(TokenType type) {
-        return inSet(FIRST, type);
-    }
-
-    public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW, type);
-    }
-
+	
     @Override
     public void print(String cur, String indent) {
         left.print(cur+indent, indent);
@@ -80,18 +72,4 @@ public class BinaryExpression extends Expression {
         
         right.print(cur + indent, indent);
     }
-
-    private static boolean inSet(TokenType[] set, TokenType tok) {
-        boolean result = false;
-
-        for (TokenType t : set) {
-            if (tok == t) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
-    }
-
 }

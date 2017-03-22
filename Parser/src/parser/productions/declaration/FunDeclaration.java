@@ -70,14 +70,6 @@ public class FunDeclaration extends Declaration {
         this(type, i, null, stmt);
     }
     
-    public static boolean inFirst(TokenType type) {
-        return inSet(FIRST, type);
-    }
-
-    public static boolean inFollow(TokenType type) {
-        return inSet(FOLLOW, type);
-    }
-
     public void print(String cur, String indent) {
         
         String functionHeader = returnType + " " + id + "(";
@@ -97,18 +89,4 @@ public class FunDeclaration extends Declaration {
         
         statement.print(cur + indent, indent);
     }
-    
-    private static boolean inSet(TokenType[] set, TokenType tok) {
-        boolean result = false;
-
-        for (TokenType t : set) {
-            if (tok == t) {
-                result = true;
-                break;
-            }
-        }
-
-        return result;
-    }
-
 }
