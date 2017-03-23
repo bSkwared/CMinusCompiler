@@ -65,9 +65,9 @@ void function ( void ) {
 	
 	while(funcSeven() == 1){
 		
-		var f;
-		var g;
-		var h;
+		int f;
+		int g;
+		int h;
 		
 		;
 	}
