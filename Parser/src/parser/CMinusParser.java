@@ -18,649 +18,633 @@ import parser.productions.statement.*;
 
 public class CMinusParser implements Parser {
 
-	CMinusScanner scan;
+    CMinusScanner scan;
 
-	public CMinusParser(String filename) throws IOException {
-		scan = new CMinusScanner(filename);
-	}
+    public CMinusParser(String filename) throws IOException {
+        scan = new CMinusScanner(filename);
+    }
 
-	@Override
-	public Program parse() throws CMinusParseException {
+    @Override
+    public Program parse() throws CMinusParseException {
 
-		ArrayList<Declaration> decls = new ArrayList<>();
+        ArrayList<Declaration> decls = new ArrayList<>();
 
-		while (inSet(First.Program)) {
-			Token nextTok = scan.getNextToken();
-			TokenType nextType = nextTok.getType();
+        Token nextTok = scan.viewNextToken();
+        TokenType nextType = nextTok.getType();
 
-			Token id = scan.getNextToken();
-			TokenType idType = id.getType();
+        while (nextType.inSet(First.Program)) {
 
-			if (idType != TokenType.ID) {
-				throw new CMinusParseException("ERROR in parse(): Next token "
-					+ idType + " is not an identifier.");
-			}
+            Token id = scan.getNextToken();
+            TokenType idType = id.getType();
 
-			Declaration nextDecl;
-			if (nextType == TokenType.VOID) {
-				nextDecl = parseFunDeclaration(nextTok, id);
+            if (idType != TokenType.ID) {
+                throw new CMinusParseException("ERROR in parse(): Next token "
+                        + idType + " is not an identifier.");
+            }
 
-			} else {
-				// type == TokenType.INT
-				nextDecl = parseVarFunDeclaration(nextTok, id);
+            Declaration nextDecl;
+            if (nextType == TokenType.VOID) {
+                nextDecl = parseFunDeclaration(nextTok, id);
 
-			}
+            } else {
+                // type == TokenType.INT
+                nextDecl = parseVarFunDeclaration(nextTok, id);
 
-			decls.add(nextDecl);
-		}
+            }
 
-		match(TokenType.EOF);
+            decls.add(nextDecl);
 
-		return new Program(decls);
-	}
+            nextTok = scan.getNextToken();
+            nextType = nextTok.getType();
+        }
 
-	private FunDeclaration parseFunDeclaration(Token retType, Token id)
-		throws CMinusParseException {
+        match(TokenType.EOF);
 
-		match(TokenType.OPEN_PAREN);
+        return new Program(decls);
+    }
 
-		ArrayList<Parameter> params = parseParameters();
+    private FunDeclaration parseFunDeclaration(Token retType, Token id)
+            throws CMinusParseException {
 
-		match(TokenType.CLOSE_PAREN);
+        match(TokenType.OPEN_PAREN);
 
-		CompoundStatement stmt = parseCompoundStatement();
+        ArrayList<Parameter> params = parseParameters();
 
-		String identifier = (String) id.getData();
+        match(TokenType.CLOSE_PAREN);
 
-		return new FunDeclaration(retType, identifier, params, stmt);
-	}
+        CompoundStatement stmt = parseCompoundStatement();
 
-	private Declaration parseVarFunDeclaration(Token retType, Token id)
-		throws CMinusParseException {
+        String identifier = (String) id.getData();
 
-		Token nextTok = scan.viewNextToken();
-		TokenType nextType = nextTok.getType();
+        return new FunDeclaration(retType, identifier, params, stmt);
+    }
 
-		String identifier = (String) id.getData();
+    private Declaration parseVarFunDeclaration(Token retType, Token id)
+            throws CMinusParseException {
 
-		Declaration retDecl;
+        Token nextTok = scan.viewNextToken();
+        TokenType nextType = nextTok.getType();
 
-		switch (nextType) {
-			case SEMICOLON:
-				scan.getNextToken();
-				retDecl = new VarDeclaration((String) id.getData());
-				break;
+        String identifier = (String) id.getData();
 
-			case OPEN_BRACKET:
-				scan.getNextToken();
-				Token array = scan.getNextToken();
+        Declaration retDecl;
 
-				if (array.getType() != TokenType.NUM) {
-					throw new CMinusParseException("ERROR");
-				}
+        switch (nextType) {
+            case SEMICOLON:
+                scan.getNextToken();
+                retDecl = new VarDeclaration((String) id.getData());
+                break;
 
-				match(TokenType.CLOSE_BRACKET);
-				match(TokenType.SEMICOLON);
+            case OPEN_BRACKET:
+                scan.getNextToken();
+                Token array = scan.getNextToken();
 
-				retDecl = new VarDeclaration(identifier, (int) array.getData());
+                if (array.getType() != TokenType.NUM) {
+                    throw new CMinusParseException("ERROR");
+                }
 
-				break;
+                match(TokenType.CLOSE_BRACKET);
+                match(TokenType.SEMICOLON);
 
-			case OPEN_PAREN:
-				retDecl = parseFunDeclaration(retType, id);
-				break;
+                retDecl = new VarDeclaration(identifier, (int) array.getData());
 
-			default:
-				throw new CMinusParseException("ERROR");
-		}
+                break;
 
-		return retDecl;
-	}
+            case OPEN_PAREN:
+                retDecl = parseFunDeclaration(retType, id);
+                break;
 
-	private VarDeclaration parseVarDeclaration() throws CMinusParseException {
+            default:
+                throw new CMinusParseException("ERROR");
+        }
 
-		match(TokenType.INT);
+        return retDecl;
+    }
 
-		Token id = scan.getNextToken();
+    private VarDeclaration parseVarDeclaration() throws CMinusParseException {
 
-		if (id.getType() != TokenType.ID) {
-			throw new CMinusParseException("ERROR in parseVarDecl");
-		}
+        match(TokenType.INT);
 
-		String identifier = (String) id.getData();
+        Token id = scan.getNextToken();
 
-		TokenType next = scan.getNextToken().getType();
+        if (id.getType() != TokenType.ID) {
+            throw new CMinusParseException("ERROR in parseVarDecl");
+        }
 
-		VarDeclaration retDecl;
+        String identifier = (String) id.getData();
 
-		if (next == TokenType.OPEN_BRACKET) {
-			// Declaring an array
-			Token array = scan.getNextToken();
+        TokenType next = scan.getNextToken().getType();
 
-			if (array.getType() != TokenType.NUM) {
-				throw new CMinusParseException("ERROR in parseVarDecl");
-			}
+        VarDeclaration retDecl;
 
-			int arraySize = (int) array.getData();
+        if (next == TokenType.OPEN_BRACKET) {
+            // Declaring an array
+            Token array = scan.getNextToken();
 
-			match(TokenType.CLOSE_BRACKET);
-			match(TokenType.SEMICOLON);
+            if (array.getType() != TokenType.NUM) {
+                throw new CMinusParseException("ERROR in parseVarDecl");
+            }
 
-			retDecl = new VarDeclaration(identifier, arraySize);
+            int arraySize = (int) array.getData();
 
-		} else if (next == TokenType.SEMICOLON) {
-			// Declaraing a regular variable
-			retDecl = new VarDeclaration(identifier);
+            match(TokenType.CLOSE_BRACKET);
+            match(TokenType.SEMICOLON);
 
-		} else {
-			throw new CMinusParseException("ERROR in parseVarDecl");
-		}
+            retDecl = new VarDeclaration(identifier, arraySize);
 
-		return retDecl;
-	}
+        } else if (next == TokenType.SEMICOLON) {
+            // Declaraing a regular variable
+            retDecl = new VarDeclaration(identifier);
 
-	private ArrayList<Parameter> parseParameters() throws CMinusParseException {
-		Token nextTok = scan.viewNextToken();
-		TokenType nextType = nextTok.getType();
+        } else {
+            throw new CMinusParseException("ERROR in parseVarDecl");
+        }
 
-		ArrayList<Parameter> params;
+        return retDecl;
+    }
 
-		switch (nextType) {
-			case VOID:
-				scan.getNextToken();
-				params = null;
+    private ArrayList<Parameter> parseParameters() throws CMinusParseException {
+        Token nextTok = scan.viewNextToken();
+        TokenType nextType = nextTok.getType();
 
-				break;
+        ArrayList<Parameter> params;
 
-			case INT:
-				params = new ArrayList<>();
-				params.add(parseParameter());
-				
-				nextTok = scan.viewNextToken();
-				nextType = nextTok.getType();
+        switch (nextType) {
+            case VOID:
+                scan.getNextToken();
+                params = null;
 
-				while (nextType == TokenType.COMMA) {
-					scan.getNextToken();
-					params.add(parseParameter());
+                break;
 
-					nextTok = scan.viewNextToken();
-					nextType = nextTok.getType();
-				}
-				break;
+            case INT:
+                params = new ArrayList<>();
+                params.add(parseParameter());
 
-			default:
-				throw new CMinusParseException("ERROR in parseParameters");
-		}
+                nextTok = scan.viewNextToken();
+                nextType = nextTok.getType();
 
-		return params;
-	}
+                while (nextType == TokenType.COMMA) {
+                    scan.getNextToken();
+                    params.add(parseParameter());
 
-	private Parameter parseParameter() throws CMinusParseException {
-		match(TokenType.INT);
+                    nextTok = scan.viewNextToken();
+                    nextType = nextTok.getType();
+                }
+                break;
 
-		Token id = scan.getNextToken();
+            default:
+                throw new CMinusParseException("ERROR in parseParameters");
+        }
 
-		if (id.getType() != TokenType.ID) {
-			throw new CMinusParseException("ERROR in parseParameter");
-		}
+        return params;
+    }
 
-		Token arr = scan.viewNextToken();
-		boolean isArray = arr.getType() == TokenType.OPEN_BRACKET;
+    private Parameter parseParameter() throws CMinusParseException {
+        match(TokenType.INT);
 
-		if (isArray) {
-			scan.getNextToken();
-			match(TokenType.CLOSE_BRACKET);
-		}
+        Token id = scan.getNextToken();
 
-		return new Parameter((String) id.getData(), isArray);
-	}
+        if (id.getType() != TokenType.ID) {
+            throw new CMinusParseException("ERROR in parseParameter");
+        }
 
-	private Statement parseStatement() throws CMinusParseException {
+        Token arr = scan.viewNextToken();
+        boolean isArray = arr.getType() == TokenType.OPEN_BRACKET;
 
-		TokenType nextType = scan.viewNextToken().getType();
+        if (isArray) {
+            scan.getNextToken();
+            match(TokenType.CLOSE_BRACKET);
+        }
 
-		Statement retStatement;
+        return new Parameter((String) id.getData(), isArray);
+    }
 
-		if (inSet(First.ExpressionStatement)) {
-			retStatement = parseExpressionStatement();
+    private Statement parseStatement() throws CMinusParseException {
 
-		} else if (inSet(First.CompoundStatement)) {
-			retStatement = parseCompoundStatement();
+        TokenType nextType = scan.viewNextToken().getType();
 
-		} else if (inSet(First.SelectionStatement)) {
-			retStatement = parseSelectionStatement();
+        Statement retStatement;
 
-		} else if (inSet(First.IterationStatement)) {
-			retStatement = parseIterationStatement();
+        if (nextType.inSet(First.ExpressionStatement)) {
+            retStatement = parseExpressionStatement();
 
-		} else if (inSet(First.ReturnStatement)) {
-			retStatement = parseReturnStatement();
+        } else if (nextType.inSet(First.CompoundStatement)) {
+            retStatement = parseCompoundStatement();
 
-		} else {
-			// ERROR
-			throw new CMinusParseException("ERROR in parseStatement(): Next token " + nextType.toString() + " is not in the first set of any Statement extension");
-		}
+        } else if (nextType.inSet(First.SelectionStatement)) {
+            retStatement = parseSelectionStatement();
 
-		return retStatement;
-	}
+        } else if (nextType.inSet(First.IterationStatement)) {
+            retStatement = parseIterationStatement();
 
-	private ExpressionStatement parseExpressionStatement()
-		throws CMinusParseException {
+        } else if (nextType.inSet(First.ReturnStatement)) {
+            retStatement = parseReturnStatement();
 
-		TokenType nextType = scan.viewNextToken().getType();
+        } else {
+            // ERROR
+            throw new CMinusParseException("ERROR in parseStatement(): Next token " + nextType.toString() + " is not in the first set of any Statement extension");
+        }
 
-		Expression expr;
+        return retStatement;
+    }
 
-		if (inSet(First.Expression)) {
-			expr = parseExpression();
+    private ExpressionStatement parseExpressionStatement()
+            throws CMinusParseException {
 
-		} else if (nextType == TokenType.SEMICOLON) {
-			expr = null;
+        TokenType nextType = scan.viewNextToken().getType();
 
-		} else {
-			// ERROR
-			throw new CMinusParseException("ERROR in parseExpressionStatement(): "
-				+ "Next token " + nextType.toString()
-				+ " is not in the first set of Expression or a SEMICOLON");
-		}
+        Expression expr;
 
-		match(TokenType.SEMICOLON);
+        if (nextType.inSet(First.Expression)) {
+            expr = parseExpression();
 
-		return new ExpressionStatement(expr);
-	}
+        } else if (nextType == TokenType.SEMICOLON) {
+            expr = null;
 
-	private CompoundStatement parseCompoundStatement()
-		throws CMinusParseException {
+        } else {
+            // ERROR
+            throw new CMinusParseException("ERROR in parseExpressionStatement(): "
+                    + "Next token " + nextType.toString()
+                    + " is not in the first set of Expression or a SEMICOLON");
+        }
 
-		match(TokenType.OPEN_BRACE);
+        match(TokenType.SEMICOLON);
 
-		ArrayList<VarDeclaration> varDecls = new ArrayList<>();
+        return new ExpressionStatement(expr);
+    }
 
-		// NOTE do we need to check follow if we dont do any VarDecls?
-		// Timothy: I would guess no because that will be handled by the 
-		// match and Statement.inFirst()
-		while (inSet(First.VarDeclaration)) {
-			varDecls.add(parseVarDeclaration());
-		}
+    private CompoundStatement parseCompoundStatement()
+            throws CMinusParseException {
 
-		ArrayList<Statement> statements = new ArrayList<>();
+        match(TokenType.OPEN_BRACE);
 
-		// NOTE same as above
-		// Timothy: WE got that match right there that should take care of it
-		// adding another if would be repetitive and wouldn't tell us anything since
-		// the match(CLOSEBRACE) is even more restrictive
-		while (inSet(First.Statement)) {
-			statements.add(parseStatement());
-		}
+        ArrayList<VarDeclaration> varDecls = new ArrayList<>();
 
-		match(TokenType.CLOSE_BRACE);
+        TokenType nextType = scan.viewNextToken().getType();
 
-		return new CompoundStatement(varDecls, statements);
-	}
+        // NOTE do we need to check follow if we dont do any VarDecls?
+        // Timothy: I would guess no because that will be handled by the 
+        // match and Statement.inFirst()
+        while (nextType.inSet(First.VarDeclaration)) {
+            varDecls.add(parseVarDeclaration());
+        }
 
-	private SelectionStatement parseSelectionStatement()
-		throws CMinusParseException {
+        ArrayList<Statement> statements = new ArrayList<>();
 
-		match(TokenType.IF);
-		match(TokenType.OPEN_PAREN);
+        // NOTE same as above
+        // Timothy: WE got that match right there that should take care of it
+        // adding another if would be repetitive and wouldn't tell us anything since
+        // the match(CLOSEBRACE) is even more restrictive
+        while (nextType.inSet(First.Statement)) {
+            statements.add(parseStatement());
+        }
 
-		Expression condition = parseExpression();
+        match(TokenType.CLOSE_BRACE);
 
-		match(TokenType.CLOSE_PAREN);
+        return new CompoundStatement(varDecls, statements);
+    }
 
-		Statement thenStatement = parseStatement();
-		Statement elseStatement = null;
+    private SelectionStatement parseSelectionStatement()
+            throws CMinusParseException {
 
-		if (scan.viewNextToken().getType() == TokenType.ELSE) {
-			match(TokenType.ELSE);
-			elseStatement = parseStatement();
-		}
+        match(TokenType.IF);
+        match(TokenType.OPEN_PAREN);
 
-		return new SelectionStatement(condition, thenStatement, elseStatement);
+        Expression condition = parseExpression();
 
-	}
+        match(TokenType.CLOSE_PAREN);
 
-	private IterationStatement parseIterationStatement()
-		throws CMinusParseException {
+        Statement thenStatement = parseStatement();
+        Statement elseStatement = null;
 
-		match(TokenType.WHILE);
-		match(TokenType.OPEN_PAREN);
+        if (scan.viewNextToken().getType() == TokenType.ELSE) {
+            match(TokenType.ELSE);
+            elseStatement = parseStatement();
+        }
 
-		Expression condition = parseExpression();
+        return new SelectionStatement(condition, thenStatement, elseStatement);
 
-		match(TokenType.CLOSE_PAREN);
+    }
 
-		Statement result = parseStatement();
+    private IterationStatement parseIterationStatement()
+            throws CMinusParseException {
 
-		return new IterationStatement(condition, result);
-	}
+        match(TokenType.WHILE);
+        match(TokenType.OPEN_PAREN);
 
-	private ReturnStatement parseReturnStatement() throws CMinusParseException {
-		match(TokenType.RETURN);
+        Expression condition = parseExpression();
 
-		Expression returnExpr = null;
+        match(TokenType.CLOSE_PAREN);
 
-		if (inSet(First.Expression)) {
-			returnExpr = parseExpression();
+        Statement result = parseStatement();
 
-		}
+        return new IterationStatement(condition, result);
+    }
 
-		match(TokenType.SEMICOLON);
+    private ReturnStatement parseReturnStatement() throws CMinusParseException {
+        match(TokenType.RETURN);
 
-		return new ReturnStatement(returnExpr);
-	}
+        Token nextTok = scan.getNextToken();
+        TokenType nextType = nextTok.getType();
 
-	private Expression parseExpression() throws CMinusParseException {
+        Expression returnExpr = null;
 
-		Token nextTok = scan.getNextToken();
-		TokenType nextType = nextTok.getType();
+        if (nextType.inSet(First.Expression)) {
+            returnExpr = parseExpression();
 
-		Expression retExpr = null;
+        }
 
-		switch (nextType) {
-			case OPEN_PAREN:
+        match(TokenType.SEMICOLON);
 
-				Expression expr = parseExpression();
+        return new ReturnStatement(returnExpr);
+    }
 
-				match(TokenType.CLOSE_PAREN);
+    private Expression parseExpression() throws CMinusParseException {
 
-				retExpr = parseSimpleExpressionPrime(expr);
-				break;
+        Token nextTok = scan.getNextToken();
+        TokenType nextType = nextTok.getType();
 
-			case NUM:
+        Expression retExpr = null;
 
-				int num = (int) nextTok.getData();
+        switch (nextType) {
+            case OPEN_PAREN:
 
-				Expression numExpr = new NumExpression(num);
+                Expression expr = parseExpression();
 
-				retExpr = parseSimpleExpressionPrime(numExpr);
-				break;
+                match(TokenType.CLOSE_PAREN);
 
-			case ID:
+                retExpr = parseSimpleExpressionPrime(expr);
+                break;
 
-				String identifier = (String) nextTok.getData();
-				retExpr = parseExpressionPrime(identifier);
-				break;
+            case NUM:
 
-			default:
-				throw new CMinusParseException("ERROR in parseExpression(): "
-					+ "Next token " + nextType.toString()
-					+ " is not in the first set of Expression");
-		}
+                int num = (int) nextTok.getData();
 
-		return retExpr;
-	}
+                Expression numExpr = new NumExpression(num);
 
-	private Expression parseExpressionPrime(String id)
-		throws CMinusParseException {
+                retExpr = parseSimpleExpressionPrime(numExpr);
+                break;
 
-		Token nextTok = scan.viewNextToken();
-		TokenType nextType = nextTok.getType();
+            case ID:
 
-		Expression retExpr;
+                String identifier = (String) nextTok.getData();
+                retExpr = parseExpressionPrime(identifier);
+                break;
 
-		switch (nextType) {
-			case ASSIGN:
-				scan.getNextToken();
-				VarExpression varriable = new VarExpression(id);
-				Expression expr = parseExpression();
-				retExpr = new AssignExpression(varriable, expr);
-				break;
+            default:
+                throw new CMinusParseException("ERROR in parseExpression(): "
+                        + "Next token " + nextType.toString()
+                        + " is not in the first set of Expression");
+        }
 
-			case OPEN_PAREN:
-				scan.getNextToken();
-				ArrayList<Expression> args = parseArguments();
+        return retExpr;
+    }
 
-				match(TokenType.CLOSE_PAREN);
+    private Expression parseExpressionPrime(String id)
+            throws CMinusParseException {
 
-				CallExpression call = new CallExpression(id, args);
+        Token nextTok = scan.viewNextToken();
+        TokenType nextType = nextTok.getType();
 
-				retExpr = parseSimpleExpressionPrime(call);
-				break;
+        Expression retExpr;
 
-			case OPEN_BRACKET:
-				scan.getNextToken();
+        if (nextType == TokenType.ASSIGN) {
+            scan.getNextToken();
+            VarExpression varriable = new VarExpression(id);
+            Expression expr = parseExpression();
+            retExpr = new AssignExpression(varriable, expr);
 
-				Expression index = parseExpression();
+        } else if (nextType == TokenType.OPEN_PAREN) {
+            scan.getNextToken();
+            ArrayList<Expression> args = parseArguments();
 
-				match(TokenType.CLOSE_BRACKET);
+            match(TokenType.CLOSE_PAREN);
+            CallExpression call = new CallExpression(id, args);
 
-				VarExpression array = new VarExpression(id, index);
+            retExpr = parseSimpleExpressionPrime(call);
 
-				retExpr = parseExpressionDoublePrime(array);
-				break;
+        } else if (nextType == TokenType.OPEN_BRACKET) {
+            scan.getNextToken();
 
-			// NOTE TODO ERROR BROKEN need to check first of SE'
-			// TIMOTHY HAS ATTEMPTED TO FIX IT
-			default:
+            Expression index = parseExpression();
+            match(TokenType.CLOSE_BRACKET);
+            VarExpression array = new VarExpression(id, index);
 
-				if (inSet(First.SimpleExpressionPrime) || inSet(Follow.SimpleExpressionPrime)) {
-					VarExpression variable = new VarExpression(id);
-					retExpr = parseSimpleExpressionPrime(variable);
-					break;
-				} else {
-					throw new CMinusParseException("ERROR in parseExpressionPrime() : ");
-				}
+            retExpr = parseExpressionDoublePrime(array);
 
-		}
+        } else if (nextType.inSet(First.SimpleExpressionPrime)
+                || nextType.inSet(Follow.SimpleExpressionPrime)) {
 
-		return retExpr;
-	}
+            VarExpression variable = new VarExpression(id);
+            retExpr = parseSimpleExpressionPrime(variable);
 
-	private Expression parseExpressionDoublePrime(VarExpression left)
-		throws CMinusParseException {
+        } else {
+            // ERROR
+            throw new CMinusParseException("ERROR in parseExPr");
+        }
 
-		Token nextTok = scan.viewNextToken();
-		TokenType nextType = nextTok.getType();
+        return retExpr;
+    }
 
-		Expression retExpr;
+    private Expression parseExpressionDoublePrime(VarExpression left)
+            throws CMinusParseException {
 
-		switch (nextType) {
-			case ASSIGN:
-				scan.getNextToken();
-				Expression rightSide = parseExpression();
-				retExpr = new AssignExpression(left, rightSide);
-				break;
+        Token nextTok = scan.viewNextToken();
+        TokenType nextType = nextTok.getType();
 
-			// TODO ERROR BROKEN need to check first of SE'
-			// TIMOTHY HAS ATTEMPTED TO FIX
-			default:
+        Expression retExpr;
 
-				if (inSet(First.SimpleExpressionPrime) || inSet(Follow.SimpleExpressionPrime)) {
-					retExpr = parseSimpleExpressionPrime(left);
-					break;
-				} else {
-					throw new CMinusParseException("ERROR in parseExpressionDoublePrime()");
-				}
-		}
+        if (nextType == TokenType.ASSIGN) {
+            scan.getNextToken();
+            Expression rightSide = parseExpression();
+            retExpr = new AssignExpression(left, rightSide);
 
-		return retExpr;
-	}
+        } else if (nextType.inSet(First.SimpleExpressionPrime)
+                || nextType.inSet(Follow.SimpleExpressionPrime)) {
 
-	private Expression parseSimpleExpressionPrime(Expression left) throws CMinusParseException {
+            retExpr = parseSimpleExpressionPrime(left);
 
-		Expression expr = parseAdditiveExpression(left);
+        } else {
+            throw new CMinusParseException("ERROR in parseExpressionDoublePrime()");
 
-		Expression retExpr = null;
-		if (inSet(First.relop)) {
-			Token relop = scan.getNextToken();
-			Expression right = parseAdditiveExpression(null);
-			retExpr = new BinaryExpression(expr, relop, right);
-		} // TODO else if in follow
-		// Timothy has assumed Follow.AdditiveExpression
-		// is this really necessary though, or will it be handled in the next parse?
-		else if (inSet(Follow.AdditiveExpression)) {
-			retExpr = expr;
-		} else {
-			throw new CMinusParseException("ERROR in parseSimpleExpressionPrime()");
-		}
+        }
 
-		// NOTE: should this be new BinaryExpression()?
-		return retExpr;
-	}
+        return retExpr;
+    }
 
-	private Expression parseAdditiveExpression(Expression left) throws CMinusParseException {
+    private Expression parseSimpleExpressionPrime(Expression left) throws CMinusParseException {
 
-		Expression retExpr = parseTerm(left);
+        Token nextTok = scan.getNextToken();
+        TokenType nextType = nextTok.getType();
 
-		while (inSet(First.addop)) {
-			Token addop = scan.getNextToken();
+        Expression expr = parseAdditiveExpression(left);
 
-			retExpr = new BinaryExpression(retExpr, addop, parseTerm(null));
-		}
+        Expression retExpr = null;
+        if (nextType.inSet(First.relop)) {
+            Token relop = scan.getNextToken();
+            Expression right = parseAdditiveExpression(null);
+            retExpr = new BinaryExpression(expr, relop, right);
+            
+        }  else if (nextType.inSet(Follow.AdditiveExpression)) {
+            retExpr = expr;
+            
+        } else {
+            throw new CMinusParseException("ERROR in parseSimpleExpressionPrime()");
+        }
 
-		return retExpr;
-	}
+        // NOTE: should this be new BinaryExpression()?
+        return retExpr;
+    }
 
-	private Expression parseTerm(Expression left) throws CMinusParseException {
+    private Expression parseAdditiveExpression(Expression left) throws CMinusParseException {
 
-		Expression retExpr;
+        Token nextTok = scan.getNextToken();
+        TokenType nextType = nextTok.getType();
 
-		if (left == null) {
-			retExpr = parseFactor();
+        Expression retExpr = parseTerm(left);
 
-		} else {
-			retExpr = left;
+        while (nextType.inSet(First.addop)) {
+            Token addop = scan.getNextToken();
 
-		}
+            retExpr = new BinaryExpression(retExpr, addop, parseTerm(null));
+        }
 
-		while (inSet(First.mulop)) {
+        return retExpr;
+    }
 
-			Token mulop = scan.getNextToken();
+    private Expression parseTerm(Expression left) throws CMinusParseException {
 
-			retExpr = new BinaryExpression(retExpr, mulop, parseFactor());
-		}
+        Token nextTok = scan.getNextToken();
+        TokenType nextType = nextTok.getType();
 
-		return retExpr;
-	}
+        Expression retExpr;
 
-	private Expression parseFactor() throws CMinusParseException {
+        if (left == null) {
+            retExpr = parseFactor();
 
-		Token nextTok = scan.getNextToken();
-		TokenType nextType = nextTok.getType();
+        } else {
+            retExpr = left;
 
-		Expression retExpr;
+        }
 
-		switch (nextType) {
-			case OPEN_PAREN:
-				retExpr = parseExpression();
-				match(TokenType.CLOSE_PAREN);
-				break;
+        while (nextType.inSet(First.mulop)) {
 
-			case ID:
-				retExpr = parseVarCall((String) nextTok.getData());
-				break;
+            Token mulop = scan.getNextToken();
+            retExpr = new BinaryExpression(retExpr, mulop, parseFactor());
+        }
 
-			case NUM:
-				// TODO check follow
-				// TIMOTHY HAS ATTEMPTED TO FIX BY NOT DOING ANYTHING
-				retExpr = new NumExpression((int) nextTok.getData());
-				break;
+        return retExpr;
+    }
 
-			default:
-				throw new CMinusParseException("ERROR in parseFactor()");
-		}
+    private Expression parseFactor() throws CMinusParseException {
 
-		return retExpr;
-	}
+        Token nextTok = scan.getNextToken();
+        TokenType nextType = nextTok.getType();
 
-	private Expression parseVarCall(String id) throws CMinusParseException {
-		Token nextTok = scan.viewNextToken();
-		TokenType nextType = nextTok.getType();
+        Expression retExpr;
 
-		Expression retExpr;
+        switch (nextType) {
+            case OPEN_PAREN:
+                retExpr = parseExpression();
+                match(TokenType.CLOSE_PAREN);
+                break;
 
-		if (nextType == TokenType.OPEN_BRACKET) {
-			scan.getNextToken();
-			Expression index = parseExpression();
-			match(TokenType.CLOSE_BRACKET);
+            case ID:
+                retExpr = parseVarCall((String) nextTok.getData());
+                break;
 
-			retExpr = new VarExpression(id, index);
+            case NUM:
+                retExpr = new NumExpression((int) nextTok.getData());
+                break;
 
-		} else if (nextType == TokenType.OPEN_PAREN) {
-			scan.getNextToken();
+            default:
+                throw new CMinusParseException("ERROR in parseFactor()");
+        }
 
-			ArrayList<Expression> args = parseArguments();
+        return retExpr;
+    }
 
-			retExpr = new CallExpression(id, args);
+    private Expression parseVarCall(String id) throws CMinusParseException {
+        Token nextTok = scan.viewNextToken();
+        TokenType nextType = nextTok.getType();
 
-			match(TokenType.CLOSE_PAREN);
+        Expression retExpr;
 
-		} // TODO check follow
-		// TIMOTHY HAS ATTEMPTED TO FIX
-		else if (inSet(Follow.VarCall)) {
-			retExpr = new VarExpression(id);
-		} else {
-			throw new CMinusParseException("ERROR in parseVarCall()");
-		}
+        if (nextType == TokenType.OPEN_BRACKET) {
+            scan.getNextToken();
+            Expression index = parseExpression();
+            match(TokenType.CLOSE_BRACKET);
 
-		return retExpr;
-	}
+            retExpr = new VarExpression(id, index);
 
-	private ArrayList<Expression> parseArguments() throws CMinusParseException {
+        } else if (nextType == TokenType.OPEN_PAREN) {
+            scan.getNextToken();
 
-		Token tok = scan.viewNextToken();
-		TokenType nextType = tok.getType();
+            ArrayList<Expression> args = parseArguments();
 
-		ArrayList<Expression> args = new ArrayList<>();
+            retExpr = new CallExpression(id, args);
 
-		if (inSet(First.Expression)) {
-			args.add(parseExpression());
-			nextType = scan.viewNextToken().getType();
+            match(TokenType.CLOSE_PAREN);
 
-			while (nextType == TokenType.COMMA) {
+        } else if (nextType.inSet(Follow.VarCall)) {
+            retExpr = new VarExpression(id);
+            
+        } else {
+            throw new CMinusParseException("ERROR in parseVarCall()");
+        }
 
-				scan.getNextToken();
+        return retExpr;
+    }
 
-				args.add(parseExpression());
+    private ArrayList<Expression> parseArguments() throws CMinusParseException {
 
-				nextType = scan.viewNextToken().getType();
-			}
+        Token tok = scan.viewNextToken();
+        TokenType nextType = tok.getType();
 
-		} else if (!inSet(Follow.Expression)) {
-			// ERROR
-			throw new CMinusParseException("ERROR in parseArguments(): Next token " + nextType.toString() + " is not in the first set or follow set of Expression");
-		}
+        ArrayList<Expression> args = new ArrayList<>();
 
-		return args;
-	}
+        if (nextType.inSet(First.Expression)) {
+            args.add(parseExpression());
+            nextType = scan.viewNextToken().getType();
 
-	private boolean match(TokenType toMatch) throws CMinusParseException {
+            while (nextType == TokenType.COMMA) {
 
-		Token token = scan.viewNextToken();
-		TokenType type = token.getType();
-		if (toMatch == type) {
-			scan.getNextToken(); // advance token
+                scan.getNextToken();
 
-		} else {
-			throw new CMinusParseException("ERROR in match(): Next token " + type.toString() + " does not match " + toMatch.toString());
+                args.add(parseExpression());
 
-		}
+                nextType = scan.viewNextToken().getType();
+            }
 
-		return true;
-	}
+        } else if (nextType.inSet(Follow.Expression)) {
+            // ERROR
+            throw new CMinusParseException("ERROR in parseArguments(): Next token " + nextType.toString() + " is not in the first set or follow set of Expression");
+        }
 
-	private boolean inSet(TokenType[] set) throws CMinusParseException {
-		Token token = scan.viewNextToken();
-		TokenType type = token.getType();
+        return args;
+    }
 
-		boolean foundType = false;
+    private boolean match(TokenType toMatch) throws CMinusParseException {
 
-		for (TokenType firstType : set) {
-			if (type == firstType) {
-				foundType = true;
-				break;
-			}
-		}
+        Token token = scan.viewNextToken();
+        TokenType type = token.getType();
+        if (toMatch == type) {
+            scan.getNextToken(); // advance token
 
-		return foundType;
-	}
+        } else {
+            throw new CMinusParseException("ERROR in match(): Next token " + type.toString() + " does not match " + toMatch.toString());
 
-	public static void main(String[] args) throws Exception {
-		CMinusParser cmp = new CMinusParser("../test_01.cm");
-		Program p = cmp.parse();
-		
-		p.print("", "");
-	}
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        CMinusParser cmp = new CMinusParser("../test_01.cm");
+        Program p = cmp.parse();
+
+        p.print("", "");
+    }
 
 }

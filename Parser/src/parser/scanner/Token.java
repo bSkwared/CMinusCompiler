@@ -47,7 +47,21 @@ public class Token {
 		ID,
 		NUM,
 		EOF,
-		ERROR
+		ERROR;
+                
+               public boolean inSet(TokenType[] set) {
+                   
+                    boolean foundType = false;
+
+                    for (TokenType firstType : set) {
+                            if (this == firstType) {
+                                    foundType = true;
+                                    break;
+                            }
+                    }
+
+                    return foundType;
+               } 
 	}	
 	
 	private TokenType tokenType;
