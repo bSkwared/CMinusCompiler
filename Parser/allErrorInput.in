@@ -1,0 +1,128 @@
+/* test_err_01.cm */
+/* bad params */
+
+void function(int x, void id){
+	return compiler;
+}
+
+/* test_err_02.cm */
+/* no braces on compound statement */
+
+void function(int x) return compiler;
+
+/* test_err_03.cm */
+/* declare and initialize at the same time */
+
+void function(int x){
+
+	int x = 2;
+
+	return compiler;
+}
+
+/* test_err_04.cm */
+/* declare array with expression */
+
+void function(int x){
+
+	int x[2+2];
+
+	return compiler;
+}
+
+/* test_err_05.cm */
+/* totally empty params */
+
+void function(){
+	return compiler;
+}
+
+/* test_err_06.cm */
+/* multiple relops in an expression (no parentheses) */
+
+void function(void){
+
+	a < b + 5 >= 3;
+
+	return compiler;
+}
+
+/* test_err_07.cm */
+/* mismatched parentheses */
+
+void function(void){
+
+	((((3)));
+
+	return compiler;
+}
+
+/* test_err_08.cm */
+/* statements before local-decls*/
+
+void function(void){
+
+	return compiler;
+	
+	int x;
+}
+
+/* test_err_09.cm */
+/* missing legal expression after if*/
+
+void function(void){
+
+	if(1) else(0);
+
+	return compiler;
+}
+
+/* test_err_10.cm */
+/* trying to use a while as an arg o_O*/
+
+void function(void){
+
+	x = diffFunction(while(1););
+
+	return compiler;
+}
+
+/* test_err_11.cm */
+/* what is a string? */
+
+void function(void){
+	String id;
+	return compiler;
+}
+
+/* test_err_12.cm */
+/* Missing closing paren fundecl void */
+
+void function(void{
+	int id;
+	return compiler;
+}
+
+/* test_err_13.cm */
+/* Missing closing paren fundecl params */
+
+void function(int id, int compiler {
+	int id;
+	return compiler;
+}
+
+/* test_err_14.cm */
+/* Missing closing paren callExpr */
+
+void function(int id, int compiler) {
+	int id;
+	return sqrt(id;
+}
+
+/* test_err_15.cm */
+/* Missing semicolon after vardecl */
+
+void function(int id, int compiler) {
+	int id
+	return sqrt(id);
+}
