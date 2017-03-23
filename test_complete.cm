@@ -75,12 +75,11 @@ void function ( void ) {
 	while(funcEight() == 0) while(funcNine() == 1) while(funcTen() == 2) { ; }
 	
 	
-	/* return statement */
-	
+	/* return statement */	
 	return;
-	
-	return ; ;
-	
-	return 10 * 9 * 8 * 7 + 6 + 5 * (4 - 3) / (2 + 1);
-	
+	return 10 * 9 * 8 * 7 + 6 + 5 * (4 - 3) / (2 + 1);	
+}
+
+int functionTWO (int one, int two, int three, int four[], int five[], int six){
+	return HOORAY;
 }
