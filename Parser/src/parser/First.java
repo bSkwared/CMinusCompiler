@@ -36,11 +36,13 @@ public class First {
                                            TokenType.RETURN,
                                            TokenType.OPEN_PAREN,
                                            TokenType.NUM,
-                                           TokenType.ID};
+                                           TokenType.ID,
+                                           TokenType.SEMICOLON };
 
     public static TokenType[] ExpressionStatement = {TokenType.OPEN_PAREN,
                                                      TokenType.NUM,
-                                                     TokenType.ID};
+                                                     TokenType.ID,
+                                                     TokenType.SEMICOLON};
 
     public static TokenType[] CompoundStatement = {  TokenType.OPEN_BRACE};
 

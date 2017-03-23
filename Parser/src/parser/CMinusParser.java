@@ -306,14 +306,16 @@ public class CMinusParser implements Parser {
 
         ArrayList<VarDeclaration> varDecls = new ArrayList<>();
 
-        TokenType nextType = scan.viewNextToken().getType();
+        Token nextTok = scan.viewNextToken();
+        TokenType nextType = nextTok.getType();
 
         // NOTE do we need to check follow if we dont do any VarDecls?
         // Timothy: I would guess no because that will be handled by the 
         // match and Statement.inFirst()
         while (nextType.inSet(First.VarDeclaration)) {
             varDecls.add(parseVarDeclaration());
-            nextType = scan.viewNextToken().getType();
+            nextTok = scan.viewNextToken();
+            nextType = nextTok.getType();
         }
 
         ArrayList<Statement> statements = new ArrayList<>();
@@ -323,8 +325,10 @@ public class CMinusParser implements Parser {
         // adding another if would be repetitive and wouldn't tell us anything since
         // the match(CLOSEBRACE) is even more restrictive
         while (nextType.inSet(First.Statement)) {
-            statements.add(parseStatement());
-            nextType = scan.viewNextToken().getType();
+            Statement stmt = parseStatement();
+            statements.add(stmt);
+            nextTok = scan.viewNextToken();
+            nextType = nextTok.getType();
         }
 
         match(TokenType.CLOSE_BRACE);
@@ -537,7 +541,8 @@ public class CMinusParser implements Parser {
         while (nextType.inSet(First.addop)) {
             Token addop = scan.getNextToken();
 
-            retExpr = new BinaryExpression(retExpr, addop, parseTerm(null));
+            Expression right = parseTerm(null);
+            retExpr = new BinaryExpression(retExpr, addop, right);
             
             nextTok = scan.viewNextToken();
             nextType = nextTok.getType();
@@ -656,6 +661,7 @@ public class CMinusParser implements Parser {
             }
 
         } else if (nextType.inSet(Follow.Expression)) {
+        } else {
             // ERROR
             throw new CMinusParseException("ERROR in parseArguments(): Next token " + nextType.toString() + " is not in the first set or follow set of Expression");
         }
@@ -680,7 +686,7 @@ public class CMinusParser implements Parser {
 
     public static void main(String[] args) throws Exception {
 
-        CMinusParser cmp = new CMinusParser("../test_01.cm");
+        CMinusParser cmp = new CMinusParser("../test_complete.cm");
         Program p = cmp.parse();
 
         p.print("", " ");
