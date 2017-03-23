@@ -19,80 +19,106 @@ import parser.productions.statement.*;
 public class CMinusParser implements Parser {
 
     CMinusScanner scan;
+    Program program;
 
     public CMinusParser(String filename) throws IOException {
         scan = new CMinusScanner(filename);
+        program = null;
     }
 
     @Override
     public Program parse() throws CMinusParseException {
+
+        program = parseProgram();
+        return program;
+    }
+
+    public Program getProgram() throws CMinusParseException {
+        if (program == null) {
+            program = parseProgram();
+        }
+
+        return program;
+    }
+
+    private Program parseProgram() throws CMinusParseException {
 
         ArrayList<Declaration> decls = new ArrayList<>();
 
         Token nextTok = scan.viewNextToken();
         TokenType nextType = nextTok.getType();
 
-        while (nextType.inSet(First.Program)) {
+        while (nextType.inSet(First.Declaration)) {
 
-            Token id = scan.getNextToken();
-            TokenType idType = id.getType();
-
-            if (idType != TokenType.ID) {
-                throw new CMinusParseException("ERROR in parse(): Next token "
-                        + idType + " is not an identifier.");
-            }
-
-            Declaration nextDecl;
-            if (nextType == TokenType.VOID) {
-                nextDecl = parseFunDeclaration(nextTok, id);
-
-            } else {
-                // type == TokenType.INT
-                nextDecl = parseVarFunDeclaration(nextTok, id);
-
-            }
-
+            Declaration nextDecl = parseDeclaration();
             decls.add(nextDecl);
 
-            nextTok = scan.getNextToken();
+            nextTok = scan.viewNextToken();
             nextType = nextTok.getType();
         }
 
         match(TokenType.EOF);
 
         return new Program(decls);
+
     }
 
-    private FunDeclaration parseFunDeclaration(Token retType, Token id)
+    private Declaration parseDeclaration() throws CMinusParseException {
+
+        // declaration -> VOID ID fundecl | INT ID varfundecl
+        Token returnToken = scan.getNextToken();
+        TokenType returnType = returnToken.getType();
+        
+        Token idToken = scan.getNextToken();
+        TokenType idType = idToken.getType();
+        
+        if (idType != TokenType.ID) {
+            throw new CMinusParseException("ERROR in parse(): Next token "
+                    + idType + " is not an identifier.");
+        }
+        
+        String identifier = (String) idToken.getData();
+        
+        
+        Declaration returnDecl;
+        if (returnType == TokenType.VOID) {
+            // token is VOID. decl -> VOID ID fundecl
+            returnDecl = parseFunDeclaration(returnToken, identifier);
+
+        } else {
+            // token is INT. decl -> INT ID varfundecl
+            returnDecl = parseVarFunDeclaration(returnToken, identifier);
+        }
+
+        return returnDecl;
+    }
+
+    private FunDeclaration parseFunDeclaration(Token retType, String identifier)
             throws CMinusParseException {
 
+        // Get function parameters
+        // fundecl -> ( params ) compound-stmt
         match(TokenType.OPEN_PAREN);
-
         ArrayList<Parameter> params = parseParameters();
-
         match(TokenType.CLOSE_PAREN);
 
         CompoundStatement stmt = parseCompoundStatement();
 
-        String identifier = (String) id.getData();
-
         return new FunDeclaration(retType, identifier, params, stmt);
     }
 
-    private Declaration parseVarFunDeclaration(Token retType, Token id)
+    private Declaration parseVarFunDeclaration(Token retType, String identifier)
             throws CMinusParseException {
 
         Token nextTok = scan.viewNextToken();
         TokenType nextType = nextTok.getType();
-
-        String identifier = (String) id.getData();
 
         Declaration retDecl;
 
         switch (nextType) {
             case SEMICOLON:
                 scan.getNextToken();
-                retDecl = new VarDeclaration((String) id.getData());
+                retDecl = new VarDeclaration(identifier);
                 break;
 
             case OPEN_BRACKET:
@@ -111,7 +137,7 @@ public class CMinusParser implements Parser {
                 break;
 
             case OPEN_PAREN:
-                retDecl = parseFunDeclaration(retType, id);
+                retDecl = parseFunDeclaration(retType, identifier);
                 break;
 
             default:
@@ -287,6 +313,7 @@ public class CMinusParser implements Parser {
         // match and Statement.inFirst()
         while (nextType.inSet(First.VarDeclaration)) {
             varDecls.add(parseVarDeclaration());
+            nextType = scan.viewNextToken().getType();
         }
 
         ArrayList<Statement> statements = new ArrayList<>();
@@ -297,6 +324,7 @@ public class CMinusParser implements Parser {
         // the match(CLOSEBRACE) is even more restrictive
         while (nextType.inSet(First.Statement)) {
             statements.add(parseStatement());
+            nextType = scan.viewNextToken().getType();
         }
 
         match(TokenType.CLOSE_BRACE);
@@ -344,7 +372,7 @@ public class CMinusParser implements Parser {
     private ReturnStatement parseReturnStatement() throws CMinusParseException {
         match(TokenType.RETURN);
 
-        Token nextTok = scan.getNextToken();
+        Token nextTok = scan.viewNextToken();
         TokenType nextType = nextTok.getType();
 
         Expression returnExpr = null;
@@ -474,20 +502,20 @@ public class CMinusParser implements Parser {
 
     private Expression parseSimpleExpressionPrime(Expression left) throws CMinusParseException {
 
-        Token nextTok = scan.getNextToken();
-        TokenType nextType = nextTok.getType();
 
         Expression expr = parseAdditiveExpression(left);
 
+        Token nextTok = scan.viewNextToken();
+        TokenType nextType = nextTok.getType();
         Expression retExpr = null;
         if (nextType.inSet(First.relop)) {
             Token relop = scan.getNextToken();
             Expression right = parseAdditiveExpression(null);
             retExpr = new BinaryExpression(expr, relop, right);
-            
-        }  else if (nextType.inSet(Follow.AdditiveExpression)) {
+
+        } else if (nextType.inSet(Follow.AdditiveExpression)) {
             retExpr = expr;
-            
+
         } else {
             throw new CMinusParseException("ERROR in parseSimpleExpressionPrime()");
         }
@@ -498,15 +526,21 @@ public class CMinusParser implements Parser {
 
     private Expression parseAdditiveExpression(Expression left) throws CMinusParseException {
 
-        Token nextTok = scan.getNextToken();
+        Token nextTok = scan.viewNextToken();
         TokenType nextType = nextTok.getType();
 
         Expression retExpr = parseTerm(left);
 
+        nextTok = scan.viewNextToken();
+        nextType = nextTok.getType();
+        
         while (nextType.inSet(First.addop)) {
             Token addop = scan.getNextToken();
 
             retExpr = new BinaryExpression(retExpr, addop, parseTerm(null));
+            
+            nextTok = scan.viewNextToken();
+            nextType = nextTok.getType();
         }
 
         return retExpr;
@@ -514,7 +548,7 @@ public class CMinusParser implements Parser {
 
     private Expression parseTerm(Expression left) throws CMinusParseException {
 
-        Token nextTok = scan.getNextToken();
+        Token nextTok = scan.viewNextToken();
         TokenType nextType = nextTok.getType();
 
         Expression retExpr;
@@ -526,11 +560,16 @@ public class CMinusParser implements Parser {
             retExpr = left;
 
         }
+        
+        nextTok = scan.viewNextToken();
+        nextType = nextTok.getType();
 
         while (nextType.inSet(First.mulop)) {
 
             Token mulop = scan.getNextToken();
             retExpr = new BinaryExpression(retExpr, mulop, parseFactor());
+            nextTok = scan.viewNextToken();
+            nextType = nextTok.getType();
         }
 
         return retExpr;
@@ -588,7 +627,7 @@ public class CMinusParser implements Parser {
 
         } else if (nextType.inSet(Follow.VarCall)) {
             retExpr = new VarExpression(id);
-            
+
         } else {
             throw new CMinusParseException("ERROR in parseVarCall()");
         }
@@ -644,7 +683,7 @@ public class CMinusParser implements Parser {
         CMinusParser cmp = new CMinusParser("../test_01.cm");
         Program p = cmp.parse();
 
-        p.print("", "");
+        p.print("", " ");
     }
 
 }

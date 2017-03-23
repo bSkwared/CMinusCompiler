@@ -13,6 +13,9 @@ public class First {
 
     public static TokenType[] Program = {TokenType.VOID,
                                          TokenType.INT};
+    
+    public static TokenType[] Declaration = {TokenType.VOID,
+                                             TokenType.INT};
 
     public static TokenType[] relop = {TokenType.GT,
                                        TokenType.GTE,
