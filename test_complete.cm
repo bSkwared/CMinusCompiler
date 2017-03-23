@@ -1,6 +1,6 @@
-var blake;
-var timothy;
-var gallagher[1000];
+int blake;
+int timothy;
+int gallagher[1000];
 
 void function ( void ) {
 
