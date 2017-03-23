@@ -21,7 +21,7 @@ public class CallExpression extends Expression {
     public CallExpression(String ID, ArrayList<Expression> args) {
         id = ID;
         
-        if (args == null) {
+        if (args == null || args.isEmpty()) {
             arguments = null;
             hasArguments = false;
             
