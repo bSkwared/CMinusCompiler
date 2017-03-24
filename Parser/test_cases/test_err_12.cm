@@ -1,0 +1,7 @@
+/* test_err_12.cm */
+/* Missing closing paren fundecl void */
+
+void function(void{
+	int id;
+	return compiler;
+}

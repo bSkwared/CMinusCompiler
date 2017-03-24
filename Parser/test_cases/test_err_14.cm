@@ -1,0 +1,7 @@
+/* test_err_14.cm */
+/* Missing closing paren callExpr */
+
+void function(int id, int compiler) {
+	int id;
+	return sqrt(id;
+}

@@ -1,0 +1,7 @@
+/* test_err_15.cm */
+/* Missing semicolon after vardecl */
+
+void function(int id, int compiler) {
+	int id
+	return sqrt(id);
+}
