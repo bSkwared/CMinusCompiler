@@ -1,13 +1,10 @@
 /**
  * @author Blake Lasky and Timothy Smith
- * @version 1.0
- * File: FunDeclaration.java
- * Created: March 2017
+ * @version 1.0 File: FunDeclaration.java Created: March 2017
  *
  * Description: This file provides an implemented Declaration class called
- * 				FunDeclaration to use with the CMinusParser
+ * FunDeclaration to use with the CMinusParser
  */
-
 package parser.productions.declaration;
 
 import java.util.ArrayList;
@@ -17,36 +14,35 @@ import parser.scanner.Token;
 import parser.scanner.Token.*;
 
 public class FunDeclaration extends Declaration {
-    
+
     private boolean returnsVoid;
     private String returnType;
-    
+
     private boolean hasParameters;
-    
+
     private String id;
-    
+
     private ArrayList<Parameter> parameters;
-    
+
     private CompoundStatement statement;
-    
-    
+
     public FunDeclaration(Token type, String i, ArrayList<Parameter> params,
-                            CompoundStatement stmt) {
-        
+            CompoundStatement stmt) {
+
         TokenType returnTokenType = type.getType();
-        
+
         if (returnTokenType == TokenType.VOID) {
             returnsVoid = true;
             returnType = "void";
-            
+
         } else {
             // returnType == INT
             returnsVoid = false;
             returnType = "int";
         }
-        
+
         id = i;
-        
+
         if (params == null || params.isEmpty()) {
             parameters = null;
             hasParameters = false;
@@ -54,32 +50,34 @@ public class FunDeclaration extends Declaration {
             parameters = params;
             hasParameters = true;
         }
-        
+
         statement = stmt;
     }
-    
+
     public FunDeclaration(Token type, String i, CompoundStatement stmt) {
         this(type, i, null, stmt);
     }
-    
+
     public void print(String cur, String indent) {
-        
+
         String functionHeader = returnType + " " + id + "(";
         System.out.print(cur + functionHeader);
-        
+
         if (hasParameters) {
-            //System.out.println();
-            for (int i=0; i<parameters.size(); i++){
-				Parameter p = parameters.get(i);
-                p.print(cur + indent, indent);
-				if(i<parameters.size()-1) System.out.print(", ");
-            }        
-            System.out.println(cur + ")");
             
+            for (int i = 0; i < parameters.size(); i++) {
+                Parameter p = parameters.get(i);
+                p.print(cur + indent, indent);
+                if (i < parameters.size() - 1) {
+                    System.out.print(", ");
+                }
+            }
+            System.out.println(")");
+
         } else {
             System.out.println("void)");
         }
-        
+
         statement.print(cur + indent, indent);
     }
 }

@@ -21,7 +21,12 @@ public class ReturnStatement extends Statement {
 
     @Override
     public void print(String cur, String indent) {
-        System.out.print("return ");
-		returnExpression.print(cur, indent);
+        System.out.println(cur + "return");
+        
+        if (returnExpression != null) {
+            returnExpression.print(cur + indent, indent);
+        }
+        
+        System.out.println(cur + ";\n");
     }
 }
