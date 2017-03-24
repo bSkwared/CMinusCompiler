@@ -34,12 +34,10 @@ public class SelectionStatement extends Statement {
         System.out.println(")");
 
         if (thenStatement != null) {
-            System.out.println("");
             thenStatement.print(cur + indent, indent);
         }
 
         if (elseStatement != null) {
-            System.out.println("");
             System.out.println(cur + "else");
             elseStatement.print(cur + indent, indent);
         }
