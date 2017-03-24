@@ -1,0 +1,53 @@
+CS 3510 - Compiler
+Project 2
+Blake Lasky and Timothy Smith
+Due Date: March 23, 2017
+
+Requirements:
+    Develop a Parser that can read in a program written in the C- language 
+    described in the Appendix A of the text and create an Abstract Syntax 
+    Tree (AST). Your Parser should export a parse() method and a printTree() 
+    method, which allows the AST to be written to file. Your Parser should use 
+    the Scanner you produced in Project #1.    
+
+Design:
+    We made a recursive descent parser that uses an OOP approach to create
+    the AST as "simply" as possible. Most productions were given a parse
+    function that used the first and follow sets to create the proper
+    productions, calling other parse functions when appropriate (like any 
+    real recursive descent parser would).    
+
+Implementation:
+    We had parse functions for twenty-two of the productions (everything except
+    for decl-list, local-decls, relop, mulop, addop, arg-list). Some of the parse
+    functions handle two productions (the regular and prime version), using nulls
+    where appropriate. Some parse functions needed other productions as 
+    parameters if we were working on the prime version. 
+    
+    In order to handle first and follow sets, we added separate classes named
+    First and Follow that stored any sets we needed in our parser. We added an
+    inSet method to the TokenType enum. This way, our code looks much cleaner 
+    and makes sense when you read it. (e.g. getting the first set for our 
+    expression class looks like "if(nextType.inSet(First.Expression)"). If we 
+    ever needed to fix a first or follow set, all we had to do was change the 
+    array of TokenTypes.
+
+Testing:
+    We used our working (not error) test files from the previous projects to 
+    test the parsing and print functions. We made generous use of the NetBeans 
+    debugger, which was very helpful. We made a large test case that (we 
+    believe) tests every possible production derivation in one file. We used
+    it to fix any remaining bugs in our code and test our print function. 
+
+Summary and Conclusion:
+    Our code works in all situations we could think of. The hardest part was
+    giving useful error messages in the middle of the parse. We considered 
+    going back and adding line-number support to the Scanner so that we could
+    let the user know what line number the CMinusParseException occurred on.
+    Most of the parse functions came naturally and followed the grammar easily.
+    The prime productions were much harder, but testing helped us work out any
+    bugs in those methods.
+    
+    Our Parser is very portable and could easily be used by another program if
+    they wanted to make their own compiler with our language, scanner, and
+    parser. 
