@@ -47,10 +47,11 @@ Summary and Conclusion:
     giving useful error messages in the middle of the parse. We went back
     and added line-numbers to the Scanner and Token classes as attributes so
     that we could let the user know what line number the CMinusParseException 
-    occurred on. In hindsight, we should have made our error message 
-    functionality better before we started working out the bugs in our code. The 
-    process of trying to identify where an error was occurring could have been a
-    lot shorter.
+    occurred on. In addition to that, we also print out the line that the error
+    is on, which is very helpful. In hindsight, we should have made our error 
+    message functionality better before we started working out the bugs in our 
+    code. The process of trying to identify where an error was occurring could 
+    have been a lot shorter.
     
     Most of the parse functions came naturally and followed the grammar easily.
     The prime productions were much harder, but testing helped us work out any
