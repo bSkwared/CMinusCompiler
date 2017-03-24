@@ -22,24 +22,28 @@ public class SelectionStatement extends Statement {
     }
 
     @Override
-    public void print(String cur, String indent) {
-        System.out.print(cur + "if (");
+    public String print(String cur, String indent) {
+        String str = "";
+		
+		str += cur + "if (";
 
         if (condition != null) {
-            System.out.println("");
-            condition.print(cur + indent, indent);
-            System.out.print("\n" + cur);
+            str += "\n";
+            str += condition.print(cur + indent, indent);
+            str += "\n" + cur;
         }
 
-        System.out.println(")");
+        str += ")\n";
 
         if (thenStatement != null) {
-            thenStatement.print(cur + indent, indent);
+            str += thenStatement.print(cur + indent, indent);
         }
 
         if (elseStatement != null) {
-            System.out.println(cur + "else");
-            elseStatement.print(cur + indent, indent);
+            str += cur + "else\n";
+            str += elseStatement.print(cur + indent, indent);
         }
+		
+		return str;
     }
 }

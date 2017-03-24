@@ -12,5 +12,5 @@ package parser.productions.expression;
 
 public abstract class Expression {
     
-    abstract public void print(String cur, String indent);
+    abstract public String print(String cur, String indent);
 }

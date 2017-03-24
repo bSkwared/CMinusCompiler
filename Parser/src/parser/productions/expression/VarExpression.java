@@ -27,13 +27,15 @@ public class VarExpression extends Expression {
     }
 
     @Override
-    public void print(String cur, String indent) {
-        System.out.print(cur + id);
+    public String print(String cur, String indent) {
+        String str = cur + id;
         if (isArray) {
-            System.out.println("[");
-            arrayIndex.print(cur + indent, indent);
-            System.out.println(cur + "]");
+            str += "[\n";
+            str += arrayIndex.print(cur + indent, indent);
+            str += cur + "]\n";
         }
+		
+		return str;
     }
 
     public String getId() {

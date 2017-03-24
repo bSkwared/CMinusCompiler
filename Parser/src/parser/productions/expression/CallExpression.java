@@ -37,25 +37,20 @@ public class CallExpression extends Expression {
     }
 
     @Override
-    public void print(String cur, String indent) {
-        System.out.print(cur + id + "(");
+    public String print(String cur, String indent) {
+        String str = cur + id + "(";
         
         if (hasArguments) {
-            System.out.println("");
-            boolean firstArg = true;
+            str += "\n";
             for (Expression arg : arguments) {
-                /*if (firstArg) {
-                    firstArg = false;
-                } else {
-                    System.out.print(", ");
-                }*/
-
-                arg.print(cur + indent, indent);
-                System.out.println("");
+                str += arg.print(cur + indent, indent);
+                str += "\n";
             }
-            System.out.print(cur);
+            str += cur;
         }
         
-        System.out.println(")");
+        str += ")\n";
+		
+		return str;
     }
 }

@@ -21,9 +21,12 @@ public class AssignExpression extends Expression {
     }
 	
     @Override
-    public void print(String cur, String indent) {
-        System.out.println(cur + '=');
-        System.out.println(cur + indent + variable.getId());
-        expr.print(cur + indent, indent);
+    public String print(String cur, String indent) {
+        String str = "";
+		str += cur + '=' + "\n";
+        str += cur + indent + variable.getId() + "\n";
+        str += expr.print(cur + indent, indent);
+		
+		return str;
     }
 }

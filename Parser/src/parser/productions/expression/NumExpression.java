@@ -19,7 +19,7 @@ public class NumExpression extends Expression {
     }
     
     @Override
-    public void print(String cur, String indent) {
-        System.out.print(cur + value);
+    public String print(String cur, String indent) {
+        return cur + value;
     }
 }

@@ -21,10 +21,14 @@ public class Program {
         decls = declList;
     }
 
-    public void print(String cur, String indent) {
-        for (Declaration d : decls) {
-            d.print(cur + indent, indent);
-            System.out.println();
+    public String print(String cur, String indent) {
+        String str = "";
+		
+		for (Declaration d : decls) {
+            str += d.print(cur + indent, indent);
+            str += "\n";
         }
+		
+		return str;
     }
 }

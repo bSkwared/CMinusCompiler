@@ -21,11 +21,13 @@ public class ExpressionStatement extends Statement {
     }
 
 	@Override
-    public void print(String cur, String indent) {
-        
+    public String print(String cur, String indent) {
+        String str = "";
         if (expr != null) {
-            expr.print(cur + indent, indent);
+            str += expr.print(cur + indent, indent);
         }
-        System.out.println('\n' + cur + ";\n");
+        str += '\n' + cur + ";\n\n";
+		
+		return str;
     }
 }

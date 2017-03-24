@@ -29,7 +29,8 @@ public class VarDeclaration extends Declaration {
         isArray = true;
     }
     
-    public void print(String cur, String indent) {
+	@Override
+    public String print(String cur, String indent) {
         String out = "int " + id;
         
         if (isArray) {
@@ -38,6 +39,7 @@ public class VarDeclaration extends Declaration {
         
         out += ";";
         
-        System.out.println(cur + out);
+        String str = cur + out + "\n";
+		return str;
     }
 }

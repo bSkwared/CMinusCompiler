@@ -20,15 +20,20 @@ public class ReturnStatement extends Statement {
     }
 
     @Override
-    public void print(String cur, String indent) {
-        System.out.print(cur + "return");
+    public String print(String cur, String indent) {
         
+		String str = "";
+		
+		str += cur + "return";
+		        
         if (returnExpression != null) {
-            System.out.println("");
-            returnExpression.print(cur + indent, indent);
-            System.out.print("\n" + cur);
+            str += "\n";
+            str += returnExpression.print(cur + indent, indent);
+            str += "\n" + cur;
         }
         
-        System.out.println(";\n");
+        str += ";\n\n";
+		
+		return str;
     }
 }

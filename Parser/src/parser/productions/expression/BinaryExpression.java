@@ -10,7 +10,6 @@
 
 package parser.productions.expression;
 
-import parser.scanner.Token;
 import parser.scanner.Token.*;
 
 public class BinaryExpression extends Expression {
@@ -62,10 +61,10 @@ public class BinaryExpression extends Expression {
     }
 	
     @Override
-    public void print(String cur, String indent) {
-        
-        
-        String op = "";
+    public String print(String cur, String indent) {
+        String str = "";
+		
+		String op = "";
         
         switch(operator) {
             case ADD:
@@ -100,10 +99,12 @@ public class BinaryExpression extends Expression {
                 break;
         }
         
-        System.out.println(cur + op);
+        str += cur + op + "\n";
         
-        left.print(cur +"|"+ indent, indent);
-        System.out.println("");
-        right.print(cur +"|"+ indent, indent);
+        str += left.print(cur +"|"+ indent, indent);
+        str += "\n";
+        str += right.print(cur +"|"+ indent, indent);
+		
+		return str;
     }
 }

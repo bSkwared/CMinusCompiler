@@ -12,5 +12,5 @@ package parser.productions.declaration;
 
 public abstract class Declaration {
     
-    abstract public void print(String cur, String indent);
+    abstract public String print(String cur, String indent);
 }

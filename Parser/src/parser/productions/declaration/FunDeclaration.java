@@ -58,26 +58,31 @@ public class FunDeclaration extends Declaration {
         this(type, i, null, stmt);
     }
 
-    public void print(String cur, String indent) {
+	@Override
+    public String print(String cur, String indent) {
 
+		String str = "";
+		
         String functionHeader = returnType + " " + id + "(";
-        System.out.print(cur + functionHeader);
+        str += cur + functionHeader;
 
         if (hasParameters) {
             
             for (int i = 0; i < parameters.size(); i++) {
                 Parameter p = parameters.get(i);
-                p.print(cur + indent, indent);
+                str += p.print(cur + indent, indent);
                 if (i < parameters.size() - 1) {
-                    System.out.print(", ");
+                    str += ", ";
                 }
             }
-            System.out.println(")");
+            str += ")\n";
 
         } else {
-            System.out.println("void)");
+            str += "void)\n";
         }
 
-        statement.print(cur + indent, indent);
+        str += statement.print(cur + indent, indent);
+		
+		return str;
     }
 }
