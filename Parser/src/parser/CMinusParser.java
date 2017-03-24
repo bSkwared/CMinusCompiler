@@ -759,7 +759,7 @@ public class CMinusParser implements Parser {
 		TokenType type = token.getType();
 
 		if (toMatch != type) {
-			throw new CMinusParseException("ERROR in match(): next token "
+			throw new CMinusParseException("Line " + token.getLineNum() + ") ERROR in match(). Next token "
 				+ type.toString() + " does not match " + toMatch.toString());
 		}
 	}
