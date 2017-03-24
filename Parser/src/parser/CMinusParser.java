@@ -9,6 +9,9 @@ package parser;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import parser.scanner.*;
@@ -828,6 +831,7 @@ public class CMinusParser implements Parser {
 
         for (int i = 1; i <= 15; i++) {
             String app = (i < 10) ? fileName + '0' + i : fileName + i;
+            String inFilename = "test_cases/" + app + ".cm";
             try {
                 CMinusParser cmp = new CMinusParser("test_cases/" + app + ".cm");
 
@@ -839,10 +843,25 @@ public class CMinusParser implements Parser {
                 f.write(ast.getBytes());
 
             } catch (CMinusParseException cmpe) {
-                int lineNunber = cmpe.getLineNumber();
+                int lineNumber = cmpe.getLineNumber();
+                
+                String lineOfCode = "";
+                        
+                try {
+                    String wholeFile = new String(Files.readAllBytes(Paths.get(inFilename)), 
+                            Charset.defaultCharset());
+                    
+                    String[] lines = wholeFile.split("\n");
+                    
+                    lineOfCode = lines[lineNumber-1];
+                } catch (Exception e) {
+                    // empty
+                }
                 
                 System.out.println(app + ".cm");
                 System.out.println(cmpe.getMessage());
+                System.out.println(lineOfCode);
+                System.out.println();
                 System.out.println();
 
             } catch (Exception e) {
