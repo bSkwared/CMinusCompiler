@@ -15,13 +15,49 @@ import parser.scanner.Token.*;
 
 public class BinaryExpression extends Expression {
     
+    private enum OpType {
+        ADD, SUB, MULT, DIV, GT, GTE, LT, LTE, EQUAL, NOT_EQUAL
+    }
+    
     private Expression left;
-    private TokenType  operator;
+    private OpType  operator;
     private Expression right;
     
-    public BinaryExpression(Expression lef, Token opToken, Expression righ) {
+    public BinaryExpression(Expression lef, TokenType op, Expression righ){
         left = lef;
-        operator = opToken.getType();
+        
+        switch(op) {
+            case ADD:
+                operator = OpType.ADD;
+                break;
+            case SUB:
+                operator = OpType.SUB;
+                break;
+            case MULT:
+                operator = OpType.MULT;
+                break;
+            case DIV:
+                operator = OpType.DIV;
+                break;
+            case GT:
+                operator = OpType.GT;
+                break;
+            case GTE:
+                operator = OpType.GTE;
+                break;
+            case LT:
+                operator = OpType.LT;
+                break;
+            case LTE:
+                operator = OpType.LTE;
+                break;
+            case EQUAL:
+                operator = OpType.EQUAL;
+                break;
+            case NOT_EQUAL:
+                operator = OpType.ADD;
+                break;
+        }
         right = righ;
     }
 	

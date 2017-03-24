@@ -513,7 +513,7 @@ public class CMinusParser implements Parser {
         TokenType nextType = nextTok.getType();
         Expression retExpr = null;
         if (nextType.inSet(First.relop)) {
-            Token relop = scan.getNextToken();
+            TokenType relop = scan.getNextToken().getType();
             Expression right = parseAdditiveExpression(null);
             retExpr = new BinaryExpression(expr, relop, right);
 
@@ -539,7 +539,7 @@ public class CMinusParser implements Parser {
         nextType = nextTok.getType();
         
         while (nextType.inSet(First.addop)) {
-            Token addop = scan.getNextToken();
+            TokenType addop = scan.getNextToken().getType();
 
             Expression right = parseTerm(null);
             retExpr = new BinaryExpression(retExpr, addop, right);
@@ -571,7 +571,7 @@ public class CMinusParser implements Parser {
 
         while (nextType.inSet(First.mulop)) {
 
-            Token mulop = scan.getNextToken();
+            TokenType mulop = scan.getNextToken().getType();
             retExpr = new BinaryExpression(retExpr, mulop, parseFactor());
             nextTok = scan.viewNextToken();
             nextType = nextTok.getType();
