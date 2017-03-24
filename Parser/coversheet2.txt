@@ -15,7 +15,7 @@ Design:
     the AST as "simply" as possible. Most productions were given a parse
     function that used the first and follow sets to create the proper
     productions, calling other parse functions when appropriate (like any 
-    real recursive descent parser would).    
+    real recursive descent parser would).  
 
 Implementation:
     We had parse functions for twenty-two of the productions (everything except
@@ -31,6 +31,9 @@ Implementation:
     expression class looks like "if(nextType.inSet(First.Expression)"). If we 
     ever needed to fix a first or follow set, all we had to do was change the 
     array of TokenTypes.
+    
+    Our print function shows associativity and precedence, printing those
+    specific items as a tree.
 
 Testing:
     We used our working (not error) test files from the previous projects to 
