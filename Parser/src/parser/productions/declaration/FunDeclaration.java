@@ -20,8 +20,6 @@ public class FunDeclaration extends Declaration {
 
     private boolean hasParameters;
 
-    private String id;
-
     private ArrayList<Parameter> parameters;
 
     private CompoundStatement statement;

@@ -11,8 +11,6 @@
 package parser.productions.declaration;
 
 public class VarDeclaration extends Declaration {
-	
-    private String id;
     
     private boolean isArray;
     private int arraySize;
