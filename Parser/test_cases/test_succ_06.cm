@@ -1,0 +1,14 @@
+/* test_succ_06.cm */
+
+void function ( void ) {	
+	/* check a nested compound statement */
+	{
+		int moreRandomVars;
+		int morerRandomVars;
+		
+		/* and another */
+		{
+			/* doesn't need to be filled with anything */
+		}	
+	}
+}

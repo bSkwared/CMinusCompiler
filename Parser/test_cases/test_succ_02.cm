@@ -1,0 +1,9 @@
+/* test_succ_02.cm */
+/* only local decls */
+
+void function ( void ) {
+	/* local declarations */	
+	int a;
+	int b;
+	int c[10];
+}

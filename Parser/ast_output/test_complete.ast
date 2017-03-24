@@ -1,0 +1,314 @@
+   int blake;
+
+   int timothy;
+
+   int gallagher[1000];
+
+   void function(void)
+      {
+         int a;
+         int b;
+         int c[10];
+
+         ;
+
+            =
+               varone
+               =
+                  vartwo
+                  varthree
+         ;
+
+            <=
+            |   varrelopone
+            |   varreloptwo
+         ;
+
+            +
+            |   +
+            |   |   3
+            |   |   4
+            |   5
+         ;
+
+            *
+            |   *
+            |   |   6
+            |   |   7
+            |   8
+         ;
+
+            +
+            |   9
+            |   *
+            |   |   10
+            |   |   11
+         ;
+
+            ==
+            |   +
+            |   |   +
+            |   |   |   1
+            |   |   |   2
+            |   |   3
+            |   -
+            |   |   10
+            |   |   4
+         ;
+
+            ==
+            |   /
+            |   |   +
+            |   |   |   1
+            |   |   |   2
+            |   |   3
+            |   +
+            |   |   +
+            |   |   |   -
+            |   |   |   |   1
+            |   |   |   |   1
+            |   |   |   *
+            |   |   |   |   /
+            |   |   |   |   |   1
+            |   |   |   |   |   1
+            |   |   |   |   0
+            |   |   funcOne()
+
+         ;
+
+            =
+               randomId
+               array[
+                  +
+                  |   20
+                  |   21               ]
+
+         ;
+
+            =
+               randomIdAsWell
+               funcTwo(
+                  +
+                  |   10
+                  |   1
+                  *
+                  |   11
+                  |   1
+                  >
+                  |   12
+                  |   10
+                  13
+                  14
+                  15
+               )
+
+         ;
+
+            =
+               rando
+               funcNested(
+                  funcThree()
+
+                  funcFour(
+                     anID
+                  )
+
+                  funcFive(
+                     funcSix()
+
+                  )
+
+               )
+
+         ;
+
+         {
+            int moreRandomVars;
+            int morerRandomVars;
+            {
+            }
+
+         }
+
+         if (
+            /
+            |   anyExpression
+            |   goesInHere
+         )
+               =
+                  singleLineVar
+                  3
+            ;
+
+         if (
+            ==
+            |   thisTime
+            |   weWillDoRelop
+         )
+            {
+                  =
+                     inAnIf
+                     6
+               ;
+
+            }
+
+         else
+            {
+                  =
+                     tryAnElse
+                     4
+               ;
+
+            }
+
+         if (
+            ==
+            |   1
+            |   1
+         )
+            {
+               if (
+                  <
+                  |   nesteds
+                  |   doTheyWork
+               )
+                  {
+                        funcNested()
+
+                     ;
+
+                  }
+
+               else
+                  {
+                        =
+                           whoamI
+                           IdontKnow
+                     ;
+
+                  }
+
+            }
+
+         if (
+            -
+            |   ireallyLike
+            |   dogs
+         )
+               =
+                  x
+                  1
+            ;
+
+         else
+               =
+                  x
+                  2
+            ;
+
+         if (
+            1
+         )
+            if (
+               2
+            )
+
+               ;
+
+            else
+                  3
+               ;
+
+         if (
+            5
+         )
+            if (
+               6
+            )
+
+               ;
+
+            else
+                  7
+               ;
+
+         else
+               8
+            ;
+
+         while (
+            ==
+            |   funcSeven()
+
+            |   1
+         )
+            {
+               int f;
+               int g;
+               int h;
+
+               ;
+
+            }
+
+         while (
+            ==
+            |   funcEight()
+
+            |   0
+         )
+            while (
+               ==
+               |   funcNine()
+
+               |   1
+            )
+               while (
+                  ==
+                  |   funcTen()
+
+                  |   2
+               )
+                  {
+
+                     ;
+
+                  }
+
+         return;
+
+         return
+            +
+            |   +
+            |   |   *
+            |   |   |   *
+            |   |   |   |   *
+            |   |   |   |   |   10
+            |   |   |   |   |   9
+            |   |   |   |   8
+            |   |   |   7
+            |   |   6
+            |   /
+            |   |   *
+            |   |   |   5
+            |   |   |   -
+            |   |   |   |   4
+            |   |   |   |   3
+            |   |   +
+            |   |   |   2
+            |   |   |   1
+         ;
+
+      }
+
+
+   int functionTWO(int one, int two, int three, int four[], int five[], int six)
+      {
+         return
+            HOORAY
+         ;
+
+      }
+
+

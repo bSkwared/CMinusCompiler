@@ -1,0 +1,15 @@
+/* AST for test_succ_06.cm */
+
+   void function(void)
+      {
+         {
+            int moreRandomVars;
+            int morerRandomVars;
+            {
+            }
+
+         }
+
+      }
+
+

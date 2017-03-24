@@ -1,10 +1,7 @@
 /* test_err_11.cm */
-
 /* what is a string? */
 
 void function(void){
-
 	String id;
-
 	return compiler;
 }

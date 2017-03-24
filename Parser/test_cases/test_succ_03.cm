@@ -1,0 +1,10 @@
+/* test_succ_03.cm */
+/* two funcs */
+
+void function ( void ) {
+	return;
+}
+
+int functionTWO (int one, int two, int three, int four[], int five[], int six){
+	return HOORAY;
+}

@@ -1,0 +1,8 @@
+/* AST for test_succ_01.cm */
+
+   int blake;
+
+   int timothy;
+
+   int gallagher[1000];
+

@@ -1,0 +1,114 @@
+/* AST for test_succ_07.cm */
+
+   void function(void)
+      {
+         if (
+            /
+            |   anyExpression
+            |   goesInHere
+         )
+               =
+                  singleLineVar
+                  3
+            ;
+
+         if (
+            ==
+            |   thisTime
+            |   weWillDoRelop
+         )
+            {
+                  =
+                     inAnIf
+                     6
+               ;
+
+            }
+
+         else
+            {
+                  =
+                     tryAnElse
+                     4
+               ;
+
+            }
+
+         if (
+            ==
+            |   1
+            |   1
+         )
+            {
+               if (
+                  <
+                  |   nesteds
+                  |   doTheyWork
+               )
+                  {
+                        funcNested()
+
+                     ;
+
+                  }
+
+               else
+                  {
+                        =
+                           whoamI
+                           IdontKnow
+                     ;
+
+                  }
+
+            }
+
+         if (
+            -
+            |   ireallyLike
+            |   dogs
+         )
+               =
+                  x
+                  1
+            ;
+
+         else
+               =
+                  x
+                  2
+            ;
+
+         if (
+            1
+         )
+            if (
+               2
+            )
+
+               ;
+
+            else
+                  3
+               ;
+
+         if (
+            5
+         )
+            if (
+               6
+            )
+
+               ;
+
+            else
+                  7
+               ;
+
+         else
+               8
+            ;
+
+      }
+
+

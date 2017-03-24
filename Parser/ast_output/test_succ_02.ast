@@ -1,0 +1,10 @@
+/* AST for test_succ_02.cm */
+
+   void function(void)
+      {
+         int a;
+         int b;
+         int c[10];
+      }
+
+

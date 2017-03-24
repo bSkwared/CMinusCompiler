@@ -1,0 +1,18 @@
+/* AST for test_succ_03.cm */
+
+   void function(void)
+      {
+         return;
+
+      }
+
+
+   int functionTWO(int one, int two, int three, int four[], int five[], int six)
+      {
+         return
+            HOORAY
+         ;
+
+      }
+
+

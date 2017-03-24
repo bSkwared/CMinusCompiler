@@ -1,0 +1,15 @@
+/* test_succ_08.cm */
+
+void function ( void ) {
+	/* iteration statements */	
+	while(funcSeven() == 1){
+		
+		int f;
+		int g;
+		int h;
+		
+		;
+	}
+	
+	while(funcEight() == 0) while(funcNine() == 1) while(funcTen() == 2) { ; }
+}

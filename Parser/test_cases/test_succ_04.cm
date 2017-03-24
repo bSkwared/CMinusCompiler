@@ -1,0 +1,5 @@
+/* test_succ_04.cm */
+
+void function ( void ) {
+	; /* check a semicolon by itself */	
+}

@@ -2,9 +2,6 @@
 
 /* totally empty params */
 
-void function(void){
-
-	
-
+void function(){
 	return compiler;
 }
