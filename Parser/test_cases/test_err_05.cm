@@ -1,0 +1,10 @@
+/* test_err_05.cm */
+
+/* totally empty params */
+
+void function(void){
+
+	
+
+	return compiler;
+}

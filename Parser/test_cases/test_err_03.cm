@@ -1,0 +1,10 @@
+/* test_err_03.cm */
+
+/* declare and initialize at the same time */
+
+void function(int x){
+
+	int x = 2;
+
+	return compiler;
+}

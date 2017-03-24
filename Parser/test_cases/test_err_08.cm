@@ -1,0 +1,10 @@
+/* test_err_08.cm */
+
+/* statements before local-decls*/
+
+void function(void){
+
+	return compiler;
+	
+	int x;
+}

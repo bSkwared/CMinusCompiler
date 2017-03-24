@@ -1,0 +1,10 @@
+/* test_err_07.cm */
+
+/* mismatched parentheses */
+
+void function(void){
+
+	((((3)));
+
+	return compiler;
+}
