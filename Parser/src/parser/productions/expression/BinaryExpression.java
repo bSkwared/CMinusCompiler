@@ -27,7 +27,7 @@ public class BinaryExpression extends Expression {
 	
     @Override
     public void print(String cur, String indent) {
-        left.print(cur+indent, indent);
+        
         
         String op = "";
         
@@ -64,8 +64,10 @@ public class BinaryExpression extends Expression {
                 break;
         }
         
-        System.out.print(" " + op + " ");
+        System.out.println(cur + op);
         
-        right.print(cur + indent, indent);
+        left.print(cur + indent, cur);
+        System.out.println("");
+        right.print(cur + indent, cur);
     }
 }

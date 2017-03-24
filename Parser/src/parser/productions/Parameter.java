@@ -23,6 +23,8 @@ public class Parameter {
     public void print(String cur, String indent) {
         System.out.print("int " + id);
 		
-		if(isArray) System.out.print("[]");
+	if(isArray) {
+            System.out.print("[]");
+        }
     }
 }

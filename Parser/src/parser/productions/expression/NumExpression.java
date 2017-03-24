@@ -20,6 +20,6 @@ public class NumExpression extends Expression {
     
     @Override
     public void print(String cur, String indent) {
-        System.out.print(value);
+        System.out.print(cur + value);
     }
 }

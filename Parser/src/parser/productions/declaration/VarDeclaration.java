@@ -33,7 +33,7 @@ public class VarDeclaration extends Declaration {
         String out = "int " + id;
         
         if (isArray) {
-            out += " [" + arraySize + "]"; 
+            out += "[" + arraySize + "]"; 
         }
         
         out += ";";
