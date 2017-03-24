@@ -52,8 +52,8 @@ public class CMinusParser implements Parser {
 
 		// Make sure we have at least one decl
 		if (!nextType.inSet(First.Declaration)) {
-			throw new CMinusParseException("ERROR in parseProgram(): "
-				+ "there are no declarations");
+			throw new CMinusParseException("Line " + nextTok.getLineNum()
+				+ ") ERROR in parseProgram(): there are no declarations");
 		}
 
 		while (nextType.inSet(First.Declaration)) {
@@ -82,8 +82,8 @@ public class CMinusParser implements Parser {
 		TokenType idType = idToken.getType();
 
 		if (idType != TokenType.ID) {
-			throw new CMinusParseException("ERROR in parse(): Next token "
-				+ idType + " is not an ID");
+			throw new CMinusParseException("Line " + idToken.getLineNum()
+				+ ") ERROR in parse(): Next token " + idType + " is not an ID");
 		}
 
 		String identifier = (String) idToken.getData();
@@ -136,8 +136,8 @@ public class CMinusParser implements Parser {
 				Token array = scan.getNextToken();
 
 				if (array.getType() != TokenType.NUM) {
-					throw new CMinusParseException("ERROR in "
-						+ "parseVarFunDeclaration(): "
+					throw new CMinusParseException("Line " + array.getLineNum()
+						+ ") ERROR in parseVarFunDeclaration(): "
 						+ "given array index is not a NUM");
 				}
 
@@ -154,7 +154,8 @@ public class CMinusParser implements Parser {
 				break;
 
 			default:
-				throw new CMinusParseException("ERROR in "
+				throw new CMinusParseException("Line " + nextTok.getLineNum()
+					+ ") ERROR in "
 					+ "parseVarFunDeclaration(): "
 					+ nextType.toString() + " is not in the first set of "
 					+ "VarFunDeclaration");
@@ -171,24 +172,26 @@ public class CMinusParser implements Parser {
 		Token id = scan.getNextToken();
 
 		if (id.getType() != TokenType.ID) {
-			throw new CMinusParseException("ERROR in parseVarDeclaration(): "
+			throw new CMinusParseException("Line " + id.getLineNum()
+				+ ") ERROR in parseVarDeclaration(): "
 				+ id.getType().toString() + " is not an ID");
 		}
 
 		String identifier = (String) id.getData();
 
-		TokenType next = scan.getNextToken().getType();
+		Token nextTok = scan.getNextToken();
+		TokenType nextType = nextTok.getType();
 
 		VarDeclaration retDecl;
 
-		if (next == TokenType.OPEN_BRACKET) {
+		if (nextType == TokenType.OPEN_BRACKET) {
 			// Declaring an array
 			// VarDecl -> int id [num]
 			Token array = scan.getNextToken();
 
 			if (array.getType() != TokenType.NUM) {
-				throw new CMinusParseException("ERROR in parseVarDeclaration(): "
-					+ "given array index is not a NUM");
+				throw new CMinusParseException("Line " + array.getLineNum()
+					+ ") ERROR in parseVarDeclaration(): given array index is not a NUM");
 			}
 
 			int arraySize = (int) array.getData();
@@ -198,13 +201,14 @@ public class CMinusParser implements Parser {
 
 			retDecl = new VarDeclaration(identifier, arraySize);
 
-		} else if (next == TokenType.SEMICOLON) {
-			// Declaraing a regular variable
+		} else if (nextType == TokenType.SEMICOLON) {
+			// Declaring a regular variable
 			retDecl = new VarDeclaration(identifier);
 
 		} else {
-			throw new CMinusParseException("ERROR in parseVarDeclaration(): "
-				+ next.toString() + " is not in the first set of VarDeclaration");
+			throw new CMinusParseException("Line " + nextTok.getLineNum()
+				+ " ) ERROR in parseVarDeclaration(): " + nextType.toString()
+				+ " is not in the first set of VarDeclaration");
 		}
 
 		return retDecl;
@@ -243,7 +247,8 @@ public class CMinusParser implements Parser {
 				break;
 
 			default:
-				throw new CMinusParseException("ERROR in parseParameters(): "
+				throw new CMinusParseException("Line " + nextTok.getLineNum()
+					+ ") ERROR in parseParameters(): "
 					+ nextType.toString() + " is not a VOID or INT");
 		}
 
@@ -258,7 +263,8 @@ public class CMinusParser implements Parser {
 		Token id = scan.getNextToken();
 
 		if (id.getType() != TokenType.ID) {
-			throw new CMinusParseException("ERROR in parseParameter(): "
+			throw new CMinusParseException("Line " + id.getLineNum()
+				+ ") ERROR in parseParameter(): "
 				+ id.getType().toString() + " is not an ID");
 		}
 
@@ -278,7 +284,8 @@ public class CMinusParser implements Parser {
 
 	private Statement parseStatement() throws CMinusParseException {
 
-		TokenType nextType = scan.viewNextToken().getType();
+		Token nextTok = scan.viewNextToken();
+		TokenType nextType = nextTok.getType();
 
 		Statement retStatement;
 
@@ -304,8 +311,9 @@ public class CMinusParser implements Parser {
 
 		} else {
 			// ERROR
-			throw new CMinusParseException("ERROR in parseStatement(): "
-				+ "Next token " + nextType.toString()
+			throw new CMinusParseException("Line " + nextTok.getLineNum()
+				+ ") ERROR in parseStatement(): "
+				+ "next token " + nextType.toString()
 				+ " is not in the first set of any Statement extension");
 		}
 
@@ -315,7 +323,8 @@ public class CMinusParser implements Parser {
 	private ExpressionStatement parseExpressionStatement()
 		throws CMinusParseException {
 
-		TokenType nextType = scan.viewNextToken().getType();
+		Token nextTok = scan.viewNextToken();
+		TokenType nextType = nextTok.getType();
 
 		Expression expr;
 
@@ -329,7 +338,8 @@ public class CMinusParser implements Parser {
 
 		} else {
 			// ERROR
-			throw new CMinusParseException("ERROR in parseExpressionStatement():"
+			throw new CMinusParseException("Line " + nextTok.getLineNum()
+				+ ") ERROR in parseExpressionStatement():"
 				+ " Next token " + nextType.toString()
 				+ " is not in the first set of Expression or a SEMICOLON");
 		}
@@ -462,7 +472,8 @@ public class CMinusParser implements Parser {
 				break;
 
 			default:
-				throw new CMinusParseException("ERROR in parseExpression(): "
+				throw new CMinusParseException("Line " + nextTok.getLineNum()
+					+ ") ERROR in parseExpression(): "
 					+ "Next token " + nextType.toString()
 					+ " is not in the first set of Expression");
 		}
@@ -517,7 +528,8 @@ public class CMinusParser implements Parser {
 
 		} else {
 			// ERROR
-			throw new CMinusParseException("ERROR in parseExpressionPrime(): "
+			throw new CMinusParseException("Line " + nextTok.getLineNum()
+				+ ") ERROR in parseExpressionPrime(): "
 				+ nextType.toString()
 				+ " is not in first or follow set");
 		}
@@ -548,7 +560,8 @@ public class CMinusParser implements Parser {
 			retExpr = left;
 
 		} else {
-			throw new CMinusParseException("ERROR in parseExpressionDoublePrime(): "
+			throw new CMinusParseException("Line " + nextTok.getLineNum()
+				+ ") ERROR in parseExpressionDoublePrime(): "
 				+ nextType.toString() + " is not in first or follow set of "
 				+ "SimpleExpressionPrime");
 
@@ -580,7 +593,8 @@ public class CMinusParser implements Parser {
 			retExpr = expr;
 
 		} else {
-			throw new CMinusParseException("ERROR in parseSimpleExpressionPrime()"
+			throw new CMinusParseException("Line " + nextTok.getLineNum()
+				+ ") ERROR in parseSimpleExpressionPrime()"
 				+ nextType.toString() + " is not a RELOP or in the follow of "
 				+ "AdditiveExpression");
 		}
@@ -670,7 +684,7 @@ public class CMinusParser implements Parser {
 				break;
 
 			default:
-				throw new CMinusParseException("ERROR in parseFactor(): "
+				throw new CMinusParseException("Line " + nextTok.getLineNum() + ") ERROR in parseFactor(): "
 					+ nextType.toString() + " is not in first set of Factor");
 		}
 
@@ -707,7 +721,7 @@ public class CMinusParser implements Parser {
 			retExpr = new VarExpression(id);
 
 		} else {
-			throw new CMinusParseException("ERROR in parseVarCall(): "
+			throw new CMinusParseException("Line " + nextTok.getLineNum() + ") ERROR in parseVarCall(): "
 				+ nextType.toString() + " is not in first set or follow of "
 				+ "VarCall");
 		}
@@ -717,8 +731,8 @@ public class CMinusParser implements Parser {
 
 	private ArrayList<Expression> parseArguments() throws CMinusParseException {
 
-		Token tok = scan.viewNextToken();
-		TokenType nextType = tok.getType();
+		Token nextTok = scan.viewNextToken();
+		TokenType nextType = nextTok.getType();
 
 		ArrayList<Expression> args = null;
 
@@ -745,8 +759,8 @@ public class CMinusParser implements Parser {
 
 		} else if (!nextType.inSet(Follow.Expression)) {
 			// ERROR
-			throw new CMinusParseException("ERROR in parseArguments(): "
-				+ "Next token " + nextType.toString()
+			throw new CMinusParseException("Line " + nextTok.getLineNum()
+				+ ") ERROR in parseArguments(): Next token " + nextType.toString()
 				+ " is not in the first set or follow set of Expression");
 		}
 
@@ -766,7 +780,7 @@ public class CMinusParser implements Parser {
 
 	public static void main(String[] args) throws Exception {
 
-		String fileName = "test_complete";
+		String fileName = "test_err_07";
 		try {
 			CMinusParser cmp = new CMinusParser("test_cases/" + fileName + ".cm");
 
