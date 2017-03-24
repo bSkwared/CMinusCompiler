@@ -686,7 +686,7 @@ public class CMinusParser implements Parser {
 
     public static void main(String[] args) throws Exception {
 
-        CMinusParser cmp = new CMinusParser("../test_complete.cm");
+        CMinusParser cmp = new CMinusParser("test_cases/test_complete.cm");
         Program p = cmp.parse();
 
         p.print("", "   ");

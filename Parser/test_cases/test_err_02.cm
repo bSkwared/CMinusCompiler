@@ -1,0 +1,5 @@
+/* test_err_02.cm */
+
+/* no braces on compound statement */
+
+void function(int x) return compiler;

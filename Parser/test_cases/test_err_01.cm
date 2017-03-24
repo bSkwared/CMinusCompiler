@@ -1,0 +1,7 @@
+/* test_err_01.cm */
+
+/* bad params */
+
+void function(int x, void id){
+	return compiler;
+}

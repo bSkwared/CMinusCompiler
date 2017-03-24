@@ -1,0 +1,10 @@
+/* test_err_06.cm */
+
+/* multiple relops in an expression (no parentheses) */
+
+void function(void){
+
+	a < b + 5 >= 3;
+
+	return compiler;
+}

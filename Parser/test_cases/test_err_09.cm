@@ -1,0 +1,10 @@
+/* test_err_09.cm */
+
+/* missing legal expression after if*/
+
+void function(void){
+
+	if(1) else(0);
+
+	return compiler;
+}

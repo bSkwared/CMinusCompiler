@@ -1,0 +1,10 @@
+/* test_err_10.cm */
+
+/* trying to use a while as an arg o_O*/
+
+void function(void){
+
+	x = diffFunction(while(1););
+
+	return compiler;
+}

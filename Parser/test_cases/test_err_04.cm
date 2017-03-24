@@ -1,0 +1,10 @@
+/* test_err_04.cm */
+
+/* declare array with expression */
+
+void function(int x){
+
+	int x[2+2];
+
+	return compiler;
+}
