@@ -234,8 +234,8 @@ public class CMinusParser implements Parser {
             int lineNumber = nextTok.getLineNum();
 
             throw new CMinusParseException("Line " + lineNumber
-                    + " ) ERROR in parseVarDeclaration(): " + nextType.toString()
-                    + " is not in the first set of VarDeclaration", lineNumber);
+                   + " ) ERROR in parseVarDeclaration(): " + nextType.toString()
+                   + " is not in the first set of VarDeclaration", lineNumber);
         }
 
         return retDecl;
@@ -836,6 +836,7 @@ public class CMinusParser implements Parser {
 
         String fileName = "test_complete";
         String pathName = "test_cases/" + fileName + ".cm";
+        String outFile = fileName + ".ast";
 
         try {
             CMinusParser cmp = new CMinusParser(pathName);
@@ -844,7 +845,7 @@ public class CMinusParser implements Parser {
             String ast = p.print("", "   ");
             System.out.print(ast);
 
-            FileOutputStream f = new FileOutputStream(new File(fileName + ".ast"));
+            FileOutputStream f = new FileOutputStream(new File(outFile));
             f.write(ast.getBytes());
 
         } catch (CMinusParseException cmpe) {
@@ -853,7 +854,8 @@ public class CMinusParser implements Parser {
             String lineOfCode = "";
 
             try {
-                String wholeFile = new String(Files.readAllBytes(Paths.get(pathName)),
+                String wholeFile = new String(
+                        Files.readAllBytes(Paths.get(pathName)),
                         Charset.defaultCharset());
 
                 String[] lines = wholeFile.split("\n");
