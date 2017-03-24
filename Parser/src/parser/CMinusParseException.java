@@ -11,7 +11,15 @@
 package parser;
 
 public class CMinusParseException extends Exception {
-    public CMinusParseException(String msg) {
+    
+    private int lineNumber;
+    
+    public CMinusParseException(String msg, int line) {
         super(msg);
+        lineNumber = line;
+    }
+    
+    public int getLineNumber() {
+        return lineNumber;
     }
 }
