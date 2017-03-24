@@ -51,6 +51,7 @@ public class CallExpression extends Expression {
                 }*/
 
                 arg.print(cur + indent, indent);
+                System.out.println("");
             }
             System.out.print(cur);
         }

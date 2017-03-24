@@ -66,8 +66,8 @@ public class BinaryExpression extends Expression {
         
         System.out.println(cur + op);
         
-        left.print(cur + indent, cur);
+        left.print(cur +"|"+ indent, indent);
         System.out.println("");
-        right.print(cur + indent, cur);
+        right.print(cur +"|"+ indent, indent);
     }
 }

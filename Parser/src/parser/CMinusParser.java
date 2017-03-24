@@ -689,7 +689,7 @@ public class CMinusParser implements Parser {
         CMinusParser cmp = new CMinusParser("../test_complete.cm");
         Program p = cmp.parse();
 
-        p.print("", " ");
+        p.print("", "   ");
     }
 
 }

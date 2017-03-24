@@ -32,7 +32,7 @@ public class VarExpression extends Expression {
         if (isArray) {
             System.out.println("[");
             arrayIndex.print(cur + indent, indent);
-            System.out.print(cur + "]");
+            System.out.println(cur + "]");
         }
     }
 

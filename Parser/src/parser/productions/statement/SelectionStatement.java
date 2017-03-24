@@ -28,6 +28,7 @@ public class SelectionStatement extends Statement {
         if (condition != null) {
             System.out.println("");
             condition.print(cur + indent, indent);
+            System.out.print("\n" + cur);
         }
 
         System.out.println(")");
