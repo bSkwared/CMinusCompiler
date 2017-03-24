@@ -102,9 +102,16 @@ public class CMinusParser implements Parser {
             // decl -> VOID ID fundecl
             returnDecl = parseFunDeclaration(returnToken, identifier);
 
-        } else {
+        } else if (returnType == TokenType.INT) {
             // decl -> INT ID varfundecl
             returnDecl = parseVarFunDeclaration(returnToken, identifier);
+            
+        } else {
+            int lineNumber = returnToken.getLineNum();
+            
+            throw new CMinusParseException("Line " + lineNumber
+                    +") ERROR in parseDeclaration(): Next token "
+                    + returnType + "is not INT or VOID", lineNumber);
         }
 
         return returnDecl;
