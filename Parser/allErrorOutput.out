@@ -1,0 +1,44 @@
+test_err_01.cm
+Line 5) ERROR in match(). Next token VOID does not match INT
+
+test_err_02.cm
+Line 5) ERROR in match(). Next token RETURN does not match OPEN_BRACE
+
+test_err_03.cm
+Line 7 ) ERROR in parseVarDeclaration(): ASSIGN is not in the first set of VarDeclaration
+
+test_err_04.cm
+Line 7) ERROR in match(). Next token ADD does not match CLOSE_BRACKET
+
+test_err_05.cm
+Line 5) ERROR in parseParameters(): CLOSE_PAREN is not a VOID or INT
+
+test_err_06.cm
+Line 7) ERROR in match(). Next token GTE does not match SEMICOLON
+
+test_err_07.cm
+Line 7) ERROR in match(). Next token SEMICOLON does not match CLOSE_PAREN
+
+test_err_08.cm
+Line 9) ERROR in match(). Next token INT does not match CLOSE_BRACE
+
+test_err_09.cm
+Line 7) ERROR in parseStatement(): next token ELSE is not in the first set of any Statement extension
+
+test_err_10.cm
+Line 7) ERROR in parseArguments(): Next token WHILE is not in the first set or follow set of Expression
+
+test_err_11.cm
+Line 5) ERROR in parseExpressionPrime(): ID is not in first or follow set
+
+test_err_12.cm
+Line 4) ERROR in match(). Next token OPEN_BRACE does not match CLOSE_PAREN
+
+test_err_13.cm
+Line 4) ERROR in match(). Next token OPEN_BRACE does not match CLOSE_PAREN
+
+test_err_14.cm
+Line 6) ERROR in match(). Next token SEMICOLON does not match CLOSE_PAREN
+
+test_err_15.cm
+Line 6 ) ERROR in parseVarDeclaration(): RETURN is not in the first set of VarDeclaration

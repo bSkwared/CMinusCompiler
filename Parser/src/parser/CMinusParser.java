@@ -780,19 +780,24 @@ public class CMinusParser implements Parser {
 
 	public static void main(String[] args) throws Exception {
 
-		String fileName = "test_err_07";
-		try {
-			CMinusParser cmp = new CMinusParser("test_cases/" + fileName + ".cm");
+		String fileName = "test_err_";
 
-			Program p = cmp.parse();
-			String ast = p.print("", "   ");
-			System.out.print(ast);
+		for (int i = 1; i <= 15; i++) {
+			String app = (i < 10)? fileName + '0' + i : fileName + i;
+			try {
+				CMinusParser cmp = new CMinusParser("test_cases/" + app + ".cm");
 
-			FileOutputStream f = new FileOutputStream(new File(fileName + ".ast"));
-			f.write(ast.getBytes());
-		} catch (Exception e) {
-			System.out.println(fileName + ".cm");
-			System.out.println(e.getMessage());
+				Program p = cmp.parse();
+				String ast = p.print("", "   ");
+				System.out.print(ast);
+
+				FileOutputStream f = new FileOutputStream(new File(app + ".ast"));
+				f.write(ast.getBytes());
+			} catch (Exception e) {
+				System.out.println(app + ".cm");
+				System.out.println(e.getMessage());
+				System.out.println();
+			}
 		}
 	}
 }
