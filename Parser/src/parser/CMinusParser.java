@@ -173,7 +173,7 @@ public class CMinusParser implements Parser {
 
             default:
                 int lineNumber = nextTok.getLineNum();
-                
+
                 throw new CMinusParseException("Line " + lineNumber
                         + ") ERROR in "
                         + "parseVarFunDeclaration(): "
@@ -193,7 +193,7 @@ public class CMinusParser implements Parser {
 
         if (id.getType() != TokenType.ID) {
             int lineNumber = id.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
                     + ") ERROR in parseVarDeclaration(): "
                     + id.getType().toString() + " is not an ID", lineNumber);
@@ -213,7 +213,7 @@ public class CMinusParser implements Parser {
 
             if (array.getType() != TokenType.NUM) {
                 int lineNumber = array.getLineNum();
-                
+
                 throw new CMinusParseException("Line " + lineNumber
                         + ") ERROR in parseVarDeclaration(): "
                         + "given array index is not a NUM", lineNumber);
@@ -232,10 +232,10 @@ public class CMinusParser implements Parser {
 
         } else {
             int lineNumber = nextTok.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
-                   + " ) ERROR in parseVarDeclaration(): " + nextType.toString()
-                   + " is not in the first set of VarDeclaration", lineNumber);
+                    + " ) ERROR in parseVarDeclaration(): " + nextType.toString()
+                    + " is not in the first set of VarDeclaration", lineNumber);
         }
 
         return retDecl;
@@ -275,7 +275,7 @@ public class CMinusParser implements Parser {
 
             default:
                 int lineNumber = nextTok.getLineNum();
-                
+
                 throw new CMinusParseException("Line " + lineNumber
                         + ") ERROR in parseParameters(): " + nextType.toString()
                         + " is not a VOID or INT", lineNumber);
@@ -293,7 +293,7 @@ public class CMinusParser implements Parser {
 
         if (id.getType() != TokenType.ID) {
             int lineNumber = id.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
                     + ") ERROR in parseParameter(): "
                     + id.getType().toString() + " is not an ID", lineNumber);
@@ -343,10 +343,10 @@ public class CMinusParser implements Parser {
         } else {
             // ERROR
             int lineNumber = nextTok.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
-                    + ") ERROR in parseStatement(): next token " 
-                    + nextType.toString()+ " is not in the first set of "
+                    + ") ERROR in parseStatement(): next token "
+                    + nextType.toString() + " is not in the first set of "
                     + "any Statement extension", lineNumber);
         }
 
@@ -372,7 +372,7 @@ public class CMinusParser implements Parser {
         } else {
             // ERROR
             int lineNumber = nextTok.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
                     + ") ERROR in parseExpressionStatement(): Next token "
                     + nextType.toString() + " is not in the first set "
@@ -508,7 +508,7 @@ public class CMinusParser implements Parser {
 
             default:
                 int lineNumber = nextTok.getLineNum();
-                
+
                 throw new CMinusParseException("Line " + lineNumber
                         + ") ERROR in parseExpression(): "
                         + "Next token " + nextType.toString()
@@ -566,7 +566,7 @@ public class CMinusParser implements Parser {
         } else {
             // ERROR
             int lineNumber = nextTok.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
                     + ") ERROR in parseExpressionPrime(): "
                     + nextType.toString()
@@ -600,7 +600,7 @@ public class CMinusParser implements Parser {
 
         } else {
             int lineNumber = nextTok.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
                     + ") ERROR in parseExpressionDoublePrime(): "
                     + nextType.toString() + " is not in first or follow set of "
@@ -635,7 +635,7 @@ public class CMinusParser implements Parser {
 
         } else {
             int lineNumber = nextTok.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
                     + ") ERROR in parseSimpleExpressionPrime()"
                     + nextType.toString() + " is not a RELOP or in the follow of"
@@ -728,9 +728,9 @@ public class CMinusParser implements Parser {
 
             default:
                 int lineNumber = nextTok.getLineNum();
-                
-                throw new CMinusParseException("Line " + lineNumber 
-                        + ") ERROR in parseFactor(): " + nextType.toString() 
+
+                throw new CMinusParseException("Line " + lineNumber
+                        + ") ERROR in parseFactor(): " + nextType.toString()
                         + " is not in first set of Factor", lineNumber);
         }
 
@@ -768,9 +768,9 @@ public class CMinusParser implements Parser {
 
         } else {
             int lineNumber = nextTok.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
-                    + ") ERROR in parseVarCall(): " + nextType.toString() 
+                    + ") ERROR in parseVarCall(): " + nextType.toString()
                     + " is not in first set or follow of VarCall", lineNumber);
         }
 
@@ -808,7 +808,7 @@ public class CMinusParser implements Parser {
         } else if (!nextType.inSet(Follow.Expression)) {
             // ERROR
             int lineNumber = nextTok.getLineNum();
-            
+
             throw new CMinusParseException("Line " + lineNumber
                     + ") ERROR in parseArguments(): Next token "
                     + nextType.toString() + " is not in the first "
@@ -825,8 +825,8 @@ public class CMinusParser implements Parser {
 
         if (toMatch != type) {
             int lineNumber = token.getLineNum();
-            
-            throw new CMinusParseException("Line " + lineNumber 
+
+            throw new CMinusParseException("Line " + lineNumber
                     + ") ERROR in match(). Next token " + type.toString()
                     + " does not match " + toMatch.toString(), lineNumber);
         }
@@ -834,49 +834,46 @@ public class CMinusParser implements Parser {
 
     public static void main(String[] args) throws Exception {
 
-        String fileName = "test_err_";
+        String fileName = "test_complete";
+        String pathName = "test_cases/" + fileName + ".cm";
 
-        for (int i = 1; i <= 15; i++) {
-            String app = (i < 10) ? fileName + '0' + i : fileName + i;
-            String inFilename = "test_cases/" + app + ".cm";
+        try {
+            CMinusParser cmp = new CMinusParser(pathName);
+
+            Program p = cmp.parse();
+            String ast = p.print("", "   ");
+            System.out.print(ast);
+
+            FileOutputStream f = new FileOutputStream(new File(fileName + ".ast"));
+            f.write(ast.getBytes());
+
+        } catch (CMinusParseException cmpe) {
+            
+            int lineNumber = cmpe.getLineNumber();
+            String lineOfCode = "";
+
             try {
-                CMinusParser cmp = new CMinusParser("test_cases/" + app + ".cm");
+                String wholeFile = new String(Files.readAllBytes(Paths.get(pathName)),
+                        Charset.defaultCharset());
 
-                Program p = cmp.parse();
-                String ast = p.print("", "   ");
-                System.out.print(ast);
+                String[] lines = wholeFile.split("\n");
 
-                FileOutputStream f = new FileOutputStream(new File(app + ".ast"));
-                f.write(ast.getBytes());
-
-            } catch (CMinusParseException cmpe) {
-                int lineNumber = cmpe.getLineNumber();
-                
-                String lineOfCode = "";
-                        
-                try {
-                    String wholeFile = new String(Files.readAllBytes(Paths.get(inFilename)), 
-                            Charset.defaultCharset());
-                    
-                    String[] lines = wholeFile.split("\n");
-                    
-                    lineOfCode = lines[lineNumber-1];
-                } catch (Exception e) {
-                    // empty
-                }
-                
-                System.out.println(app + ".cm");
-                System.out.println(cmpe.getMessage());
-                System.out.println(lineOfCode);
-                System.out.println();
-                System.out.println();
-
-            } catch (Exception e) {
-                System.out.println(app + ".cm");
-                System.out.println(e.getMessage());
-                System.out.println();
-
+                lineOfCode = lines[lineNumber - 1];
+            } catch (IOException e) {
+                // empty
             }
+
+            System.out.println(fileName + ".cm");
+            System.out.println(cmpe.getMessage());
+            System.out.println(lineOfCode);
+            System.out.println();
+            System.out.println();
+
+        } catch (IOException e) {
+            System.out.println(fileName + ".cm");
+            System.out.println(e.getMessage());
+            System.out.println();
+
         }
     }
 }
