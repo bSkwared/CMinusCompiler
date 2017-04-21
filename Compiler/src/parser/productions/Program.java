@@ -11,6 +11,7 @@
 package parser.productions;
 
 import java.util.ArrayList;
+import lowlevel.CodeItem;
 import parser.productions.declaration.*;
 
 public class Program {
@@ -21,6 +22,10 @@ public class Program {
         decls = declList;
     }
 
+    public CodeItem genCode() {
+        return null;
+    }
+    
     public String print(String cur, String indent) {
         String str = "";
 		

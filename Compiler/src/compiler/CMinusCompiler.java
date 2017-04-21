@@ -9,6 +9,7 @@ import optimizer.*;
 import x86codegen.*;
 import x64codegen.*;
 import dataflow.*;
+import parser.productions.Program;
 
 public class CMinusCompiler implements Compiler {
 
@@ -32,9 +33,9 @@ public class CMinusCompiler implements Compiler {
             Parser myParser = new CMinusParser(fileName);
 
             Program parseTree = myParser.parse();
-            myParser.printAST(parseTree);
+            parseTree.print("", "   ");
 
-            CodeItem lowLevelCode = parseTree.genLLCode();
+            CodeItem lowLevelCode = parseTree.genCode();
 
             fileName = filePrefix + ".ll";
             PrintWriter outFile =
@@ -118,7 +119,7 @@ public class CMinusCompiler implements Compiler {
                 outFile.close();
             }
 
-        } catch (IOException ioe) {
+        } catch (Exception e) {
         }
 
     }

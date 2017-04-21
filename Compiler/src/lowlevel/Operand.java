@@ -1,6 +1,7 @@
 package lowlevel;
 
 import java.io.*;
+import parser.CodeGenerationException;
 
 /**
  * This class is abstracts an operand, one of the arguments to an Operation
@@ -101,7 +102,7 @@ public class Operand {
 /***************************************************************************/
   // support methods
     // converts type to a string for printing
-  private String printType () {
+  private String printType () throws CodeGenerationException {
     if (type == OperandType.INTEGER) {
       return ("i");
     }
@@ -122,7 +123,7 @@ public class Operand {
     }
   }
     // prints an operand surrounded by parentheses
-  public void printLLCode(PrintWriter outFile) {
+  public void printLLCode(PrintWriter outFile) throws CodeGenerationException {
     if (outFile == null) {
       System.out.print("("+ printType() +" " + value + ")");
     }
