@@ -10,9 +10,13 @@
 
 package parser.productions.declaration;
 
+import lowlevel.CodeItem;
+
 public abstract class Declaration {
 
     protected String id;
     
     abstract public String print(String cur, String indent);
+    
+    abstract public CodeItem genCode();
 }

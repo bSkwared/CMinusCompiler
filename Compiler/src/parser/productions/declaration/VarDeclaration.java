@@ -1,4 +1,4 @@
-/**
+ /**
  * @author Blake Lasky and Timothy Smith
  * @version 1.0
  * File: VarDeclaration.java
@@ -11,6 +11,7 @@
 package parser.productions.declaration;
 
 import lowlevel.CodeItem;
+import lowlevel.Data;
 
 public class VarDeclaration extends Declaration {
     
@@ -44,6 +45,7 @@ public class VarDeclaration extends Declaration {
     }
 
     public CodeItem genCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Data globalDecl = new Data(Data.TYPE_INT, id);
+        return globalDecl;
     }
 }

@@ -16,6 +16,10 @@ public class Parameter {
 		id = i;
 		isArray = isArr;
 	}
+        
+        public String getId() {
+            return id;
+        }
 
 	public String print(String cur, String indent) {
 		String str = "int " + id;

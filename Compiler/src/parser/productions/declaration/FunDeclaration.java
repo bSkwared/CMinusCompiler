@@ -9,6 +9,9 @@ package parser.productions.declaration;
 
 import java.util.ArrayList;
 import lowlevel.CodeItem;
+import lowlevel.Data;
+import lowlevel.FuncParam;
+import lowlevel.Function;
 import parser.productions.Parameter;
 import parser.productions.statement.CompoundStatement;
 import parser.scanner.Token;
@@ -86,6 +89,34 @@ public class FunDeclaration extends Declaration {
     }
 
     public CodeItem genCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        CodeItem retItem;
+        FuncParam firstParam = null;
+        
+        if (hasParameters) {
+            FuncParam lastParam = null;
+            for (Parameter p : parameters) {
+                FuncParam nextParam = new FuncParam(Data.TYPE_INT, p.getId());
+                        
+                if (firstParam == null) {
+                    firstParam = nextParam;
+                    lastParam = firstParam;
+                }
+                
+                lastParam.setNextParam(nextParam);
+                lastParam = nextParam;
+            }   
+        }
+        
+        int retType;
+        if (returnsVoid) {
+            retType = Data.TYPE_VOID;
+        } else {
+            retType = Data.TYPE_INT;
+        }
+
+        retItem = new Function(retType, id, firstParam);
+        
+        return retItem;
     }
 }

@@ -50,13 +50,7 @@ public class Program {
                 // instance of Data
             }*/
             
-            // Walk through linked list to get last item
-            CodeItem walker = nextItem.getNextItem();
-            while (walker != null) {
-                lastItem = walker;
-                walker = walker.getNextItem();
-            }
-            lastItem = walker;
+            lastItem = getLastItem(nextItem);
         }
         
         return firstItem;

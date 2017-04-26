@@ -1,6 +1,7 @@
 package lowlevel;
 
 import java.io.PrintWriter;
+import parser.CodeGenerationException;
 
 /**
  * This class provides the low-level abstraction for global variables.
@@ -92,7 +93,7 @@ public class Data
 
   /***************************************************************************/
   // support methods
-  public void printLLCode(PrintWriter outFile) {
+  public void printLLCode(PrintWriter outFile) throws CodeGenerationException {
     if (outFile == null) {
       System.out.print("(DATA  " + getName());
       if (isArray) {
