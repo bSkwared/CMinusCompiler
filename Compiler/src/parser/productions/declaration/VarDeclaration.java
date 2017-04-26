@@ -10,6 +10,8 @@
 
 package parser.productions.declaration;
 
+import lowlevel.CodeItem;
+
 public class VarDeclaration extends Declaration {
     
     private boolean isArray;
@@ -39,5 +41,9 @@ public class VarDeclaration extends Declaration {
         
         String str = cur + out + "\n";
 		return str;
+    }
+
+    public CodeItem genCode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

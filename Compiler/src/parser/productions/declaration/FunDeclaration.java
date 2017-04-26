@@ -8,6 +8,7 @@
 package parser.productions.declaration;
 
 import java.util.ArrayList;
+import lowlevel.CodeItem;
 import parser.productions.Parameter;
 import parser.productions.statement.CompoundStatement;
 import parser.scanner.Token;
@@ -82,5 +83,9 @@ public class FunDeclaration extends Declaration {
         str += statement.print(cur + indent, indent);
 		
 		return str;
+    }
+
+    public CodeItem genCode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
