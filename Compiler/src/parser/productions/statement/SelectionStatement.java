@@ -7,6 +7,8 @@
  */
 package parser.productions.statement;
 
+import lowlevel.CodeItem;
+import lowlevel.Function;
 import parser.productions.expression.Expression;
 
 public class SelectionStatement extends Statement {
@@ -46,4 +48,9 @@ public class SelectionStatement extends Statement {
 		
 		return str;
     }
+	
+		
+	public void genCode(Function func){
+		
+	}
 }

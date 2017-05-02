@@ -10,7 +10,12 @@
 
 package parser.productions.expression;
 
+import lowlevel.Function;
+import parser.CodeGenerationException;
+
 public abstract class Expression {
     
     abstract public String print(String cur, String indent);
+	
+	abstract public int genCode(Function func) throws CodeGenerationException;
 }

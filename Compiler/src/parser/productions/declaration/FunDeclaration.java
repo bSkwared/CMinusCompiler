@@ -88,6 +88,7 @@ public class FunDeclaration extends Declaration {
 		return str;
     }
 
+	@Override
     public CodeItem genCode() {
         
         CodeItem retItem;
@@ -96,7 +97,9 @@ public class FunDeclaration extends Declaration {
         if (hasParameters) {
             FuncParam lastParam = null;
             for (Parameter p : parameters) {
-                FuncParam nextParam = new FuncParam(Data.TYPE_INT, p.getId());
+				// changed this line to call Parameter.genCode() instead of
+				// making the FuncParam right here
+                FuncParam nextParam = p.genCode();
                         
                 if (firstParam == null) {
                     firstParam = nextParam;

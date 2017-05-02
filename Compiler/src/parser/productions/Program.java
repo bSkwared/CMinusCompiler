@@ -12,7 +12,6 @@ package parser.productions;
 
 import java.util.ArrayList;
 import lowlevel.CodeItem;
-import lowlevel.Function;
 import parser.productions.declaration.*;
 
 public class Program {

@@ -10,6 +10,8 @@
 
 package parser.productions.statement;
 
+import lowlevel.Function;
+import parser.CodeGenerationException;
 import parser.productions.expression.Expression;
 
 public class IterationStatement extends Statement {
@@ -36,4 +38,9 @@ public class IterationStatement extends Statement {
 		
 		return str;
     }
+	
+	@Override
+	public void genCode(Function func) throws CodeGenerationException{
+		
+	}
 }

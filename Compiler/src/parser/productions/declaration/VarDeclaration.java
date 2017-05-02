@@ -44,6 +44,7 @@ public class VarDeclaration extends Declaration {
 		return str;
     }
 
+	// should these all be global?
     public CodeItem genCode() {
         Data globalDecl = new Data(Data.TYPE_INT, id);
         return globalDecl;

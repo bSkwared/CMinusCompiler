@@ -19,4 +19,8 @@ public abstract class Declaration {
     abstract public String print(String cur, String indent);
     
     abstract public CodeItem genCode();
+	
+	public String getId(){
+		return id;
+	}
 }

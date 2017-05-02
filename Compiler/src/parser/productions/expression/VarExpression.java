@@ -7,6 +7,11 @@
  */
 package parser.productions.expression;
 
+import compiler.CMinusCompiler;
+import java.util.HashMap;
+import lowlevel.Function;
+import parser.CodeGenerationException;
+
 public class VarExpression extends Expression {
 
     private String id;
@@ -40,5 +45,27 @@ public class VarExpression extends Expression {
 
     public String getId() {
         return id;
-    }
+    }	
+	
+	@Override
+	// TODO: Check Timothy's Code
+	// this function just returns the reigster number
+	public int genCode(Function func) throws CodeGenerationException{
+		
+		HashMap<String, Integer> symTable = func.getTable();
+		
+		Integer regNum = symTable.get(this.id);
+		// if it isn't in the local table check the gloabl table
+		if(regNum == null){
+			
+			regNum = CMinusCompiler.globalHash.get(this.id);
+			// if it isn't the global table either, we have a problem
+			if(regNum == null){
+				
+				throw new CodeGenerationException("Variable " + this.id + " has not been declared.");				
+			}			
+		}
+		
+		return regNum;
+	}
 }

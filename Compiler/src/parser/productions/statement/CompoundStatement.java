@@ -8,6 +8,11 @@
 package parser.productions.statement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import lowlevel.CodeItem;
+import lowlevel.Data;
+import lowlevel.Function;
+import parser.CodeGenerationException;
 import parser.productions.declaration.VarDeclaration;
 
 public class CompoundStatement extends Statement {
@@ -38,5 +43,24 @@ public class CompoundStatement extends Statement {
 		str += cur + "}\n\n";
 
 		return str;
+	}	
+	
+	@Override
+	// TODO: Check Timothy's Code	
+	public void genCode(Function func) throws CodeGenerationException{
+		
+		HashMap<String, Integer> symTable = func.getTable();
+		
+		// loop over the local var decls and put them in the symbol table
+		for(VarDeclaration v : varDecls){			
+			int regNum = func.getNewRegNum();
+			symTable.put(v.getId(), regNum);
+		}
+		
+		// loop over the local statements
+		for(Statement s : statements){
+			s.genCode(func);
+		}
+		
 	}
 }
