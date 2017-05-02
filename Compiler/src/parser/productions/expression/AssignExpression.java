@@ -7,11 +7,9 @@
  */
 package parser.productions.expression;
 
-import lowlevel.BasicBlock;
-import lowlevel.Function;
-import lowlevel.Operand;
-import lowlevel.Operation;
-import parser.CodeGenerationException;
+import compiler.CMinusCompiler;
+import java.util.HashMap;
+import lowlevel.*;
 
 public class AssignExpression extends Expression {
 
@@ -40,13 +38,39 @@ public class AssignExpression extends Expression {
 		// get current block
 		BasicBlock currBlock = func.getCurrBlock();
 		
-		int destRegNum = variable.genCode(func);
-		int srcRegNum = expr.genCode(func);
-
-		// new assign operation
-		Operation op = new Operation(Operation.OperationType.ASSIGN, currBlock);
+		HashMap<String, Integer> symTable = func.getTable();
 		
-		Operand destOper = new Operand(Operand.OperandType.REGISTER, destRegNum);
+		String varId = variable.getId();
+		
+		Integer regNum = symTable.get(varId);				
+		Operand destOper;
+		Operation op;
+		
+		// check for global
+		if(regNum == null){
+			
+			boolean exists = (CMinusCompiler.globalHash.get(varId) != null);
+			
+			// if global, store in memory
+			if(exists){
+				destOper = new Operand(Operand.OperandType.STRING, varId);
+				op = new Operation(Operation.OperationType.STORE_I, currBlock);
+				
+			} else{
+				throw new CodeGenerationException("Variable " + varId + " has not been declared.");
+			}
+			
+		}
+		// if local, assign to register
+		else{
+			
+			destOper = new Operand(Operand.OperandType.REGISTER, regNum);
+			op = new Operation(Operation.OperationType.ASSIGN, currBlock);
+		}
+		
+		//int destRegNum = variable.genCode(func);
+		int srcRegNum = expr.genCode(func);
+		
 		Operand srcOper = new Operand(Operand.OperandType.REGISTER, srcRegNum);
 		
 		op.setDestOperand(0, destOper);
@@ -54,7 +78,12 @@ public class AssignExpression extends Expression {
 		
 		currBlock.appendOper(op);
 		
-		// return the register number of the variable saved into
-		return destRegNum;
+		// return the register number of the variable saved into (right hand side
+		// if the left hand side is memory)
+		if(regNum == null){
+			return srcRegNum;
+		} else{
+			return regNum;
+		}
 	}
 }

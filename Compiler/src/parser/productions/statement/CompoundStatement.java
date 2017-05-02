@@ -9,10 +9,10 @@ package parser.productions.statement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import lowlevel.CodeGenerationException;
 import lowlevel.CodeItem;
 import lowlevel.Data;
 import lowlevel.Function;
-import parser.CodeGenerationException;
 import parser.productions.declaration.VarDeclaration;
 
 public class CompoundStatement extends Statement {

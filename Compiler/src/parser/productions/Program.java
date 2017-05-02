@@ -11,6 +11,7 @@
 package parser.productions;
 
 import java.util.ArrayList;
+import lowlevel.CodeGenerationException;
 import lowlevel.CodeItem;
 import parser.productions.declaration.*;
 
@@ -22,7 +23,7 @@ public class Program {
         decls = declList;
     }
 
-    public CodeItem genCode() {
+    public CodeItem genCode() throws CodeGenerationException{
         
         CodeItem firstItem = null;
         CodeItem lastItem = null;

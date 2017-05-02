@@ -9,8 +9,7 @@ package parser.productions.expression;
 
 import compiler.CMinusCompiler;
 import java.util.HashMap;
-import lowlevel.Function;
-import parser.CodeGenerationException;
+import lowlevel.*;
 
 public class VarExpression extends Expression {
 
@@ -58,11 +57,26 @@ public class VarExpression extends Expression {
 		// if it isn't in the local table check the gloabl table
 		if(regNum == null){
 			
-			regNum = CMinusCompiler.globalHash.get(this.id);
+			// TODO: 
+			boolean exists = (CMinusCompiler.globalHash.get(this.id) != null);
 			// if it isn't the global table either, we have a problem
-			if(regNum == null){
+			if(exists){	
+				// put global variable in a register				
+				BasicBlock currBlock = func.getCurrBlock();
 				
-				throw new CodeGenerationException("Variable " + this.id + " has not been declared.");				
+				regNum = func.getNewRegNum();
+				
+				Operation op = new Operation(Operation.OperationType.ASSIGN, currBlock);
+		
+				Operand destOper = new Operand(Operand.OperandType.REGISTER, regNum);
+				Operand srcOper = new Operand(Operand.OperandType.STRING, this.id);
+
+				op.setDestOperand(0, destOper);
+				op.setSrcOperand(0, srcOper);
+
+				currBlock.appendOper(op);
+			} else{
+				throw new CodeGenerationException("Variable " + this.id + " has not been declared.");
 			}			
 		}
 		

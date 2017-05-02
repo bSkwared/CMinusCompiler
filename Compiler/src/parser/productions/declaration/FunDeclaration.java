@@ -8,6 +8,7 @@
 package parser.productions.declaration;
 
 import java.util.ArrayList;
+import lowlevel.CodeGenerationException;
 import lowlevel.CodeItem;
 import lowlevel.Data;
 import lowlevel.FuncParam;
@@ -89,7 +90,7 @@ public class FunDeclaration extends Declaration {
     }
 
 	@Override
-    public CodeItem genCode() {
+    public CodeItem genCode() throws CodeGenerationException{
         
         CodeItem retItem;
         FuncParam firstParam = null;
@@ -120,6 +121,8 @@ public class FunDeclaration extends Declaration {
 
         retItem = new Function(retType, id, firstParam);
         
+		statement.genCode((Function)retItem);		
+		
         return retItem;
     }
 }

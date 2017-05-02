@@ -7,8 +7,8 @@
  */
 package parser.productions.statement;
 
+import lowlevel.CodeGenerationException;
 import lowlevel.Function;
-import parser.CodeGenerationException;
 import parser.productions.expression.Expression;
 
 public class ExpressionStatement extends Statement {

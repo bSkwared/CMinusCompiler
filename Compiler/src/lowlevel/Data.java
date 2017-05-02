@@ -1,7 +1,6 @@
 package lowlevel;
 
 import java.io.PrintWriter;
-import parser.CodeGenerationException;
 
 /**
  * This class provides the low-level abstraction for global variables.

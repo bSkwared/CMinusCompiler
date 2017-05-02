@@ -11,6 +11,7 @@
 package parser.productions.declaration;
 
 import lowlevel.CodeItem;
+import lowlevel.CodeGenerationException;
 
 public abstract class Declaration {
 
@@ -18,7 +19,7 @@ public abstract class Declaration {
     
     abstract public String print(String cur, String indent);
     
-    abstract public CodeItem genCode();
+    abstract public CodeItem genCode() throws CodeGenerationException;
 	
 	public String getId(){
 		return id;

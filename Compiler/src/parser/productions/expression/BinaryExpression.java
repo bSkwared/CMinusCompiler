@@ -8,10 +8,10 @@
 package parser.productions.expression;
 
 import lowlevel.BasicBlock;
+import lowlevel.CodeGenerationException;
 import lowlevel.Function;
 import lowlevel.Operand;
 import lowlevel.Operation;
-import parser.CodeGenerationException;
 import parser.scanner.Token.*;
 
 public class BinaryExpression extends Expression {

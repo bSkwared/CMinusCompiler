@@ -14,7 +14,7 @@ import lowlevel.BasicBlock;
 import lowlevel.Function;
 import lowlevel.Operand;
 import lowlevel.Operation;
-import parser.CodeGenerationException;
+import lowlevel.CodeGenerationException;
 import parser.productions.expression.Expression;
 
 public class ReturnStatement extends Statement {
@@ -64,6 +64,8 @@ public class ReturnStatement extends Statement {
 			currBlock.appendOper(op);
 		}
 		
+		// TODO: FIX
+		// connect unconnected blocks, perchance
 		// create ExitBlock if necessary		
 		// add JMP operation to ExitBlock
 		

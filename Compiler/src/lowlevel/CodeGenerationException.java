@@ -7,8 +7,10 @@ package lowlevel;
 
 /**
  *
- * @author anon
+ * @author Timothy
  */
-public class CodeGenerationException {
-    
+public class CodeGenerationException extends Exception {
+	public CodeGenerationException(String str){
+		super(str);
+	}
 }

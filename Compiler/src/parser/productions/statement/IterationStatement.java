@@ -10,8 +10,11 @@
 
 package parser.productions.statement;
 
+import lowlevel.BasicBlock;
 import lowlevel.Function;
-import parser.CodeGenerationException;
+import lowlevel.Operand;
+import lowlevel.Operation;
+import lowlevel.CodeGenerationException;
 import parser.productions.expression.Expression;
 
 public class IterationStatement extends Statement {
@@ -42,5 +45,44 @@ public class IterationStatement extends Statement {
 	@Override
 	public void genCode(Function func) throws CodeGenerationException{
 		
+		BasicBlock condBlock = new BasicBlock(func);
+		BasicBlock thenBlock = new BasicBlock(func);
+		BasicBlock postBlock = new BasicBlock(func);
+		
+		// append condition block and generate branch
+		func.appendToCurrentBlock(condBlock);		
+		func.setCurrBlock(condBlock);
+		
+		BasicBlock currBlock = func.getCurrBlock();
+		
+		int condReg = condition.genCode(func);
+		
+		Operation branchOp = new Operation(Operation.OperationType.BEQ, currBlock);
+		Operand condOp = new Operand(Operand.OperandType.REGISTER, condReg);
+		Operand zeroOp = new Operand(Operand.OperandType.INTEGER, 0);
+		Operand bbOper = new Operand(Operand.OperandType.BLOCK, postBlock);
+		
+		branchOp.setSrcOperand(0, condOp);
+		branchOp.setSrcOperand(1, zeroOp);
+		branchOp.setSrcOperand(2, bbOper);
+		
+		currBlock.appendOper(branchOp);
+		
+		// append then block and generate the loop
+		func.appendToCurrentBlock(thenBlock);
+		currBlock = func.getCurrBlock();
+		result.genCode(func);
+		
+		// generate jump to condition
+		Operation jmpOp = new Operation(Operation.OperationType.JMP, currBlock);
+		Operand jmpOper = new Operand(Operand.OperandType.BLOCK, condBlock);
+		
+		branchOp.setSrcOperand(0, jmpOper);
+		
+		currBlock.appendOper(branchOp);
+		
+		// append post block
+		func.appendToCurrentBlock(postBlock);
+		func.setCurrBlock(postBlock);		
 	}
 }

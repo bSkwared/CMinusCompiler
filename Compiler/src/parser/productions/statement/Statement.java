@@ -11,7 +11,7 @@
 package parser.productions.statement;
 
 import lowlevel.Function;
-import parser.CodeGenerationException;
+import lowlevel.CodeGenerationException;
 
 public abstract class Statement {
     
