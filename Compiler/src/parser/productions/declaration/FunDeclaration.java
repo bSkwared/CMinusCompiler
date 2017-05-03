@@ -129,15 +129,17 @@ public class FunDeclaration extends Declaration {
 		func.setCurrBlock(bbbbbb);
 
 		if(hasParameters){
-			int count = 1;
 			for(Parameter p : parameters){
 				
-				p.genCode(func, count++);
+				p.genCode(func);
 			}			
 		}		
 		
 		statement.genCode(func);
 
+		BasicBlock returnBlock = func.getReturnBlock();
+		func.appendBlock(returnBlock);
+		
 		if(func.getFirstUnconnectedBlock() != null){
 			func.appendBlock(func.getFirstUnconnectedBlock());
 		}

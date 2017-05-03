@@ -40,18 +40,6 @@ public class Program {
                 lastItem.setNextItem(nextItem);
             }
             
-            
-            // We should do this so we can just grab the last block instead of
-            // walking through the list. However, lastUnconnectedBlock is not
-            // publically accesssibble.
-            /*if (nextItem instanceof Function) {
-                Function nextFunc = (Function) nextItem;
-                lastItem = nextFunc.getLast
-                
-            } else {
-                // instance of Data
-            }*/
-            
             lastItem = getLastItem(nextItem);
         }
         

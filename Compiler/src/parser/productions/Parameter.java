@@ -39,9 +39,11 @@ public class Parameter {
 		return str;
 	}
 
-	public void genCode(Function func, int i) {
+	public void genCode(Function func) {
 		HashMap<String, Integer> symTable = func.getTable();
 
-		symTable.put(id, i);
+		int newRegNum = func.getNewRegNum();
+		
+		symTable.put(id, newRegNum);
 	}
 }
