@@ -131,16 +131,28 @@ int main (void) {
 
 
   if (i == 10) {
+	putchar(87);
+	
+	putchar(65);
+	
+	putchar(89);
+	
+	putchar(32);
+		
     putchar(99);
     putDigit(0);
     putDigit(0); 
-    putchar(108);  
+    putchar(108); 
+	putchar(33); 
   }
   else {
+	 
+	  
     putchar(98);
     putchar(97);
     putchar(100);
     putchar(61);
+	
     printInt(i);
   }
   putchar(10);

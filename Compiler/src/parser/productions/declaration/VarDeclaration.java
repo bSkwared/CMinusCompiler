@@ -11,8 +11,7 @@
 package parser.productions.declaration;
 
 import compiler.CMinusCompiler;
-import lowlevel.CodeItem;
-import lowlevel.Data;
+import lowlevel.*;
 
 public class VarDeclaration extends Declaration {
     
@@ -45,7 +44,6 @@ public class VarDeclaration extends Declaration {
 		return str;
     }
 
-	// should these all be global?
     public CodeItem genCode() {
         Data globalDecl = new Data(Data.TYPE_INT, id);
 		            

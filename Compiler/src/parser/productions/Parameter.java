@@ -8,12 +8,7 @@
 package parser.productions;
 
 import java.util.HashMap;
-import lowlevel.BasicBlock;
-import lowlevel.Data;
-import lowlevel.FuncParam;
-import lowlevel.Function;
-import lowlevel.Operand;
-import lowlevel.Operation;
+import lowlevel.*;
 
 public class Parameter {
 

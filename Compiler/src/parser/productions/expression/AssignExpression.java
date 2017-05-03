@@ -10,6 +10,8 @@ package parser.productions.expression;
 import compiler.CMinusCompiler;
 import java.util.HashMap;
 import lowlevel.*;
+import lowlevel.Operand.OperandType;
+import lowlevel.Operation.OperationType;
 
 public class AssignExpression extends Expression {
 
@@ -32,7 +34,6 @@ public class AssignExpression extends Expression {
 	}
 
 	@Override
-	// TODO: check Timothy's code
 	public int genCode(Function func) throws CodeGenerationException {
 
 		// get current block
@@ -53,9 +54,9 @@ public class AssignExpression extends Expression {
 			// if global, store in memory
 			if(exists){
 				
-				Operation op = new Operation(Operation.OperationType.STORE_I, currBlock);
-				Operand regOper = new Operand(Operand.OperandType.REGISTER, srcRegNum);
-				Operand strOper = new Operand(Operand.OperandType.STRING, varId);
+				Operation op = new Operation(OperationType.STORE_I, currBlock);
+				Operand regOper = new Operand(OperandType.REGISTER, srcRegNum);
+				Operand strOper = new Operand(OperandType.STRING, varId);
 
 				op.setSrcOperand(0, regOper);
 				op.setSrcOperand(1, strOper);
@@ -70,10 +71,10 @@ public class AssignExpression extends Expression {
 		// if local, assign to register
 		else{
 			
-			Operand destOper = new Operand(Operand.OperandType.REGISTER, regNum);
-			Operation op = new Operation(Operation.OperationType.ASSIGN, currBlock);
+			Operand destOper = new Operand(OperandType.REGISTER, regNum);
+			Operation op = new Operation(OperationType.ASSIGN, currBlock);
 		
-			Operand srcOper = new Operand(Operand.OperandType.REGISTER, srcRegNum);
+			Operand srcOper = new Operand(OperandType.REGISTER, srcRegNum);
 
 			op.setDestOperand(0, destOper);
 			op.setSrcOperand(0, srcOper);

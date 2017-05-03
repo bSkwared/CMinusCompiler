@@ -7,10 +7,9 @@
  */
 package parser.productions.expression;
 
-import lowlevel.BasicBlock;
-import lowlevel.Function;
-import lowlevel.Operand;
-import lowlevel.Operation;
+import lowlevel.*;
+import lowlevel.Operand.OperandType;
+import lowlevel.Operation.OperationType;
 
 public class NumExpression extends Expression {
 
@@ -34,11 +33,11 @@ public class NumExpression extends Expression {
 
 		// get a new register number for the saved value and create operands
 		int newRegNum = func.getNewRegNum();		
-		Operand regOper = new Operand(Operand.OperandType.REGISTER, newRegNum);
-		Operand numOper = new Operand(Operand.OperandType.INTEGER, this.value);
+		Operand regOper = new Operand(OperandType.REGISTER, newRegNum);
+		Operand numOper = new Operand(OperandType.INTEGER, this.value);
 		
 		// create operations and set the src and dest operands
-		Operation op = new Operation(Operation.OperationType.ASSIGN,currBlock);
+		Operation op = new Operation(OperationType.ASSIGN,currBlock);
 		op.setSrcOperand(0, numOper);
 		op.setDestOperand(0, regOper);
 		

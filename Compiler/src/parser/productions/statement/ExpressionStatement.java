@@ -7,8 +7,7 @@
  */
 package parser.productions.statement;
 
-import lowlevel.CodeGenerationException;
-import lowlevel.Function;
+import lowlevel.*;
 import parser.productions.expression.Expression;
 
 public class ExpressionStatement extends Statement {
@@ -31,7 +30,6 @@ public class ExpressionStatement extends Statement {
 	}
 
 	@Override
-	// TODO: Check Timothy's Code
 	public void genCode(Function func) throws CodeGenerationException {
 
 		// genCode on Expression

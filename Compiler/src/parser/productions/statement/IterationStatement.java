@@ -7,11 +7,9 @@
  */
 package parser.productions.statement;
 
-import lowlevel.BasicBlock;
-import lowlevel.Function;
-import lowlevel.Operand;
-import lowlevel.Operation;
-import lowlevel.CodeGenerationException;
+import lowlevel.*;
+import lowlevel.Operand.OperandType;
+import lowlevel.Operation.OperationType;
 import parser.productions.expression.Expression;
 
 public class IterationStatement extends Statement {
@@ -55,10 +53,10 @@ public class IterationStatement extends Statement {
 		
 		int condReg = condition.genCode(func);
 		
-		Operation branchOp = new Operation(Operation.OperationType.BEQ, currBlock);
-		Operand condOp = new Operand(Operand.OperandType.REGISTER, condReg);
-		Operand zeroOp = new Operand(Operand.OperandType.INTEGER, 0);
-		Operand bbOper = new Operand(Operand.OperandType.BLOCK, postBlock.getBlockNum());
+		Operation branchOp = new Operation(OperationType.BEQ, currBlock);
+		Operand condOp = new Operand(OperandType.REGISTER, condReg);
+		Operand zeroOp = new Operand(OperandType.INTEGER, 0);
+		Operand bbOper = new Operand(OperandType.BLOCK, postBlock.getBlockNum());
 		
 		branchOp.setSrcOperand(0, condOp);
 		branchOp.setSrcOperand(1, zeroOp);
@@ -74,8 +72,8 @@ public class IterationStatement extends Statement {
 		result.genCode(func);
 
 		// generate jump to condition
-		Operation jmpOp = new Operation(Operation.OperationType.JMP, currBlock);
-		Operand jmpOper = new Operand(Operand.OperandType.BLOCK, condBlock.getBlockNum());
+		Operation jmpOp = new Operation(OperationType.JMP, currBlock);
+		Operand jmpOper = new Operand(OperandType.BLOCK, condBlock.getBlockNum());
 		
 		jmpOp.setSrcOperand(0, jmpOper);
 		

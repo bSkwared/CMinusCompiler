@@ -250,6 +250,18 @@ main_bb14:
 	cmpl	%EAX, %R14D
 	jne	main_bb27
 main_bb25:
+	movl	$87, %EAX
+	movl	%EAX, %EDI
+	call	putchar
+	movl	$65, %EAX
+	movl	%EAX, %EDI
+	call	putchar
+	movl	$89, %EAX
+	movl	%EAX, %EDI
+	call	putchar
+	movl	$32, %EAX
+	movl	%EAX, %EDI
+	call	putchar
 	movl	$99, %EAX
 	movl	%EAX, %EDI
 	call	putchar
@@ -260,6 +272,9 @@ main_bb25:
 	movl	%EAX, %EDI
 	call	putDigit
 	movl	$108, %EAX
+	movl	%EAX, %EDI
+	call	putchar
+	movl	$33, %EAX
 	movl	%EAX, %EDI
 	call	putchar
 main_bb26:
