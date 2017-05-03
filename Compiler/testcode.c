@@ -37,18 +37,22 @@ void printInt(int r) {
        r = r - t * 100;
        found=1;
     }
-    else if (found == 1) {
-       putDigit(0);
-    }
+    else{
+		if (found == 1) {
+			putDigit(0);
+		}
+	}
 
     if (r >= 10) {
        t = r / 10;
        putDigit(t);
        r = r - t * 10;
     }
-    else if (found == 1) {
-       putDigit(0);
-    }
+    else{
+		if (found == 1) {
+			putDigit(0);
+		}
+	}
 
     putDigit(r);
   }
@@ -93,8 +97,11 @@ int main (void) {
     i = i+1;
   }
   putchar(10);
+  
   putchar(67);
   putchar(83); 
+  putchar(10);
+  
   printInt(3510);
   putchar(10);
 
