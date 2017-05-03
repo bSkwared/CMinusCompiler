@@ -99,17 +99,16 @@ public class SelectionStatement extends Statement {
 			
 			elseStatement.genCode(func);
 			
-			// JUMP to POST
-			
+			// JUMP to POST			
 			Operation postJump = new Operation(Operation.OperationType.JMP, currBlock);
 			Operand postOper = new Operand(Operand.OperandType.BLOCK, postBlock.getBlockNum());
 			
 			postJump.setSrcOperand(0, postOper);
 			currBlock.appendOper(postJump);
+			
+			// append ELSE to the unconnected chain
+			func.appendUnconnectedBlock(elseBlock);
 		}		
-		
-		// append ELSE to the unconnected chain
-		func.appendUnconnectedBlock(elseBlock);
 
 		// set CB to POST
 		func.setCurrBlock(postBlock);

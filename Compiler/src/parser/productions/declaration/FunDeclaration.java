@@ -105,9 +105,9 @@ public class FunDeclaration extends Declaration {
 				if (firstParam == null) {
 					firstParam = nextParam;
 					lastParam = firstParam;
+				} else{
+					lastParam.setNextParam(nextParam);
 				}
-
-				lastParam.setNextParam(nextParam);
 				lastParam = nextParam;
 			}
 		}
