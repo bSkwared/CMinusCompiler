@@ -14,9 +14,7 @@ import lowlevel.*;
 public class VarExpression extends Expression {
 
     private String id;
-
     private boolean isArray;
-
     private Expression arrayIndex;
 
     public VarExpression(String i, Expression index) {
@@ -48,7 +46,7 @@ public class VarExpression extends Expression {
 	
 	@Override
 	// TODO: Check Timothy's Code
-	// this function just returns the reigster number
+	// this function just returns the register number
 	public int genCode(Function func) throws CodeGenerationException{
 		
 		HashMap<String, Integer> symTable = func.getTable();
