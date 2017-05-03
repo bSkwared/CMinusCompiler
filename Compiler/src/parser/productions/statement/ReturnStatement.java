@@ -46,26 +46,40 @@ public class ReturnStatement extends Statement {
 		int regNum;
 		// genCode on Expression
 		if (returnExpression != null) {
-			regNum = returnExpression.genCode(func);
-
-			// move expression info to RetReg
-			Operation op = new Operation(OperationType.ASSIGN, currBlock);
-			Operand retOper = new Operand(OperandType.MACRO, "RetReg");
-			Operand expOper = new Operand(OperandType.REGISTER, regNum);
-
-			op.setSrcOperand(0, expOper);
-			op.setDestOperand(0, retOper);
-
-			currBlock.appendOper(op);
+                    createReturnExpression(func);
 		}
 
-		// add JMP operation to ExitBlock
-		int returnBlockNum = func.getReturnBlock().getBlockNum();
-		Operation jmpOp = new Operation(OperationType.JMP, currBlock);
-		Operand exitOper = new Operand(OperandType.BLOCK, returnBlockNum);
-
-		jmpOp.setSrcOperand(0, exitOper);
-
-		currBlock.appendOper(jmpOp);
+		createJumpToExit(func);
 	}
+        
+    private void createReturnExpression(Function func)
+            throws CodeGenerationException {
+        
+        BasicBlock currBlock = func.getCurrBlock();
+        int regNum = returnExpression.genCode(func);
+
+        // move expression info to RetReg
+        Operation op = new Operation(OperationType.ASSIGN, currBlock);
+        Operand retOper = new Operand(OperandType.MACRO, "RetReg");
+        Operand expOper = new Operand(OperandType.REGISTER, regNum);
+
+        op.setSrcOperand(0, expOper);
+        op.setDestOperand(0, retOper);
+
+        currBlock.appendOper(op);
+    }
+
+    private void createJumpToExit(Function func) {
+        
+        BasicBlock currBlock = func.getCurrBlock();
+        
+        // add JMP operation to ExitBlock
+        int returnBlockNum = func.getReturnBlock().getBlockNum();
+        Operation jmpOp = new Operation(OperationType.JMP, currBlock);
+        Operand exitOper = new Operand(OperandType.BLOCK, returnBlockNum);
+
+        jmpOp.setSrcOperand(0, exitOper);
+
+        currBlock.appendOper(jmpOp);
+    }
 }

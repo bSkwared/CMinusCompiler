@@ -30,11 +30,11 @@ public class Program {
         for (Declaration decl : decls) {
             
             CodeItem nextItem = decl.genCode();
-
-			
+	
             if (firstItem == null) {
                 firstItem = nextItem;
             } else {
+                // Add next item to end of list
                 lastItem.setNextItem(nextItem);
             }
             
@@ -56,9 +56,9 @@ public class Program {
     }
     
     private CodeItem getLastItem(CodeItem head) {
-        CodeItem retItem = head;
         
-        CodeItem walker = head.getNextItem();
+        CodeItem retItem = head;
+        CodeItem walker = head;
         
         // walk list
         while (walker != null) {

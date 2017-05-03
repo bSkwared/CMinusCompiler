@@ -52,7 +52,7 @@ public class SelectionStatement extends Statement {
 	
 		
 	@Override
-	public void genCode(Function func) throws CodeGenerationException{
+	public void genCode(Function func) throws CodeGenerationException {
 				
 		BasicBlock currBlock = func.getCurrBlock();		
 		BasicBlock thenBlock = new BasicBlock(func);		
@@ -60,29 +60,12 @@ public class SelectionStatement extends Statement {
 		BasicBlock postBlock = new BasicBlock(func);
 		BasicBlock branchBlock = postBlock;
 		
-		if(elseStatement != null){
+		if (elseStatement != null) {
 			elseBlock = new BasicBlock(func);
 			branchBlock = elseBlock;
 		}
 		
-		// gen condition
-		int regNum = condition.genCode(func);
-		
-		// gen branch
-		Operation branchOp = new Operation(OperationType.BEQ, currBlock);
-		Operand oper1 = new Operand(OperandType.REGISTER, regNum);
-		Operand oper2 = new Operand(OperandType.INTEGER, 0);
-		Operand bbOper = new Operand(OperandType.BLOCK, branchBlock.getBlockNum());
-		
-		branchOp.setSrcOperand(0, oper1);
-		branchOp.setSrcOperand(1, oper2);
-		branchOp.setSrcOperand(2, bbOper);
-		
-		currBlock.appendOper(branchOp);
-		
-		// append THEN block and change CB
-		func.appendToCurrentBlock(thenBlock);
-		func.setCurrBlock(thenBlock);
+		createIf(func, branchBlock, thenBlock);
 	
 		// genCode on thenStatement
 		thenStatement.genCode(func);
@@ -91,25 +74,57 @@ public class SelectionStatement extends Statement {
 		func.appendToCurrentBlock(postBlock);
 				
 		// set CB and genCode ELSE block if it exists				
-		if(elseBlock != null){
-			func.setCurrBlock(elseBlock);
-			
-			elseStatement.genCode(func);
-			currBlock = func.getCurrBlock();
-			
-			
-			// JUMP to POST			
-			Operation postJump = new Operation(OperationType.JMP, currBlock);
-			Operand postOper = new Operand(OperandType.BLOCK, postBlock.getBlockNum());
-			
-			postJump.setSrcOperand(0, postOper);
-			currBlock.appendOper(postJump);
-			
-			// append ELSE to the unconnected chain
-			func.appendUnconnectedBlock(elseBlock);
+		if (elseBlock != null) {
+                    createElseBlock(func, postBlock, elseBlock);
 		}		
 
 		// set CB to POST
 		func.setCurrBlock(postBlock);
 	}
+
+    private void createIf(Function func, BasicBlock branchBlock,
+            BasicBlock thenBlock) throws CodeGenerationException {
+
+        // gen condition and branch
+        BasicBlock currBlock = func.getCurrBlock();
+        int regNum = condition.genCode(func);
+
+        // gen branch
+        int branchBlockNum = branchBlock.getBlockNum();
+        Operation branchOp = new Operation(OperationType.BEQ, currBlock);
+        Operand oper1 = new Operand(OperandType.REGISTER, regNum);
+        Operand oper2 = new Operand(OperandType.INTEGER, 0);
+        Operand bbOper = new Operand(OperandType.BLOCK, branchBlockNum);
+
+        branchOp.setSrcOperand(0, oper1);
+        branchOp.setSrcOperand(1, oper2);
+        branchOp.setSrcOperand(2, bbOper);
+
+        currBlock.appendOper(branchOp);
+
+        // append THEN block and change CB
+        func.appendToCurrentBlock(thenBlock);
+        func.setCurrBlock(thenBlock);
+    }
+    
+    private void createElseBlock(Function func, BasicBlock postBlock,
+            BasicBlock elseBlock) throws CodeGenerationException {
+        
+        func.setCurrBlock(elseBlock);
+
+        elseStatement.genCode(func);
+        BasicBlock currBlock = func.getCurrBlock();
+
+        // JUMP to POST		
+        int postNum = postBlock.getBlockNum();
+        Operation postJump = new Operation(OperationType.JMP, currBlock);
+        Operand postOper = new Operand(OperandType.BLOCK, postNum);
+
+        postJump.setSrcOperand(0, postOper);
+        currBlock.appendOper(postJump);
+
+        // append ELSE to the unconnected chain
+        func.appendUnconnectedBlock(elseBlock);
+
+    }
 }
