@@ -90,7 +90,7 @@ public class CallExpression extends Expression {
 		
 		Operation saveOp = new Operation(Operation.OperationType.ASSIGN, currBlock);
 		Operand destOper = new Operand(Operand.OperandType.REGISTER, saveRegNum);
-		Operand srcOper = new Operand(Operand.OperandType.MACRO, "EAX");
+		Operand srcOper = new Operand(Operand.OperandType.MACRO, "RetReg");
 		
 		saveOp.setDestOperand(0, destOper);
 		saveOp.setSrcOperand(0, srcOper);

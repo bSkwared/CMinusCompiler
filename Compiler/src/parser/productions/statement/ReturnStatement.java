@@ -53,20 +53,23 @@ public class ReturnStatement extends Statement {
 		if(returnExpression != null){
 			regNum = returnExpression.genCode(func);
 			
-			// move expression info to EAX
+			// move expression info to RetReg
 			Operation op = new Operation(Operation.OperationType.ASSIGN, currBlock);
-			Operand eaxOper = new Operand(Operand.OperandType.MACRO, "EAX");
+			Operand retOper = new Operand(Operand.OperandType.MACRO, "RetReg");
 			Operand expOper = new Operand(Operand.OperandType.REGISTER, regNum);
 			
 			op.setSrcOperand(0, expOper);
-			op.setDestOperand(0, eaxOper);
+			op.setDestOperand(0, retOper);
 			
 			currBlock.appendOper(op);
 		}
 		
 		// TODO: FIX
-		// connect unconnected blocks, perchance
 		// create ExitBlock if necessary		
+		BasicBlock exitBlock = func.genReturnBlock();
+		func.appendToCurrentBlock(exitBlock);
+		func.setCurrBlock(exitBlock);
+		
 		// add JMP operation to ExitBlock
 		
 	}

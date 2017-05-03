@@ -20,109 +20,113 @@ import parser.scanner.Token.*;
 
 public class FunDeclaration extends Declaration {
 
-    private boolean returnsVoid;
-    private String returnType;
+	private boolean returnsVoid;
+	private String returnType;
 
-    private boolean hasParameters;
+	private boolean hasParameters;
 
-    private ArrayList<Parameter> parameters;
+	private ArrayList<Parameter> parameters;
 
-    private CompoundStatement statement;
+	private CompoundStatement statement;
 
-    public FunDeclaration(Token type, String i, ArrayList<Parameter> params,
-            CompoundStatement stmt) {
+	public FunDeclaration(Token type, String i, ArrayList<Parameter> params,
+		CompoundStatement stmt) {
 
-        TokenType returnTokenType = type.getType();
+		TokenType returnTokenType = type.getType();
 
-        if (returnTokenType == TokenType.VOID) {
-            returnsVoid = true;
-            returnType = "void";
+		if (returnTokenType == TokenType.VOID) {
+			returnsVoid = true;
+			returnType = "void";
 
-        } else {
-            // returnType == INT
-            returnsVoid = false;
-            returnType = "int";
-        }
+		} else {
+			// returnType == INT
+			returnsVoid = false;
+			returnType = "int";
+		}
 
-        id = i;
+		id = i;
 
-        if (params == null || params.isEmpty()) {
-            parameters = null;
-            hasParameters = false;
-        } else {
-            parameters = params;
-            hasParameters = true;
-        }
+		if (params == null || params.isEmpty()) {
+			parameters = null;
+			hasParameters = false;
+		} else {
+			parameters = params;
+			hasParameters = true;
+		}
 
-        statement = stmt;
-    }
+		statement = stmt;
+	}
 
-    public FunDeclaration(Token type, String i, CompoundStatement stmt) {
-        this(type, i, null, stmt);
-    }
+	public FunDeclaration(Token type, String i, CompoundStatement stmt) {
+		this(type, i, null, stmt);
+	}
 
 	@Override
-    public String print(String cur, String indent) {
+	public String print(String cur, String indent) {
 
 		String str = "";
-		
-        String functionHeader = returnType + " " + id + "(";
-        str += cur + functionHeader;
 
-        if (hasParameters) {
-            
-            for (int i = 0; i < parameters.size(); i++) {
-                Parameter p = parameters.get(i);
-                str += p.print(cur + indent, indent);
-                if (i < parameters.size() - 1) {
-                    str += ", ";
-                }
-            }
-            str += ")\n";
+		String functionHeader = returnType + " " + id + "(";
+		str += cur + functionHeader;
 
-        } else {
-            str += "void)\n";
-        }
+		if (hasParameters) {
 
-        str += statement.print(cur + indent, indent);
-		
+			for (int i = 0; i < parameters.size(); i++) {
+				Parameter p = parameters.get(i);
+				str += p.print(cur + indent, indent);
+				if (i < parameters.size() - 1) {
+					str += ", ";
+				}
+			}
+			str += ")\n";
+
+		} else {
+			str += "void)\n";
+		}
+
+		str += statement.print(cur + indent, indent);
+
 		return str;
-    }
+	}
 
 	@Override
-    public CodeItem genCode() throws CodeGenerationException{
-        
-        CodeItem retItem;
-        FuncParam firstParam = null;
-        
-        if (hasParameters) {
-            FuncParam lastParam = null;
-            for (Parameter p : parameters) {
-				// changed this line to call Parameter.genCode() instead of
-				// making the FuncParam right here
-                FuncParam nextParam = p.genCode();
-                        
-                if (firstParam == null) {
-                    firstParam = nextParam;
-                    lastParam = firstParam;
-                }
-                
-                lastParam.setNextParam(nextParam);
-                lastParam = nextParam;
-            }   
-        }
-        
-        int retType;
-        if (returnsVoid) {
-            retType = Data.TYPE_VOID;
-        } else {
-            retType = Data.TYPE_INT;
-        }
+	public CodeItem genCode() throws CodeGenerationException {
 
-        retItem = new Function(retType, id, firstParam);
-        
-		statement.genCode((Function)retItem);		
+		FuncParam firstParam = null;
+
+		if (hasParameters) {
+			FuncParam lastParam = null;
+			for (Parameter p : parameters) {
+						
+				// create a new FuncParam that contains the int type and id
+				FuncParam nextParam = new FuncParam(Data.TYPE_INT, p.getId());
+
+				if (firstParam == null) {
+					firstParam = nextParam;
+					lastParam = firstParam;
+				}
+
+				lastParam.setNextParam(nextParam);
+				lastParam = nextParam;
+			}
+		} else{
+			firstParam = new FuncParam();
+		}
+
+		int retType;
+		if (returnsVoid) {
+			retType = Data.TYPE_VOID;
+		} else {
+			retType = Data.TYPE_INT;
+		}
+
+		Function retItem = new Function(retType, id, firstParam);
+		// create the first block
+		retItem.createBlock0();
+		retItem.setCurrBlock(retItem.getFirstBlock());
 		
-        return retItem;
-    }
+		statement.genCode(retItem);
+		
+		return retItem;
+	}
 }

@@ -68,7 +68,6 @@ public class AssignExpression extends Expression {
 			op = new Operation(Operation.OperationType.ASSIGN, currBlock);
 		}
 		
-		//int destRegNum = variable.genCode(func);
 		int srcRegNum = expr.genCode(func);
 		
 		Operand srcOper = new Operand(Operand.OperandType.REGISTER, srcRegNum);

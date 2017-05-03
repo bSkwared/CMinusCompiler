@@ -7,7 +7,6 @@
  */
 package parser.productions;
 
-import lowlevel.CodeItem;
 import lowlevel.Data;
 import lowlevel.FuncParam;
 
@@ -36,11 +35,7 @@ public class Parameter {
 	}
 	
 	public FuncParam genCode(){
-		
-		// create a new FuncParam that contains the int type and id
-		FuncParam param = new FuncParam(Data.TYPE_INT, this.id);
-		
-		return param;
-		
+
+		return null;
 	}	
 }
