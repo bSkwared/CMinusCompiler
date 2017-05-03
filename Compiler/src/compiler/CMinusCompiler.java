@@ -121,6 +121,7 @@ public class CMinusCompiler implements Compiler {
             }
 
         } catch (Exception e) {
+			e.printStackTrace();
 			System.out.println(e.getMessage());
         }
 

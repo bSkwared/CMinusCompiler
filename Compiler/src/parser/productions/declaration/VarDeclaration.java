@@ -10,6 +10,7 @@
 
 package parser.productions.declaration;
 
+import compiler.CMinusCompiler;
 import lowlevel.CodeItem;
 import lowlevel.Data;
 
@@ -47,6 +48,10 @@ public class VarDeclaration extends Declaration {
 	// should these all be global?
     public CodeItem genCode() {
         Data globalDecl = new Data(Data.TYPE_INT, id);
+		            
+		// add to symbol table if it is a global variable
+		CMinusCompiler.globalHash.put(id, id);
+		
         return globalDecl;
     }
 }
