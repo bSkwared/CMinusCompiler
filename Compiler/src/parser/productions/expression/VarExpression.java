@@ -64,7 +64,7 @@ public class VarExpression extends Expression {
 				
 				regNum = func.getNewRegNum();
 				
-				Operation op = new Operation(Operation.OperationType.ASSIGN, currBlock);
+				Operation op = new Operation(Operation.OperationType.LOAD_I, currBlock);
 		
 				Operand destOper = new Operand(Operand.OperandType.REGISTER, regNum);
 				Operand srcOper = new Operand(Operand.OperandType.STRING, this.id);
