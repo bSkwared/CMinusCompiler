@@ -95,9 +95,10 @@ public class SelectionStatement extends Statement {
 		// set CB and genCode ELSE block if it exists				
 		if(elseBlock != null){
 			func.setCurrBlock(elseBlock);
-			currBlock = func.getCurrBlock();
 			
 			elseStatement.genCode(func);
+			currBlock = func.getCurrBlock();
+			
 			
 			// JUMP to POST			
 			Operation postJump = new Operation(Operation.OperationType.JMP, currBlock);
