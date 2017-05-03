@@ -7,11 +7,9 @@
  */
 package parser.productions.expression;
 
-import lowlevel.BasicBlock;
-import lowlevel.CodeGenerationException;
-import lowlevel.Function;
-import lowlevel.Operand;
-import lowlevel.Operation;
+import lowlevel.*;
+import lowlevel.Operand.OperandType;
+import lowlevel.Operation.OperationType;
 import parser.scanner.Token.*;
 
 public class BinaryExpression extends Expression {
@@ -111,7 +109,6 @@ public class BinaryExpression extends Expression {
 	}
 
 	@Override
-	// TODO: Check Timothy's code
 	public int genCode(Function func) throws CodeGenerationException{
 
 		BasicBlock currBlock = func.getCurrBlock();
@@ -123,48 +120,48 @@ public class BinaryExpression extends Expression {
 		// get new register to store result in
 		int newRegNum = func.getNewRegNum();
 		
-		Operation.OperationType opType = null;
+		OperationType opType = null;
 		
 		// new assign operation
 		// convert OpType to the Operation.OperationType
 		switch(operator){
 			case ADD:
-				opType = Operation.OperationType.ADD_I;
+				opType = OperationType.ADD_I;
 				break;
 			case SUB:
-				opType = Operation.OperationType.SUB_I;
+				opType = OperationType.SUB_I;
 				break;
 			case MULT:
-				opType = Operation.OperationType.MUL_I;
+				opType = OperationType.MUL_I;
 				break;
 			case DIV:
-				opType = Operation.OperationType.DIV_I;
+				opType = OperationType.DIV_I;
 				break;
 			case GT:
-				opType = Operation.OperationType.GT;
+				opType = OperationType.GT;
 				break;
 			case GTE:
-				opType = Operation.OperationType.GTE;
+				opType = OperationType.GTE;
 				break;
 			case LT:
-				opType = Operation.OperationType.LT;
+				opType = OperationType.LT;
 				break;
 			case LTE:
-				opType = Operation.OperationType.LTE;
+				opType = OperationType.LTE;
 				break;
 			case EQUAL:
-				opType = Operation.OperationType.EQUAL;
+				opType = OperationType.EQUAL;
 				break;
 			case NOT_EQUAL:			
-				opType = Operation.OperationType.NOT_EQUAL;
+				opType = OperationType.NOT_EQUAL;
 				break;
 		}		
 		
 		Operation op = new Operation(opType, currBlock);
 		
-		Operand destOper = new Operand(Operand.OperandType.REGISTER, newRegNum);
-		Operand leftOper = new Operand(Operand.OperandType.REGISTER, leftRegNum);
-		Operand rightOper = new Operand(Operand.OperandType.REGISTER, rightRegNum);
+		Operand destOper = new Operand(OperandType.REGISTER, newRegNum);
+		Operand leftOper = new Operand(OperandType.REGISTER, leftRegNum);
+		Operand rightOper = new Operand(OperandType.REGISTER, rightRegNum);
 		
 		// set the src/dest registers
 		op.setDestOperand(0, destOper);

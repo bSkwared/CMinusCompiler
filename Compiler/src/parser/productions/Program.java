@@ -10,10 +10,8 @@
 
 package parser.productions;
 
-import compiler.CMinusCompiler;
 import java.util.ArrayList;
-import lowlevel.CodeGenerationException;
-import lowlevel.CodeItem;
+import lowlevel.*;
 import parser.productions.declaration.*;
 
 public class Program {
@@ -39,18 +37,6 @@ public class Program {
             } else {
                 lastItem.setNextItem(nextItem);
             }
-            
-            
-            // We should do this so we can just grab the last block instead of
-            // walking through the list. However, lastUnconnectedBlock is not
-            // publically accesssibble.
-            /*if (nextItem instanceof Function) {
-                Function nextFunc = (Function) nextItem;
-                lastItem = nextFunc.getLast
-                
-            } else {
-                // instance of Data
-            }*/
             
             lastItem = getLastItem(nextItem);
         }

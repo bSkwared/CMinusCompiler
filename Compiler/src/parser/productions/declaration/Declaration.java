@@ -10,8 +10,7 @@
 
 package parser.productions.declaration;
 
-import lowlevel.CodeItem;
-import lowlevel.CodeGenerationException;
+import lowlevel.*;
 
 public abstract class Declaration {
 

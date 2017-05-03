@@ -10,6 +10,8 @@ package parser.productions.expression;
 import compiler.CMinusCompiler;
 import java.util.HashMap;
 import lowlevel.*;
+import lowlevel.Operand.OperandType;
+import lowlevel.Operation.OperationType;
 
 public class VarExpression extends Expression {
 
@@ -45,8 +47,6 @@ public class VarExpression extends Expression {
     }	
 	
 	@Override
-	// TODO: Check Timothy's Code
-	// this function just returns the register number
 	public int genCode(Function func) throws CodeGenerationException{
 		
 		HashMap<String, Integer> symTable = func.getTable();
@@ -64,10 +64,10 @@ public class VarExpression extends Expression {
 				
 				regNum = func.getNewRegNum();
 				
-				Operation op = new Operation(Operation.OperationType.LOAD_I, currBlock);
+				Operation op = new Operation(OperationType.LOAD_I, currBlock);
 		
-				Operand destOper = new Operand(Operand.OperandType.REGISTER, regNum);
-				Operand srcOper = new Operand(Operand.OperandType.STRING, this.id);
+				Operand destOper = new Operand(OperandType.REGISTER, regNum);
+				Operand srcOper = new Operand(OperandType.STRING, this.id);
 
 				op.setDestOperand(0, destOper);
 				op.setSrcOperand(0, srcOper);

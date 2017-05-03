@@ -8,12 +8,7 @@
 package parser.productions;
 
 import java.util.HashMap;
-import lowlevel.BasicBlock;
-import lowlevel.Data;
-import lowlevel.FuncParam;
-import lowlevel.Function;
-import lowlevel.Operand;
-import lowlevel.Operation;
+import lowlevel.*;
 
 public class Parameter {
 
@@ -39,23 +34,11 @@ public class Parameter {
 		return str;
 	}
 
-	public FuncParam genCode(Function func, int i) {
+	public void genCode(Function func) {
 		HashMap<String, Integer> symTable = func.getTable();
 
-		/*BasicBlock currBlock = func.getCurrBlock();
-		int regNum = func.getNewRegNum();
-
-		Operand destOper = new Operand(Operand.OperandType.REGISTER, regNum);
-		Operand srcOper = new Operand(Operand.OperandType.STRING, id);
-		Operation op = new Operation(Operation.OperationType.ASSIGN, currBlock);
-
-		op.setSrcOperand(0, srcOper);
-		op.setDestOperand(0, destOper);
-
-		currBlock.appendOper(op);*/
-
-		symTable.put(id, i);
-
-		return null;
+		int newRegNum = func.getNewRegNum();
+		
+		symTable.put(id, newRegNum);
 	}
 }

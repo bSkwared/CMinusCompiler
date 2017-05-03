@@ -9,10 +9,7 @@ package parser.productions.statement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import lowlevel.CodeGenerationException;
-import lowlevel.CodeItem;
-import lowlevel.Data;
-import lowlevel.Function;
+import lowlevel.*;
 import parser.productions.declaration.VarDeclaration;
 
 public class CompoundStatement extends Statement {
@@ -45,8 +42,7 @@ public class CompoundStatement extends Statement {
 		return str;
 	}	
 	
-	@Override
-	// TODO: Check Timothy's Code	
+	@Override	
 	public void genCode(Function func) throws CodeGenerationException{
 		
 		HashMap<String, Integer> symTable = func.getTable();

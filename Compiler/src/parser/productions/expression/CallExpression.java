@@ -9,6 +9,8 @@ package parser.productions.expression;
 
 import java.util.ArrayList;
 import lowlevel.*;
+import lowlevel.Operand.OperandType;
+import lowlevel.Operation.OperationType;
 
 public class CallExpression extends Expression {
 	
@@ -53,7 +55,6 @@ public class CallExpression extends Expression {
 	}
 	
 	@Override
-	// TODO: Finish this -- look at project requirements
 	public int genCode(Function func) throws CodeGenerationException {
 		
 		BasicBlock currBlock = func.getCurrBlock();
@@ -62,8 +63,8 @@ public class CallExpression extends Expression {
 			int regNum = arguments.get(i).genCode(func);
 
 			// PASS the param by storing to memory
-			Operation op = new Operation(Operation.OperationType.PASS, currBlock);
-			Operand param = new Operand(Operand.OperandType.REGISTER, regNum);
+			Operation op = new Operation(OperationType.PASS, currBlock);
+			Operand param = new Operand(OperandType.REGISTER, regNum);
 			
 			Attribute paramNum = new Attribute("PARAM_NUM", String.valueOf(i));
 			
@@ -74,8 +75,8 @@ public class CallExpression extends Expression {
 		}
 
 		// CALL function, annotate with num_params
-		Operation op = new Operation(Operation.OperationType.CALL, currBlock);
-		Operand funcOper = new Operand(Operand.OperandType.STRING, this.id);
+		Operation op = new Operation(OperationType.CALL, currBlock);
+		Operand funcOper = new Operand(OperandType.STRING, this.id);
 		
 		Attribute numParams = new Attribute("numParams", String.valueOf(arguments.size()));
 		
@@ -88,9 +89,9 @@ public class CallExpression extends Expression {
 		// SAVE return value
 		int saveRegNum = func.getNewRegNum();
 		
-		Operation saveOp = new Operation(Operation.OperationType.ASSIGN, currBlock);
-		Operand destOper = new Operand(Operand.OperandType.REGISTER, saveRegNum);
-		Operand srcOper = new Operand(Operand.OperandType.MACRO, "RetReg");
+		Operation saveOp = new Operation(OperationType.ASSIGN, currBlock);
+		Operand destOper = new Operand(OperandType.REGISTER, saveRegNum);
+		Operand srcOper = new Operand(OperandType.MACRO, "RetReg");
 		
 		saveOp.setDestOperand(0, destOper);
 		saveOp.setSrcOperand(0, srcOper);
