@@ -8,6 +8,7 @@
 package parser.productions.declaration;
 
 import java.util.ArrayList;
+import lowlevel.BasicBlock;
 import lowlevel.CodeGenerationException;
 import lowlevel.CodeItem;
 import lowlevel.Data;
@@ -121,7 +122,11 @@ public class FunDeclaration extends Declaration {
 		Function func = new Function(retType, id, firstParam);
 		// create the first block
 		func.createBlock0();
-		func.setCurrBlock(func.getFirstBlock());
+		
+		BasicBlock bbbbbb = new BasicBlock(func);
+		
+		func.appendBlock(bbbbbb);
+		func.setCurrBlock(bbbbbb);
 
 		if(hasParameters){
 			int count = 1;
