@@ -58,7 +58,7 @@ public class IterationStatement extends Statement {
 		Operation branchOp = new Operation(Operation.OperationType.BEQ, currBlock);
 		Operand condOp = new Operand(Operand.OperandType.REGISTER, condReg);
 		Operand zeroOp = new Operand(Operand.OperandType.INTEGER, 0);
-		Operand bbOper = new Operand(Operand.OperandType.BLOCK, postBlock);
+		Operand bbOper = new Operand(Operand.OperandType.BLOCK, postBlock.getBlockNum());
 		
 		branchOp.setSrcOperand(0, condOp);
 		branchOp.setSrcOperand(1, zeroOp);
@@ -75,9 +75,9 @@ public class IterationStatement extends Statement {
 
 		// generate jump to condition
 		Operation jmpOp = new Operation(Operation.OperationType.JMP, currBlock);
-		Operand jmpOper = new Operand(Operand.OperandType.BLOCK, condBlock);
+		Operand jmpOper = new Operand(Operand.OperandType.BLOCK, condBlock.getBlockNum());
 		
-		branchOp.setSrcOperand(0, jmpOper);
+		jmpOp.setSrcOperand(0, jmpOper);
 		
 		currBlock.appendOper(jmpOp);
 

@@ -43,8 +43,7 @@ public class AssignExpression extends Expression {
 		String varId = variable.getId();
 		
 		Integer regNum = symTable.get(varId);				
-		Operand destOper;
-		Operation op;
+		int srcRegNum = expr.genCode(func);
 		
 		// check for global
 		if(regNum == null){
@@ -53,8 +52,15 @@ public class AssignExpression extends Expression {
 			
 			// if global, store in memory
 			if(exists){
-				destOper = new Operand(Operand.OperandType.STRING, varId);
-				op = new Operation(Operation.OperationType.STORE_I, currBlock);
+				
+				Operation op = new Operation(Operation.OperationType.STORE_I, currBlock);
+				Operand regOper = new Operand(Operand.OperandType.REGISTER, srcRegNum);
+				Operand strOper = new Operand(Operand.OperandType.STRING, varId);
+
+				op.setSrcOperand(0, regOper);
+				op.setSrcOperand(1, strOper);
+
+				currBlock.appendOper(op);
 				
 			} else{
 				throw new CodeGenerationException("Variable " + varId + " has not been declared.");
@@ -64,18 +70,17 @@ public class AssignExpression extends Expression {
 		// if local, assign to register
 		else{
 			
-			destOper = new Operand(Operand.OperandType.REGISTER, regNum);
-			op = new Operation(Operation.OperationType.ASSIGN, currBlock);
+			Operand destOper = new Operand(Operand.OperandType.REGISTER, regNum);
+			Operation op = new Operation(Operation.OperationType.ASSIGN, currBlock);
+		
+			Operand srcOper = new Operand(Operand.OperandType.REGISTER, srcRegNum);
+
+			op.setDestOperand(0, destOper);
+			op.setSrcOperand(0, srcOper);
+
+			currBlock.appendOper(op);
 		}
-		
-		int srcRegNum = expr.genCode(func);
-		
-		Operand srcOper = new Operand(Operand.OperandType.REGISTER, srcRegNum);
-		
-		op.setDestOperand(0, destOper);
-		op.setSrcOperand(0, srcOper);
-		
-		currBlock.appendOper(op);
+
 		
 		// return the register number of the variable saved into (right hand side
 		// if the left hand side is memory)

@@ -97,7 +97,7 @@ public class FunDeclaration extends Declaration {
 		if (hasParameters) {
 			FuncParam lastParam = null;
 			for (Parameter p : parameters) {
-						
+
 				// create a new FuncParam that contains the int type and id
 				FuncParam nextParam = new FuncParam(Data.TYPE_INT, p.getId());
 
@@ -109,8 +109,6 @@ public class FunDeclaration extends Declaration {
 				lastParam.setNextParam(nextParam);
 				lastParam = nextParam;
 			}
-		} else{
-			firstParam = new FuncParam();
 		}
 
 		int retType;
@@ -120,13 +118,25 @@ public class FunDeclaration extends Declaration {
 			retType = Data.TYPE_INT;
 		}
 
-		Function retItem = new Function(retType, id, firstParam);
+		Function func = new Function(retType, id, firstParam);
 		// create the first block
-		retItem.createBlock0();
-		retItem.setCurrBlock(retItem.getFirstBlock());
+		func.createBlock0();
+		func.setCurrBlock(func.getFirstBlock());
+
+		if(hasParameters){
+			int count = 1;
+			for(Parameter p : parameters){
+				
+				p.genCode(func, count++);
+			}			
+		}		
 		
-		statement.genCode(retItem);
-		
-		return retItem;
+		statement.genCode(func);
+
+		if(func.getFirstUnconnectedBlock() != null){
+			func.appendBlock(func.getFirstUnconnectedBlock());
+		}
+
+		return func;
 	}
 }

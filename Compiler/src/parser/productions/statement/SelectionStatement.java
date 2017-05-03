@@ -74,7 +74,7 @@ public class SelectionStatement extends Statement {
 		Operation branchOp = new Operation(Operation.OperationType.BEQ, currBlock);
 		Operand oper1 = new Operand(Operand.OperandType.REGISTER, regNum);
 		Operand oper2 = new Operand(Operand.OperandType.INTEGER, 0);
-		Operand bbOper = new Operand(Operand.OperandType.BLOCK, branchBlock);
+		Operand bbOper = new Operand(Operand.OperandType.BLOCK, branchBlock.getBlockNum());
 		
 		branchOp.setSrcOperand(0, oper1);
 		branchOp.setSrcOperand(1, oper2);
@@ -102,7 +102,7 @@ public class SelectionStatement extends Statement {
 			// JUMP to POST
 			
 			Operation postJump = new Operation(Operation.OperationType.JMP, currBlock);
-			Operand postOper = new Operand(Operand.OperandType.BLOCK, postBlock);
+			Operand postOper = new Operand(Operand.OperandType.BLOCK, postBlock.getBlockNum());
 			
 			postJump.setSrcOperand(0, postOper);
 			currBlock.appendOper(postJump);
@@ -110,7 +110,7 @@ public class SelectionStatement extends Statement {
 		
 		// append ELSE to the unconnected chain
 		func.appendUnconnectedBlock(elseBlock);
-		
+
 		// set CB to POST
 		func.setCurrBlock(postBlock);
 	}
