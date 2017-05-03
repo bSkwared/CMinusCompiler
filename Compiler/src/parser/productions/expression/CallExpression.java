@@ -95,7 +95,7 @@ public class CallExpression extends Expression {
 		saveOp.setDestOperand(0, destOper);
 		saveOp.setSrcOperand(0, srcOper);
 		
-		currBlock.appendOper(op);
+		currBlock.appendOper(saveOp);
 		
 		return saveRegNum;
 	}
