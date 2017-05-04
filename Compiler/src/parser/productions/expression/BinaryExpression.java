@@ -124,38 +124,8 @@ public class BinaryExpression extends Expression {
 		
 		// new assign operation
 		// convert OpType to the Operation.OperationType
-		switch(operator){
-			case ADD:
-				opType = OperationType.ADD_I;
-				break;
-			case SUB:
-				opType = OperationType.SUB_I;
-				break;
-			case MULT:
-				opType = OperationType.MUL_I;
-				break;
-			case DIV:
-				opType = OperationType.DIV_I;
-				break;
-			case GT:
-				opType = OperationType.GT;
-				break;
-			case GTE:
-				opType = OperationType.GTE;
-				break;
-			case LT:
-				opType = OperationType.LT;
-				break;
-			case LTE:
-				opType = OperationType.LTE;
-				break;
-			case EQUAL:
-				opType = OperationType.EQUAL;
-				break;
-			case NOT_EQUAL:			
-				opType = OperationType.NOT_EQUAL;
-				break;
-		}		
+                opType = opTypeToOperationType(operator);
+
 		
 		Operation op = new Operation(opType, currBlock);
 		
@@ -174,4 +144,41 @@ public class BinaryExpression extends Expression {
 		// return the register number of the new operation
 		return newRegNum;		
 	}
+        
+    public OperationType opTypeToOperationType(OpType op) {
+        OperationType opType = null;
+        switch (operator) {
+            case ADD:
+                opType = OperationType.ADD_I;
+                break;
+            case SUB:
+                opType = OperationType.SUB_I;
+                break;
+            case MULT:
+                opType = OperationType.MUL_I;
+                break;
+            case DIV:
+                opType = OperationType.DIV_I;
+                break;
+            case GT:
+                opType = OperationType.GT;
+                break;
+            case GTE:
+                opType = OperationType.GTE;
+                break;
+            case LT:
+                opType = OperationType.LT;
+                break;
+            case LTE:
+                opType = OperationType.LTE;
+                break;
+            case EQUAL:
+                opType = OperationType.EQUAL;
+                break;
+            case NOT_EQUAL:
+                opType = OperationType.NOT_EQUAL;
+                break;
+        }
+        return opType;
+    }
 }

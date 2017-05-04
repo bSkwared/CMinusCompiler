@@ -53,6 +53,7 @@ public class IterationStatement extends Statement {
 		
 		int condReg = condition.genCode(func);
 		
+                // Generate condition and branch
 		Operation branchOp = new Operation(OperationType.BEQ, currBlock);
 		Operand condOp = new Operand(OperandType.REGISTER, condReg);
 		Operand zeroOp = new Operand(OperandType.INTEGER, 0);

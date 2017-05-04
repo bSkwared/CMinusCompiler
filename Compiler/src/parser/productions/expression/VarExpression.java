@@ -50,13 +50,13 @@ public class VarExpression extends Expression {
 	public int genCode(Function func) throws CodeGenerationException{
 		
 		HashMap<String, Integer> symTable = func.getTable();
+		HashMap<String, Object> global = CMinusCompiler.globalHash;
 		
 		Integer regNum = symTable.get(this.id);
 		// if it isn't in the local table check the gloabl table
 		if(regNum == null){
 			
-			// TODO: 
-			boolean exists = (CMinusCompiler.globalHash.get(this.id) != null);
+			boolean exists = global.containsKey(this.id);
 			// if it isn't the global table either, we have a problem
 			if(exists){	
 				// put global variable in a register				

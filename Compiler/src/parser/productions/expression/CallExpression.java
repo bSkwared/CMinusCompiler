@@ -87,18 +87,25 @@ public class CallExpression extends Expression {
 		
 		
 		// SAVE return value
-		int saveRegNum = func.getNewRegNum();
-		
-		Operation saveOp = new Operation(OperationType.ASSIGN, currBlock);
-		Operand destOper = new Operand(OperandType.REGISTER, saveRegNum);
-		Operand srcOper = new Operand(OperandType.MACRO, "RetReg");
-		
-		saveOp.setDestOperand(0, destOper);
-		saveOp.setSrcOperand(0, srcOper);
-		
-		currBlock.appendOper(saveOp);
+		int saveRegNum = saveReturnValue(func);
 		
 		return saveRegNum;
 	}
-	
+        
+    private int saveReturnValue(Function func) {
+
+        int saveReg = func.getNewRegNum();
+        BasicBlock currBlock = func.getCurrBlock();
+
+        Operation saveOp = new Operation(OperationType.ASSIGN, currBlock);
+        Operand destOper = new Operand(OperandType.REGISTER, saveReg);
+        Operand srcOper = new Operand(OperandType.MACRO, "RetReg");
+
+        saveOp.setDestOperand(0, destOper);
+        saveOp.setSrcOperand(0, srcOper);
+
+        currBlock.appendOper(saveOp);
+
+        return saveReg;
+    }
 }

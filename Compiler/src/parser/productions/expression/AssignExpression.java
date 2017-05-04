@@ -40,6 +40,7 @@ public class AssignExpression extends Expression {
 		BasicBlock currBlock = func.getCurrBlock();
 		
 		HashMap<String, Integer> symTable = func.getTable();
+		HashMap<String, Object> global = CMinusCompiler.globalHash;
 		
 		String varId = variable.getId();
 		
@@ -49,7 +50,7 @@ public class AssignExpression extends Expression {
 		// check for global
 		if(regNum == null){
 			
-			boolean exists = (CMinusCompiler.globalHash.get(varId) != null);
+			boolean exists = global.containsKey(varId);
 			
 			// if global, store in memory
 			if(exists){
