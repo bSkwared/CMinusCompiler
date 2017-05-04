@@ -73,6 +73,7 @@ public class IterationStatement extends Statement {
 		result.genCode(func);
 
 		// generate jump to condition
+        currBlock = func.getCurrBlock();
 		Operation jmpOp = new Operation(OperationType.JMP, currBlock);
 		Operand jmpOper = new Operand(OperandType.BLOCK, condBlock.getBlockNum());
 		
